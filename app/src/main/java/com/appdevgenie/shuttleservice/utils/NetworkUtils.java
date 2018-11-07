@@ -15,11 +15,8 @@ import static com.appdevgenie.shuttleservice.utils.Constants.WEATHER_API_QUERY_K
 public class NetworkUtils {
 
     private static final String TAG = NetworkUtils.class.getSimpleName();
-    //public static final String WEATHER_API_KEY = "8bbb4e57e1374e411e9c5e027e01ce08";
-    //public static final String URL_EX = "http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=8bbb4e57e1374e411e9c5e027e01ce08";
-    public static final String BASE_DAY_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
+    //public static final String BASE_DAY_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
     private static final String BASE_FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast?q=";
-    
 
     public static URL buildWeatherUrl(String apiKeyString, String city) {
 
