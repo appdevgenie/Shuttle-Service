@@ -19,8 +19,7 @@ public class NetworkUtils {
     //public static final String URL_EX = "http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=8bbb4e57e1374e411e9c5e027e01ce08";
     public static final String BASE_DAY_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
     private static final String BASE_FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast?q=";
-    //private static final String BASE_IMAGE_URL = "http://openweathermap.org/img/w/";
-    //private static final String IMAGE_EX = ".png";
+    
 
     public static URL buildWeatherUrl(String apiKeyString, String city) {
 
