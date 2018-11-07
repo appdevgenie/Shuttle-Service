@@ -2,8 +2,6 @@ package com.appdevgenie.shuttleservice.utils;
 
 import com.appdevgenie.shuttleservice.model.WeatherInfo;
 import com.appdevgenie.shuttleservice.model.WeatherInfoList;
-import com.google.gson.JsonArray;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,12 +53,11 @@ public class WeatherJsonUtils {
                 temp = mainObject.getDouble("temp");
                 humidity = mainObject.getDouble("humidity");*/
 
-                //date long
-                //jsonObjectForecast.getLong("dt");
 
                 WeatherInfo weatherInfo = new WeatherInfo(
                         weatherObject.getString("icon"),
                         jsonObjectForecast.getString("dt_txt"),
+                        jsonObjectForecast.getLong("dt"),
                         weatherObject.getString("description"),
                         mainObject.getDouble("temp"),
                         mainObject.getDouble("humidity")
@@ -69,7 +66,7 @@ public class WeatherJsonUtils {
             }
 
         }catch (JSONException e){
-
+            e.printStackTrace();
         }
         weatherInfoList.setWeatherInfoList(weatherInfoModelList);
         return weatherInfoList;

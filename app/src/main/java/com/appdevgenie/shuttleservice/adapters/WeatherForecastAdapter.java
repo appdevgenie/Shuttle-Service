@@ -1,10 +1,10 @@
 package com.appdevgenie.shuttleservice.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,10 @@ import android.widget.TextView;
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.model.WeatherInfo;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import static com.appdevgenie.shuttleservice.utils.Constants.TEMP_KELVIN;
 
@@ -41,13 +44,36 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
 
         int itemPosition = holder.getAdapterPosition();
 
-        String date = weatherInfoList.get(itemPosition).getDate();
+
+        //String date = weatherInfoList.get(itemPosition).getDate();
+        long dateLong = weatherInfoList.get(itemPosition).getDateLong() * 1000;
+        //String dateString = DateFormat.format("EEEE HH:mm", new Date(dateLong)).toString();
+
+        //SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        //String dateString = simpleDateFormatDate.format(dateLong);
+
+        SimpleDateFormat simpleDayFormat = new SimpleDateFormat(context.getString(R.string.date_format_weekday), Locale.getDefault());
+        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(context.getString(R.string.date_format_time), Locale.getDefault());
+        simpleTimeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String dayWeekString;
+        if(DateUtils.isToday(dateLong)){
+            dayWeekString = context.getString(R.string.today) + " " + simpleTimeFormat.format(dateLong);
+        }else {
+            dayWeekString = simpleDayFormat.format(dateLong) + " " + simpleTimeFormat.format(dateLong);
+        }
 
         holder.ivIcon.setImageResource(getImage(weatherInfoList.get(itemPosition).getIcon()));
-        holder.tvDate.setText(date.substring(0, date.length() -3));
+        //holder.tvDate.setText(date.substring(0, date.length() -3));
+        holder.tvDate.setText(dayWeekString);
         holder.tvDescription.setText(weatherInfoList.get(itemPosition).getDescription());
-        holder.tvHumidity.setText(String.valueOf(Math.round(weatherInfoList.get(itemPosition).getHumidity())) + "\u0025");
-        holder.tvTemp.setText(String.valueOf(Math.round(weatherInfoList.get(itemPosition).getTemp() - TEMP_KELVIN)) + "\u00b0");
+        holder.tvHumidity
+                .setText(TextUtils
+                        .concat(String.valueOf(Math.round(weatherInfoList.get(itemPosition).getHumidity()))
+                                , context.getString(R.string.humidity_percentage_symbol)));
+        holder.tvTemp
+                .setText(TextUtils
+                        .concat(String.valueOf(Math.round(weatherInfoList.get(itemPosition).getTemp() - TEMP_KELVIN))
+                        , context.getString(R.string.temperature_degree_symbol)));
     }
 
     private int getImage(String icon) {
@@ -55,75 +81,75 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         int imageResource = 0;
 
         switch (icon){
-            case "01d": 
-                imageResource = (R.drawable.weather_clear_day);
+            case "01d"://clear day
+                imageResource = (R.drawable.ic_weather_clear);
                 break;
                 
-            case "02d":
-                imageResource = (R.drawable.weather_few_clouds_day);
+            case "02d"://few clouds day
+                imageResource = (R.drawable.ic_weather_few_clouds);
                 break;
                 
-            case "03d":
-                imageResource = (R.drawable.weather_scat_clouds_day);
+            case "03d"://scatted clouds day
+                imageResource = (R.drawable.ic_weather_overcast);
                 break;
 
-            case "04d":
-                imageResource = (R.drawable.weather_broke_clouds_day);
+            case "04d"://broken clouds day
+                imageResource = (R.drawable.ic_weather_overcast);
                 break;
 
-            case "09d":
-                imageResource = (R.drawable.weather_shower_rain_day);
+            case "09d"://shower rain day
+                imageResource = (R.drawable.ic_weather_showers);
                 break;
 
-            case "10d":
-                imageResource = (R.drawable.weather_rain_day);
+            case "10d"://rain day
+                imageResource = (R.drawable.ic_weather_showers_scattered);
                 break;
 
-            case "11d":
-                imageResource = (R.drawable.weather_thunderstorm_day);
+            case "11d"://storm day
+                imageResource = (R.drawable.ic_weather_storm);
                 break;
 
-            case "13d":
-                imageResource = (R.drawable.weather_snow_day);
+            case "13d"://snow day
+                imageResource = (R.drawable.ic_weather_snow);
                 break;
 
-            case "50d":
+            case "50d"://mist day
                 imageResource = (R.drawable.weather_mist_day);
                 break;
 
-            case "01n":
-                imageResource = (R.drawable.weather_clear_night);
+            case "01n"://clear night
+                imageResource = (R.drawable.ic_weather_clear_night);
                 break;
 
-            case "02n":
-                imageResource = (R.drawable.weather_few_clouds_night);
+            case "02n"://few clouds night
+                imageResource = (R.drawable.ic__weather_few_clouds_night);
                 break;
 
-            case "03n":
-                imageResource = (R.drawable.weather_scat_clouds_night);
+            case "03n"://scatted clouds night
+                imageResource = (R.drawable.ic_weather_overcast);
                 break;
 
-            case "04n":
-                imageResource = (R.drawable.weather_broke_clouds_night);
+            case "04n"://broken clouds night
+                imageResource = (R.drawable.ic_weather_overcast);
                 break;
 
-            case "09n":
-                imageResource = (R.drawable.weather_shower_rain_night);
+            case "09n"://shower rain night
+                imageResource = (R.drawable.ic_weather_showers);
                 break;
 
-            case "10n":
-                imageResource = (R.drawable.weather_rain_night);
+            case "10n"://rain night
+                imageResource = (R.drawable.ic_weather_showers_scattered);
                 break;
 
-            case "11n":
-                imageResource = (R.drawable.weather_thunderstorm_night);
+            case "11n"://thunderstorm night
+                imageResource = (R.drawable.ic_weather_storm);
                 break;
 
-            case "13n":
-                imageResource = (R.drawable.weather_snow_night);
+            case "13n"://snow night
+                imageResource = (R.drawable.ic_weather_snow);
                 break;
 
-            case "50n":
+            case "50n"://mist night
                 imageResource = (R.drawable.weather_mist_night);
                 break;
         }

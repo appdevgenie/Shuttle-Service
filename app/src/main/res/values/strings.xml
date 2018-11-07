@@ -4,4 +4,9 @@
     <string name="mainLogoTransition">mainLogoTransition</string>
     <string name="appwidget_text">SS</string>
     <string name="add_widget">Add widget</string>
+    <string name="humidity_percentage_symbol">%</string>
+    <string name="temperature_degree_symbol">°</string>
+    <string name="today">Today</string>
+    <string name="date_format_weekday">EEEE</string>
+    <string name="date_format_time">HH:mm</string>
 </resources>

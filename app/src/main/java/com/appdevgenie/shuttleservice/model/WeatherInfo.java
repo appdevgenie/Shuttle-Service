@@ -4,6 +4,7 @@ public class WeatherInfo {
 
     private String icon;
     private String date;
+    private long dateLong;
     private String description;
     private double temp;
     private double humidity;
@@ -11,9 +12,10 @@ public class WeatherInfo {
     public WeatherInfo() {
     }
 
-    public WeatherInfo(String icon, String date, String description, double temp, double humidity) {
+    public WeatherInfo(String icon, String date, long dateLong, String description, double temp, double humidity) {
         this.icon = icon;
         this.date = date;
+        this.dateLong = dateLong;
         this.description = description;
         this.temp = temp;
         this.humidity = humidity;
@@ -33,6 +35,14 @@ public class WeatherInfo {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public long getDateLong() {
+        return dateLong;
+    }
+
+    public void setDateLong(long dateLong) {
+        this.dateLong = dateLong;
     }
 
     public String getDescription() {
