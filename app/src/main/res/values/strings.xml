@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Shuttle service</string>
+    <string name="icon_image_view">icon_image_view</string>
+    <string name="mainLogoTransition">mainLogoTransition</string>
+    <string name="appwidget_text">SS</string>
+    <string name="add_widget">Add widget</string>
+</resources>

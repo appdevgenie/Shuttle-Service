@@ -1,0 +1,77 @@
+package com.appdevgenie.shuttleservice.utils;
+
+import com.appdevgenie.shuttleservice.model.WeatherInfo;
+import com.appdevgenie.shuttleservice.model.WeatherInfoList;
+import com.google.gson.JsonArray;
+
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class WeatherJsonUtils {
+
+    public static WeatherInfoList parseWeatherJson(String json) {
+
+        /*String icon;
+        String date;
+        String description;
+        double temp;
+        double humidity;*/
+        List<WeatherInfo> weatherInfoModelList = new ArrayList<>();
+        WeatherInfoList weatherInfoList = new WeatherInfoList();
+
+        try {
+
+            JSONObject jsonObject = new JSONObject(json);
+            //single info
+            /*
+            JSONObject mainObject = jsonObject.getJSONObject("main");
+            WeatherInfo weatherInfo = new WeatherInfo(
+                    0,
+                    "",
+                    "",
+                    mainObject.getDouble("temp_min"),
+                    mainObject.getDouble("temp_max")
+            );
+            weatherInfoModelList.add(weatherInfo);*/
+
+            JSONArray jsonArray = jsonObject.getJSONArray("list");
+            //JsonArray weatherArray = jsonObject1.getJSONArray("weather");
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObjectForecast = jsonArray.getJSONObject(i);
+                JSONObject mainObject = jsonObjectForecast.getJSONObject("main");
+
+                JSONArray weatherArray = jsonObjectForecast.getJSONArray("weather");
+                JSONObject weatherObject = weatherArray.getJSONObject(0);
+
+                /*icon = weatherObject.getString("icon");
+                date = jsonObjectForecast.getString("dt_txt");
+                description = weatherObject.getString("description");
+                temp = mainObject.getDouble("temp");
+                humidity = mainObject.getDouble("humidity");*/
+
+                //date long
+                //jsonObjectForecast.getLong("dt");
+
+                WeatherInfo weatherInfo = new WeatherInfo(
+                        weatherObject.getString("icon"),
+                        jsonObjectForecast.getString("dt_txt"),
+                        weatherObject.getString("description"),
+                        mainObject.getDouble("temp"),
+                        mainObject.getDouble("humidity")
+                );
+                weatherInfoModelList.add(weatherInfo);
+            }
+
+        }catch (JSONException e){
+
+        }
+        weatherInfoList.setWeatherInfoList(weatherInfoModelList);
+        return weatherInfoList;
+    }
+}

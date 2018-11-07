@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="route_stops_town_name">
+        <item>White River</item>
+        <item>Sabie</item>
+        <item>Lydenburg</item>
+        <item>Dullstroom</item>
+        <item>Belfast</item>
+        <item>Middelburg</item>
+        <item>Bronkhorstspruit</item>
+        <item>Pretoria</item>
+        <item>Johannesburg</item>
+        <item>Pretoria</item>
+        <item>Bronkhorstspruit</item>
+        <item>Middelburg</item>
+        <item>Belfast</item>
+        <item>Dullstroom</item>
+        <item>Lydenburg</item>
+        <item>Sabie</item>
+        <item>White River</item>
+    </string-array>
+
+    <string-array name="route_stops_town_code">
+        <item>WTR</item>
+        <item>SAB</item>
+        <item>LYD</item>
+        <item>DUL</item>
+        <item>BEL</item>
+        <item>MID</item>
+        <item>BRK</item>
+        <item>PTA</item>
+        <item>JHB</item>
+        <item>PTA</item>
+        <item>BRK</item>
+        <item>MID</item>
+        <item>BEL</item>
+        <item>DUL</item>
+        <item>LYD</item>
+        <item>SAB</item>
+        <item>WTR</item>
+    </string-array>
+
+    <string-array name="route_stops_time">
+        <item>05:30</item>
+        <item>06:30</item>
+        <item>07:30</item>
+        <item>08:30</item>
+        <item>09:00</item>
+        <item>10:30</item>
+        <item>11:30</item>
+        <item>12:00</item>
+        <item>12:30</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:30</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+    </string-array>
+
+    <string-array name="route_stops_id">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>7</item>
+        <item>6</item>
+        <item>5</item>
+        <item>4</item>
+        <item>3</item>
+        <item>2</item>
+        <item>1</item>
+        <item>0</item>
+    </string-array>
+
+    <string-array name="town_names">
+        <item>White River</item>
+        <item>Sabie</item>
+        <item>Lydenburg</item>
+        <item>Dullstroom</item>
+        <item>Belfast</item>
+        <item>Middelburg</item>
+        <item>Bronkhorstspruit</item>
+        <item>Pretoria</item>
+        <item>Johannesburg</item>
+    </string-array>
+
+    <string-array name="town_names_weather">
+        <item>White River</item>
+        <item>Sabie</item>
+        <item>Lydenburg</item>
+        <item>Belfast</item>
+        <item>Middelburg</item>
+        <item>Bronkhorstspruit</item>
+        <item>Pretoria</item>
+        <item>Johannesburg</item>
+    </string-array>
+
+    <string-array name="town_id">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+
+    <string-array name="seats">
+        <item>1 seat</item>
+        <item>2 seats</item>
+        <item>3 seats</item>
+        <item>4 seats</item>
+        <item>5 seats</item>
+        <item>6 seats</item>
+        <item>7 seats</item>
+        <item>8 seats</item>
+        <item>9 seats</item>
+        <item>10 seats</item>
+        <item>11 seats</item>
+        <item>12 seats</item>
+        <item>13 seats</item>
+        <item>14 seats</item>
+    </string-array>
+
+    <string-array name="route_stops_time_morning">
+        <item>05:30</item>
+        <item>06:30</item>
+        <item>07:30</item>
+        <item>08:30</item>
+        <item>09:00</item>
+        <item>10:30</item>
+        <item>11:30</item>
+        <item>12:00</item>
+        <item>12:30</item>
+    </string-array>
+
+    <string-array name="route_stops_time_afternoon">
+        <item>20:00</item>
+        <item>19:00</item>
+        <item>18:00</item>
+        <item>17:00</item>
+        <item>16:30</item>
+        <item>15:00</item>
+        <item>14:00</item>
+        <item>13:00</item>
+        <item>12:30</item>
+    </string-array>
+
+    <string-array name="main_logged_out_list">
+        <item>Sign in</item>
+        <item>Route and stops</item>
+        <item>Price list</item>
+        <item>Contact us</item>
+    </string-array>
+
+    <string-array name="commuter_logged_in_list">
+        <item>Sign out</item>
+        <item>Route and stops</item>
+        <item>Price list</item>
+        <item>Contact us</item>
+        <item>Check availability</item>
+        <item>Make booking</item>
+        <item>Booking history</item>
+        <item>Weather forecast</item>
+        <item>Update account</item>
+    </string-array>
+
+    <string-array name="admin_logged_in_list">
+        <item>Sign out</item>
+        <item>Route and stops</item>
+        <item>Price list</item>
+        <item>Contact us</item>
+        <item>Check availability</item>
+        <item>Make booking</item>
+        <item>Booking history</item>
+        <item>Weather forecast</item>
+        <item>Update account</item>
+        <item>Travel info</item>
+        <item>User info</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/clFromToImage"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/ivShuttle"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTripDetailsDivider"
+        app:layout_constraintEnd_toEndOf="@+id/ivTripDetailsDivider"
+        app:layout_constraintStart_toStartOf="@+id/ivTripDetailsDivider"
+        app:srcCompat="@drawable/ic_shuttle" />
+
+    <ImageView
+        android:id="@+id/ivTripDetailsDeparture"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rectangle" />
+
+    <TextView
+        android:id="@+id/tvTripDetailsDepartureCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:textSize="20sp"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTripDetailsDeparture"
+        app:layout_constraintEnd_toStartOf="@+id/ivTripDetailsDivider"
+        app:layout_constraintStart_toStartOf="@+id/ivTripDetailsDeparture"
+        app:layout_constraintTop_toTopOf="@+id/ivTripDetailsDeparture"
+        tools:text="ABC" />
+
+    <TextView
+        android:id="@+id/tvTripDetailsDepartureTown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ivTripDetailsDeparture"
+        app:layout_constraintTop_toBottomOf="@+id/ivTripDetailsDeparture"
+        tools:text="White River" />
+
+    <ImageView
+        android:id="@+id/ivTripDetailsDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTripDetailsDeparture"
+        app:layout_constraintEnd_toStartOf="@+id/ivTripDetailsArrival"
+        app:layout_constraintStart_toEndOf="@+id/ivTripDetailsDeparture"
+        app:layout_constraintTop_toTopOf="@+id/ivTripDetailsDeparture" />
+
+    <ImageView
+        android:id="@+id/ivTripDetailsArrival"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rectangle" />
+
+    <TextView
+        android:id="@+id/tvTripDetailsArrivalCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:textSize="20sp"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTripDetailsArrival"
+        app:layout_constraintEnd_toEndOf="@+id/ivTripDetailsArrival"
+        app:layout_constraintStart_toEndOf="@+id/ivTripDetailsDivider"
+        app:layout_constraintTop_toTopOf="@+id/ivTripDetailsArrival"
+        tools:text="DEF" />
+
+    <TextView
+        android:id="@+id/tvTripDetailsArrivalTown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ivTripDetailsArrival"
+        app:layout_constraintTop_toBottomOf="@+id/ivTripDetailsArrival"
+        tools:text="Johannesburg" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTripDetailsArrivalCode"
+        app:layout_constraintEnd_toStartOf="@+id/ivTripDetailsArrival"
+        app:layout_constraintTop_toTopOf="@+id/tvTripDetailsArrivalCode"
+        app:srcCompat="@drawable/ic_arrow_right" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTripDetailsDepartureCode"
+        app:layout_constraintStart_toStartOf="@+id/ivTripDetailsDivider"
+        app:layout_constraintTop_toTopOf="@+id/tvTripDetailsDepartureCode"
+        app:srcCompat="@drawable/ic_arrow_right" />
+
+</android.support.constraint.ConstraintLayout>
