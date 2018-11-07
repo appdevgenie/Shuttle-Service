@@ -35,7 +35,7 @@
             android:gravity="center"
             android:textColor="@android:color/darker_gray"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:background="@color/colorWhite"
+            android:background="@drawable/backgroud_route_time"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

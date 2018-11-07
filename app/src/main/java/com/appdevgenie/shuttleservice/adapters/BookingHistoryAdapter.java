@@ -14,7 +14,7 @@ import com.appdevgenie.shuttleservice.model.BookingInfo;
 import java.util.ArrayList;
 
 import static com.appdevgenie.shuttleservice.utils.Constants.VIEW_TYPE_BOOKING_DEFAULT;
-import static com.appdevgenie.shuttleservice.utils.Constants.VIEW_TYPE_BOOKING_EXTENDED;
+import static com.appdevgenie.shuttleservice.utils.Constants.VIEW_TYPE_BOOKING_SELECTED;
 
 public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAdapter.BookingViewHolder> {
 
@@ -39,7 +39,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
                 layoutId = R.layout.list_item_booking_history;
                 break;
 
-            case VIEW_TYPE_BOOKING_EXTENDED:
+            case VIEW_TYPE_BOOKING_SELECTED:
                 layoutId = R.layout.list_item_booking_history_selected;
                 break;
 
@@ -60,7 +60,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
         if(type == 0){
             return VIEW_TYPE_BOOKING_DEFAULT;
         }else{
-            return VIEW_TYPE_BOOKING_EXTENDED;
+            return VIEW_TYPE_BOOKING_SELECTED;
         }
 
     }
@@ -120,10 +120,10 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
             int clickedItem = getAdapterPosition();
 
             BookingInfo bookingInfo = bookingInfoArrayList.get(getAdapterPosition());
-            if(bookingInfo.getViewType() == 1){
-                bookingInfo.setViewType(0);
+            if(bookingInfo.getViewType() == VIEW_TYPE_BOOKING_SELECTED){
+                bookingInfo.setViewType(VIEW_TYPE_BOOKING_DEFAULT);
             }else{
-                bookingInfo.setViewType(1);
+                bookingInfo.setViewType(VIEW_TYPE_BOOKING_SELECTED);
             }
 
             notifyItemChanged(clickedItem);

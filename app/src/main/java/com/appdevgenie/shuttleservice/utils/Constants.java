@@ -14,7 +14,7 @@ public class Constants {
     public static final String EXTRA_PARSE_IS_SIGNED_IN = "isSignedIn";
     public static final String EXTRA_PARSE_CLICKED_ICON = "clickedIconPosition";
 
-    public static final int VIEW_TYPE_BOOKING_EXTENDED = 1;
+    public static final int VIEW_TYPE_BOOKING_SELECTED = 1;
     public static final int VIEW_TYPE_BOOKING_DEFAULT = 0;
 
     public static final String SHARED_PREFS = "sharedPrefs.com.appdevgenie.shuttleservice";
