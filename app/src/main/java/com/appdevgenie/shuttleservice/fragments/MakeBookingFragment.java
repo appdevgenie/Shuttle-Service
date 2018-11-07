@@ -59,6 +59,8 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
     private int fromInt;
     private int toInt;
     private int seatsInt;
+    private String departureTime;
+    private String arrivalTime;
     double costPerSeatDouble;
     private Calendar calendar;
     //private DatePickerDialog.OnDateSetListener dateSetListener;
@@ -177,6 +179,15 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
         if (costPerSeatDouble > 0) {
             costPerSeat.setText(TextUtils.concat("R ", String.format(Locale.ENGLISH, "%.2f", costPerSeatDouble)));
             totalCost.setText(TextUtils.concat("R ", String.format(Locale.ENGLISH, "%.2f", costPerSeatDouble * seatsInt)));
+
+            if(upstreamDownStream >= 0){
+                departureTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_morning)).get(fromInt);
+                arrivalTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_morning)).get(toInt);
+            }else{
+                departureTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_afternoon)).get(fromInt);
+                arrivalTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_afternoon)).get(toInt);
+            }
+
         } else {
             costPerSeat.setText("");
             totalCost.setText("");
@@ -210,6 +221,15 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
 
             case R.id.bMakeBooking:
 
+                if(TextUtils.equals(date.getText(), "Select date")){
+                    Toast.makeText(context, "Select valid date", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(totalCost.getText())){
+                    Toast.makeText(context, "Select valid trip", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 progressBar.setVisibility(View.VISIBLE);
 
                 //TODO check if doc exists before overriding
@@ -231,6 +251,8 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                         date.getText().toString(),
                         spFrom.getSelectedItem().toString(),
                         spTo.getSelectedItem().toString(),
+                        departureTime,
+                        arrivalTime,
                         code.get(fromInt),
                         code.get(toInt),
                         spSeats.getSelectedItem().toString(),

@@ -6,14 +6,15 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.widget.RemoteViews;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.activities.MainActivity;
 import com.appdevgenie.shuttleservice.utils.Constants;
 
+import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_ARRIVE_TIME;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_DATE;
+import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_DEPART_TIME;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_FROM_TOWN;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_SEATS;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_TO_TOWN;
@@ -25,7 +26,7 @@ public class ShuttleAppWidgetProvider extends AppWidgetProvider {
 
     //public static final String EXTRA_STRING = "com.appdevgenie.shuttleservice.widget.EXTRA_STRING";
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+    public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
         SharedPreferences prefs = context.getSharedPreferences(Constants.SHARED_PREFS, 0);
@@ -39,10 +40,12 @@ public class ShuttleAppWidgetProvider extends AppWidgetProvider {
         views.setTextViewText(R.id.appwidget_text, widgetText);*/
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_shuttle_booking);
-        views.setTextViewText(R.id.tvWidgetDate, prefs.getString(SHARED_PREFS_DATE, "date"));
-        views.setTextViewText(R.id.tvWidgetFrom, prefs.getString(SHARED_PREFS_FROM_TOWN, "from"));
-        views.setTextViewText(R.id.tvWidgetTo, prefs.getString(SHARED_PREFS_TO_TOWN, "to"));
-        views.setTextViewText(R.id.tvWidgetSeats, prefs.getString(SHARED_PREFS_SEATS, "seats"));
+        views.setTextViewText(R.id.tvWidgetDate, prefs.getString(SHARED_PREFS_DATE, ""));
+        views.setTextViewText(R.id.tvWidgetFrom, prefs.getString(SHARED_PREFS_FROM_TOWN, ""));
+        views.setTextViewText(R.id.tvWidgetTo, prefs.getString(SHARED_PREFS_TO_TOWN, ""));
+        views.setTextViewText(R.id.tvWidgetFromTime, prefs.getString(SHARED_PREFS_DEPART_TIME, ""));
+        views.setTextViewText(R.id.tvWidgetToTime, prefs.getString(SHARED_PREFS_ARRIVE_TIME, ""));
+        views.setTextViewText(R.id.tvWidgetSeats, prefs.getString(SHARED_PREFS_SEATS, ""));
 
         //Intent serviceIntent = new Intent(context, WidgetRemoteViewsService.class);
         //serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
@@ -50,7 +53,7 @@ public class ShuttleAppWidgetProvider extends AppWidgetProvider {
         //serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
         //views.setRemoteAdapter(R.id.llWidgetListLayout, serviceIntent);
-        views.setEmptyView(R.id.llWidgetListLayout, R.id.widgetEmptyView);
+        views.setEmptyView(R.id.llWidgetInfoLayout, R.id.widgetEmptyView);
 
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);

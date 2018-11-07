@@ -1,5 +1,6 @@
 package com.appdevgenie.shuttleservice.fragments;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,9 +19,9 @@ import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.adapters.BookingHistoryAdapter;
 import com.appdevgenie.shuttleservice.model.BookingInfo;
 import com.appdevgenie.shuttleservice.utils.Constants;
+import com.appdevgenie.shuttleservice.widget.ShuttleAppWidgetProvider;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,10 +31,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_DATE;
-import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_FROM_TIME;
+import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_DEPART_TIME;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_FROM_TOWN;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_SEATS;
-import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_TO_TIME;
+import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_ARRIVE_TIME;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_TO_TOWN;
 
 public class BookingHistoryFragment extends Fragment implements BookingHistoryAdapter.ItemLongClickListener {
@@ -104,14 +105,21 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
     @Override
     public void onItemLongClick(int pos) {
 
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        Bundle extras = new Bundle();
+        int widgetId = extras.getInt(
+                AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+
         SharedPreferences.Editor prefs = context.getSharedPreferences(Constants.SHARED_PREFS, 0).edit();
         prefs.putString(SHARED_PREFS_FROM_TOWN, bookingInfoArrayList.get(pos).getFromTown());
         prefs.putString(SHARED_PREFS_TO_TOWN, bookingInfoArrayList.get(pos).getToTown());
-        //prefs.putString(SHARED_PREFS_FROM_TIME, bookingInfoArrayList.get(pos).getFromTown());
-        //prefs.putString(SHARED_PREFS_TO_TIME, bookingInfoArrayList.get(pos).getToTown());
+        prefs.putString(SHARED_PREFS_DEPART_TIME, bookingInfoArrayList.get(pos).getDepartureTime());
+        prefs.putString(SHARED_PREFS_ARRIVE_TIME, bookingInfoArrayList.get(pos).getArrivalTime());
         prefs.putString(SHARED_PREFS_DATE, bookingInfoArrayList.get(pos).getDate());
         prefs.putString(SHARED_PREFS_SEATS, bookingInfoArrayList.get(pos).getSeats());
         prefs.apply();
+
+        ShuttleAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
 
         Toast.makeText(context, "added to widget", Toast.LENGTH_SHORT).show();
     }

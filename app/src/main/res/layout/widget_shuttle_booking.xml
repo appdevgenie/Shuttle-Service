@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/colorCardDefault">
 
     <LinearLayout
-        android:id="@+id/llWidgetListLayout"
+        android:id="@+id/llWidgetInfoLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -31,9 +32,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="1999/01/01"
+            tools:text="1999/01/01"
             android:textColor="@color/colorBlack"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,8 +49,8 @@
                 android:layout_margin="10dp"
                 android:gravity="start"
                 android:textColor="@color/colorBlack"
-                android:textSize="18sp"
-                android:text="Sabie" />
+                android:textSize="16sp"
+                tools:text="Sabie" />
 
             <ImageView
                 android:id="@+id/ivWidgetShuttle"
@@ -68,8 +69,8 @@
                 android:layout_margin="10dp"
                 android:gravity="end"
                 android:textColor="@color/colorBlack"
-                android:textSize="18sp"
-                android:text="Sabie" />
+                android:textSize="16sp"
+                tools:text="Sabie" />
 
         </LinearLayout>
 
@@ -103,10 +104,9 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:gravity="start"
-                android:visibility="invisible"
                 android:textColor="@color/colorBlack"
-                android:textSize="18sp"
-                android:text="12:00" />
+                android:textSize="16sp"
+                tools:text="12:00" />
 
             <TextView
                 android:id="@+id/tvWidgetSeats"
@@ -115,9 +115,9 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:gravity="center"
-                android:text="2 seats"
+                tools:text="2 seats"
                 android:textColor="@color/colorBlack"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
 
             <TextView
@@ -126,11 +126,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
-                android:visibility="invisible"
                 android:gravity="end"
                 android:textColor="@color/colorBlack"
-                android:textSize="18sp"
-                android:text="16:00" />
+                android:textSize="16sp"
+                tools:text="16:00" />
 
         </LinearLayout>
 

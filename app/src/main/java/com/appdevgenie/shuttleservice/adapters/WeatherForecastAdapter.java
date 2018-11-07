@@ -114,7 +114,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
                 break;
 
             case "50d"://mist day
-                imageResource = (R.drawable.weather_mist_day);
+                imageResource = (R.drawable.ic_weather_mist);
                 break;
 
             case "01n"://clear night
@@ -150,7 +150,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
                 break;
 
             case "50n"://mist night
-                imageResource = (R.drawable.weather_mist_night);
+                imageResource = (R.drawable.ic_weather_mist);
                 break;
         }
 

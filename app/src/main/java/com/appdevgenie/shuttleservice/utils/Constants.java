@@ -20,8 +20,8 @@ public class Constants {
     public static final String SHARED_PREFS = "sharedPrefs.com.appdevgenie.shuttleservice";
     public static final String SHARED_PREFS_FROM_TOWN = "fromTown";
     public static final String SHARED_PREFS_TO_TOWN = "toTown";
-    public static final String SHARED_PREFS_FROM_TIME = "fromTime";
-    public static final String SHARED_PREFS_TO_TIME = "toTime";
+    public static final String SHARED_PREFS_DEPART_TIME = "fromTime";
+    public static final String SHARED_PREFS_ARRIVE_TIME = "toTime";
     public static final String SHARED_PREFS_DATE = "date";
     public static final String SHARED_PREFS_SEATS = "seats";
 

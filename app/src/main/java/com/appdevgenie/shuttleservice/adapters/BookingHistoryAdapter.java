@@ -74,6 +74,8 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
         holder.tvDate.setText(bookingInfo.getDate());
         holder.tvFrom.setText(bookingInfo.getFromTown());
         holder.tvTo.setText(bookingInfo.getToTown());
+        holder.tvDepartTime.setText(bookingInfo.getDepartureTime());
+        holder.tvArriveTime.setText(bookingInfo.getArrivalTime());
         holder.tvFromCode.setText(bookingInfo.getFromTownCode());
         holder.tvToCode.setText(bookingInfo.getToTownCode());
     }
@@ -91,6 +93,8 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
         private TextView tvDate;
         private TextView tvSeats;
         private TextView tvFrom;
+        private TextView tvDepartTime;
+        private TextView tvArriveTime;
         private TextView tvTo;
         private TextView tvFromCode;
         private TextView tvToCode;
@@ -104,6 +108,8 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
             tvSeats = itemView.findViewById(R.id.tvTripDetailsSeatsValue);
             tvFrom = itemView.findViewById(R.id.tvTripDetailsDepartureTown);
             tvTo = itemView.findViewById(R.id.tvTripDetailsArrivalTown);
+            tvDepartTime = itemView.findViewById(R.id.tvTripDetailsDepartureTime);
+            tvArriveTime = itemView.findViewById(R.id.tvTripDetailsArrivalTime);
             tvFromCode = itemView.findViewById(R.id.tvTripDetailsDepartureCode);
             tvToCode = itemView.findViewById(R.id.tvTripDetailsArrivalCode);
         }
