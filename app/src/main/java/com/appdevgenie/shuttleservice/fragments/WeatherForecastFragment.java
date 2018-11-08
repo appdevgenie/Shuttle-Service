@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -55,6 +56,10 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
         context = getActivity();
 
         spSelectTown = view.findViewById(R.id.spWeatherSelectTown);
+        ArrayAdapter<CharSequence> spFromAdapter =
+                ArrayAdapter.createFromResource(context, R.array.town_names_weather, R.layout.spinner_weather_item);
+        spFromAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spSelectTown.setAdapter(spFromAdapter);
         spSelectTown.setOnItemSelectedListener(this);
 
         rvWeather = view.findViewById(R.id.rvWeather);
@@ -73,7 +78,7 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        new LoadWetherAsyncTask().execute(spSelectTown.getSelectedItem().toString() + ",za");
+        new LoadWetherAsyncTask().execute(spSelectTown.getSelectedItem().toString().trim() + ",za");
     }
 
     @Override
