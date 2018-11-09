@@ -8,25 +8,31 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.adapters.WeatherForecastAdapter;
 import com.appdevgenie.shuttleservice.model.WeatherInfo;
 import com.appdevgenie.shuttleservice.model.WeatherInfoList;
+import com.appdevgenie.shuttleservice.model.WeatherTodayInfo;
 import com.appdevgenie.shuttleservice.utils.NetworkUtils;
+import com.appdevgenie.shuttleservice.utils.WeatherIconLoader;
 import com.appdevgenie.shuttleservice.utils.WeatherJsonUtils;
 
 import java.net.URL;
 import java.util.List;
 
+import static com.appdevgenie.shuttleservice.utils.Constants.TEMP_KELVIN;
 import static com.appdevgenie.shuttleservice.utils.Constants.WEATHER_API_KEY;
 
 
@@ -38,12 +44,17 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
     private WeatherForecastAdapter weatherForecastAdapter;
     private Spinner spSelectTown;
     private ProgressBar progressBar;
+    private ProgressBar progressBarToday;
+    private TextView tvTodayInfo;
+    private TextView tvTodayTemp;
+    private TextView tvTodayHumidity;
+    private ImageView ivTodayIcon;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_weather_forcast, container, false);
+        view = inflater.inflate(R.layout.fragment_weather_forecast, container, false);
 
         setupVariables();
 
@@ -70,15 +81,22 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
         rvWeather.setAdapter(weatherForecastAdapter);
 
         progressBar = view.findViewById(R.id.pbWeather);
+        progressBarToday = view.findViewById(R.id.pbWeatherToday);
+
+        tvTodayInfo = view.findViewById(R.id.tvWeatherTodayInfo);
+        tvTodayTemp = view.findViewById(R.id.tvWeatherTodayTemp);
+        tvTodayHumidity = view.findViewById(R.id.tvWeatherTodayHumidity);
+        ivTodayIcon = view.findViewById(R.id.ivWeatherToday);
 
         //String cityString = "Sabie,za";
 
-        //new LoadWetherAsyncTask().execute(cityString);
+        //new LoadWeatherForecastAsyncTask().execute(cityString);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        new LoadWetherAsyncTask().execute(spSelectTown.getSelectedItem().toString().trim() + ",za");
+        new LoadWeatherTodayAsyncTask().execute(spSelectTown.getSelectedItem().toString().trim() + ",za");
+        new LoadWeatherForecastAsyncTask().execute(spSelectTown.getSelectedItem().toString().trim() + ",za");
     }
 
     @Override
@@ -86,8 +104,54 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
 
     }
 
+    private class LoadWeatherTodayAsyncTask extends AsyncTask<String, Void, WeatherTodayInfo>{
 
-    private class LoadWetherAsyncTask extends AsyncTask<String, Void, List<WeatherInfo>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBarToday.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected WeatherTodayInfo doInBackground(String... strings) {
+
+            URL url = NetworkUtils.buildWeatherTodayUrl(WEATHER_API_KEY, strings[0]);
+
+            try {
+                String jsonString = null;
+                if (url != null) {
+                    jsonString = NetworkUtils.getResponseFromHttpUrl(url);
+                }
+                return WeatherJsonUtils.parseWeatherTodayJson(jsonString);
+
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(WeatherTodayInfo weatherTodayInfo) {
+            super.onPostExecute(weatherTodayInfo);
+
+            progressBarToday.setVisibility(View.GONE);
+
+            if(weatherTodayInfo != null) {
+                tvTodayInfo.setText(weatherTodayInfo.getDescription());
+                tvTodayTemp.setText(TextUtils
+                        .concat(String.valueOf(Math.round(weatherTodayInfo.getTemp() - TEMP_KELVIN))
+                                , context.getString(R.string.temperature_degree_symbol)));
+                tvTodayHumidity.setText(TextUtils
+                        .concat(String.valueOf(Math.round(weatherTodayInfo.getHumidity()))
+                                , context.getString(R.string.humidity_percentage_symbol)));
+                ivTodayIcon.setImageResource(WeatherIconLoader.getImage(weatherTodayInfo.getIcon()));
+            }else{
+                Toast.makeText(context, "Error loading today`s weather", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    private class LoadWeatherForecastAsyncTask extends AsyncTask<String, Void, List<WeatherInfo>> {
 
         @Override
         protected void onPreExecute() {

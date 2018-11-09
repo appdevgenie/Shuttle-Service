@@ -15,7 +15,7 @@ import static com.appdevgenie.shuttleservice.utils.Constants.WEATHER_API_QUERY_K
 public class NetworkUtils {
 
     private static final String TAG = NetworkUtils.class.getSimpleName();
-    //public static final String BASE_DAY_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
+    public static final String BASE_TODAY_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
     private static final String BASE_FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast?q=";
 
     public static URL buildWeatherUrl(String apiKeyString, String city) {
@@ -28,6 +28,21 @@ public class NetworkUtils {
             URL weatherUrl = new URL(weatherQueryUri.toString());
             Log.d(TAG, "buildWeatherUrl: " + weatherUrl);
             return weatherUrl;
+        } catch (MalformedURLException e) {
+            return null;
+        }
+    }
+
+    public static URL buildWeatherTodayUrl (String apiKeyString, String city){
+
+        Uri weatherTodayQueryUri = Uri.parse(BASE_TODAY_URL + city).buildUpon()
+                .appendQueryParameter(WEATHER_API_QUERY_KEY, apiKeyString)
+                .build();
+
+        try {
+            URL weatherTodayUrl = new URL(weatherTodayQueryUri.toString());
+            Log.d(TAG, "buildWeatherTodayUrl: " + weatherTodayUrl);
+            return weatherTodayUrl;
         } catch (MalformedURLException e) {
             return null;
         }

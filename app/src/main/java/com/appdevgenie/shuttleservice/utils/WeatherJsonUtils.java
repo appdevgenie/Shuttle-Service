@@ -1,7 +1,10 @@
 package com.appdevgenie.shuttleservice.utils;
 
+import android.text.format.DateUtils;
+
 import com.appdevgenie.shuttleservice.model.WeatherInfo;
 import com.appdevgenie.shuttleservice.model.WeatherInfoList;
+import com.appdevgenie.shuttleservice.model.WeatherTodayInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,16 +56,21 @@ public class WeatherJsonUtils {
                 temp = mainObject.getDouble("temp");
                 humidity = mainObject.getDouble("humidity");*/
 
+                long dateLong = jsonObjectForecast.getLong("dt") * 1000;
+                //ignore today`s weather
+                if(!DateUtils.isToday(dateLong)) {
 
-                WeatherInfo weatherInfo = new WeatherInfo(
-                        weatherObject.getString("icon"),
-                        jsonObjectForecast.getString("dt_txt"),
-                        jsonObjectForecast.getLong("dt"),
-                        weatherObject.getString("description"),
-                        mainObject.getDouble("temp"),
-                        mainObject.getDouble("humidity")
-                );
-                weatherInfoModelList.add(weatherInfo);
+                    WeatherInfo weatherInfo = new WeatherInfo(
+                            weatherObject.getString("icon"),
+                            jsonObjectForecast.getString("dt_txt"),
+                            jsonObjectForecast.getLong("dt"),
+                            weatherObject.getString("description"),
+                            mainObject.getDouble("temp"),
+                            mainObject.getDouble("humidity")
+                    );
+                    weatherInfoModelList.add(weatherInfo);
+
+                }
             }
 
         }catch (JSONException e){
@@ -70,5 +78,31 @@ public class WeatherJsonUtils {
         }
         weatherInfoList.setWeatherInfoList(weatherInfoModelList);
         return weatherInfoList;
+    }
+
+    public static WeatherTodayInfo parseWeatherTodayJson(String json) {
+
+        WeatherTodayInfo weatherTodayInfo = new WeatherTodayInfo();
+
+        try {
+
+            JSONObject jsonObject = new JSONObject(json);
+            JSONObject mainObject = jsonObject.getJSONObject("main");
+            JSONArray weatherArray = jsonObject.getJSONArray("weather");
+            JSONObject weatherObject = weatherArray.getJSONObject(0);
+
+        weatherTodayInfo = new WeatherTodayInfo(
+                weatherObject.getString("icon"),
+                jsonObject.getLong("dt"),
+                weatherObject.getString("description"),
+                mainObject.getDouble("temp"),
+                mainObject.getDouble("humidity")
+        );
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return weatherTodayInfo;
     }
 }

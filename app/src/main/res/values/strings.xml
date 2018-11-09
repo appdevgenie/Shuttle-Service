@@ -9,4 +9,5 @@
     <string name="today">Today</string>
     <string name="date_format_weekday">EEEE</string>
     <string name="date_format_time">HH:mm</string>
+    <string name="sunny">Sunny</string>
 </resources>

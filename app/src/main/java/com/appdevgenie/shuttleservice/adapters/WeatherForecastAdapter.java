@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.model.WeatherInfo;
+import com.appdevgenie.shuttleservice.utils.WeatherIconLoader;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -52,19 +52,23 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         //SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         //String dateString = simpleDateFormatDate.format(dateLong);
 
-        SimpleDateFormat simpleDayFormat = new SimpleDateFormat(context.getString(R.string.date_format_weekday), Locale.getDefault());
-        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(context.getString(R.string.date_format_time), Locale.getDefault());
-        simpleTimeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        String dayWeekString;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE dd MMM HH:mm", Locale.getDefault());
+        //SimpleDateFormat simpleDayFormat = new SimpleDateFormat(context.getString(R.string.date_format_weekday), Locale.getDefault());
+        //SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(context.getString(R.string.date_format_time), Locale.getDefault());
+        //simpleTimeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+        /*String dayWeekString;
         if(DateUtils.isToday(dateLong)){
             dayWeekString = context.getString(R.string.today) + " " + simpleTimeFormat.format(dateLong);
         }else {
-            dayWeekString = simpleDayFormat.format(dateLong) + " " + simpleTimeFormat.format(dateLong);
-        }
+            //dayWeekString = simpleDayFormat.format(dateLong) + " " + simpleTimeFormat.format(dateLong);
+            dayWeekString = simpleDateFormat.format(dateLong);
+        }*/
 
-        holder.ivIcon.setImageResource(getImage(weatherInfoList.get(itemPosition).getIcon()));
+        holder.ivIcon.setImageResource(WeatherIconLoader.getImage(weatherInfoList.get(itemPosition).getIcon()));
         //holder.tvDate.setText(date.substring(0, date.length() -3));
-        holder.tvDate.setText(dayWeekString);
+        holder.tvDate.setText(simpleDateFormat.format(dateLong));
         holder.tvDescription.setText(weatherInfoList.get(itemPosition).getDescription());
         holder.tvHumidity
                 .setText(TextUtils
@@ -73,10 +77,10 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         holder.tvTemp
                 .setText(TextUtils
                         .concat(String.valueOf(Math.round(weatherInfoList.get(itemPosition).getTemp() - TEMP_KELVIN))
-                        , context.getString(R.string.temperature_degree_symbol)));
+                                , context.getString(R.string.temperature_degree_symbol)));
     }
 
-    private int getImage(String icon) {
+    /*private int getImage(String icon) {
 
         int imageResource = 0;
 
@@ -156,17 +160,17 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
 
         return imageResource;
     }
-
+*/
     @Override
     public int getItemCount() {
 
-        if(weatherInfoList == null){
+        if (weatherInfoList == null) {
             return 0;
         }
         return weatherInfoList.size();
     }
 
-    public void setAdapterData(List<WeatherInfo> weatherInfo){
+    public void setAdapterData(List<WeatherInfo> weatherInfo) {
         weatherInfoList = weatherInfo;
         notifyDataSetChanged();
     }
