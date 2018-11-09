@@ -15,5 +15,5 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo_ss" />
 </RelativeLayout>
