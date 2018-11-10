@@ -37,7 +37,7 @@ import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_SEATS;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_ARRIVE_TIME;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_TO_TOWN;
 
-public class BookingHistoryFragment extends Fragment implements BookingHistoryAdapter.ItemLongClickListener {
+public class BookingHistoryFragment extends Fragment implements BookingHistoryAdapter.ItemClickListener {
 
     private View view;
     private Context context;
@@ -103,7 +103,7 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
     }
 
     @Override
-    public void onItemLongClick(int pos) {
+    public void onItemClick(int pos) {
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         Bundle extras = new Bundle();
@@ -123,4 +123,26 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
 
         Toast.makeText(context, "added to widget", Toast.LENGTH_SHORT).show();
     }
+
+   /* @Override
+    public void onItemLongClick(int pos) {
+
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        Bundle extras = new Bundle();
+        int widgetId = extras.getInt(
+                AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+
+        SharedPreferences.Editor prefs = context.getSharedPreferences(Constants.SHARED_PREFS, 0).edit();
+        prefs.putString(SHARED_PREFS_FROM_TOWN, bookingInfoArrayList.get(pos).getFromTown());
+        prefs.putString(SHARED_PREFS_TO_TOWN, bookingInfoArrayList.get(pos).getToTown());
+        prefs.putString(SHARED_PREFS_DEPART_TIME, bookingInfoArrayList.get(pos).getDepartureTime());
+        prefs.putString(SHARED_PREFS_ARRIVE_TIME, bookingInfoArrayList.get(pos).getArrivalTime());
+        prefs.putString(SHARED_PREFS_DATE, bookingInfoArrayList.get(pos).getDate());
+        prefs.putString(SHARED_PREFS_SEATS, bookingInfoArrayList.get(pos).getSeats());
+        prefs.apply();
+
+        ShuttleAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
+
+        Toast.makeText(context, "added to widget", Toast.LENGTH_SHORT).show();
+    }*/
 }
