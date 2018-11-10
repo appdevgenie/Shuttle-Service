@@ -30,7 +30,10 @@ import com.appdevgenie.shuttleservice.utils.WeatherIconLoader;
 import com.appdevgenie.shuttleservice.utils.WeatherJsonUtils;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import static com.appdevgenie.shuttleservice.utils.Constants.TEMP_KELVIN;
 import static com.appdevgenie.shuttleservice.utils.Constants.WEATHER_API_KEY;
@@ -49,6 +52,7 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
     private TextView tvTodayTemp;
     private TextView tvTodayHumidity;
     private ImageView ivTodayIcon;
+    private TextView tvTodayTime;
 
     @Nullable
     @Override
@@ -87,6 +91,7 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
         tvTodayTemp = view.findViewById(R.id.tvWeatherTodayTemp);
         tvTodayHumidity = view.findViewById(R.id.tvWeatherTodayHumidity);
         ivTodayIcon = view.findViewById(R.id.ivWeatherToday);
+        tvTodayTime = view.findViewById(R.id.tvWeatherTodayHeader);
 
         //String cityString = "Sabie,za";
 
@@ -136,6 +141,12 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
             progressBarToday.setVisibility(View.GONE);
 
             if(weatherTodayInfo != null) {
+                long dateLong = weatherTodayInfo.getDateLong() * 1000;
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                //simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+                String timeString = context.getString(R.string.today) + ", " + simpleDateFormat.format(dateLong);
+                tvTodayTime.setText(timeString);
+
                 tvTodayInfo.setText(weatherTodayInfo.getDescription());
                 tvTodayTemp.setText(TextUtils
                         .concat(String.valueOf(Math.round(weatherTodayInfo.getTemp() - TEMP_KELVIN))
