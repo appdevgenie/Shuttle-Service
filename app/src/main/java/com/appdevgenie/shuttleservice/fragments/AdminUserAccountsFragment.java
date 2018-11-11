@@ -1,6 +1,8 @@
 package com.appdevgenie.shuttleservice.fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,12 +17,9 @@ import android.widget.Toast;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.adapters.AdminUserAccountsAdapter;
-import com.appdevgenie.shuttleservice.adapters.BookingHistoryAdapter;
-import com.appdevgenie.shuttleservice.model.BookingInfo;
 import com.appdevgenie.shuttleservice.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,11 +32,9 @@ public class AdminUserAccountsFragment extends Fragment implements AdminUserAcco
 
     private View view;
     private Context context;
-    private RecyclerView recyclerView;
     private AdminUserAccountsAdapter adminUserAccountsAdapter;
     private ProgressBar progressBar;
     private ArrayList<User> userArrayList;
-    private FirebaseFirestore firebaseFirestore;
 
     @Nullable
     @Override
@@ -55,14 +52,14 @@ public class AdminUserAccountsFragment extends Fragment implements AdminUserAcco
 
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
-        recyclerView = view.findViewById(R.id.recyclerViewDefault);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewDefault);
         adminUserAccountsAdapter = new AdminUserAccountsAdapter(context, userArrayList, this, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adminUserAccountsAdapter);
 
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
         CollectionReference usersCollection = firebaseFirestore.collection("users");
 
@@ -93,11 +90,20 @@ public class AdminUserAccountsFragment extends Fragment implements AdminUserAcco
 
     @Override
     public void onEmailClicked(String email) {
-        Toast.makeText(context, email, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, email, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/html");
+        intent.putExtra(Intent.EXTRA_EMAIL, email);
+        intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.app_name));
+
+        startActivity(Intent.createChooser(intent, "Email"));
     }
 
     @Override
     public void onPhoneClicked(String phone) {
-        Toast.makeText(context, phone, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, phone, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + phone));
+        startActivity(intent);
     }
 }
