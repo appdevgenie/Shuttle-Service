@@ -23,12 +23,12 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private Context context;
     private ArrayList<BookingInfo> bookingInfoArrayList = new ArrayList<>();
     //private ItemLongClickListener itemLongClickListener;
-    private ItemClickListener itemClickListener;
+    private ItemClickWidgetListener itemClickWidgetListener;
 
-    public BookingHistoryAdapter(Context context, ArrayList<BookingInfo> bookingInfoArrayList, ItemClickListener itemClickListener) {
+    public BookingHistoryAdapter(Context context, ArrayList<BookingInfo> bookingInfoArrayList, ItemClickWidgetListener itemClickWidgetListener) {
         this.context = context;
         this.bookingInfoArrayList = bookingInfoArrayList;
-        this.itemClickListener = itemClickListener;
+        this.itemClickWidgetListener = itemClickWidgetListener;
         //this.itemLongClickListener = itemLongClickListener;
     }
 
@@ -166,6 +166,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         private TextView tvToCode;
         private ImageButton ibReduce;
         private Button bAddToWidget;
+        private Button bCancel;
 
         public SelectedViewHolder(View itemView) {
             super(itemView);
@@ -181,6 +182,8 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ibReduce.setOnClickListener(this);
             bAddToWidget = itemView.findViewById(R.id.bAddToWidget);
             bAddToWidget.setOnClickListener(this);
+            bCancel = itemView.findViewById(R.id.bCancelBooking);
+            bCancel.setOnClickListener(this);
         }
 
         @Override
@@ -194,14 +197,18 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     break;
 
                 case R.id.bAddToWidget:
-                    itemClickListener.onItemClick(getAdapterPosition());
+                    itemClickWidgetListener.onItemWidgetClick(getAdapterPosition());
+                    break;
+
+                case R.id.bCancelBooking:
+
                     break;
             }
         }
     }
 
-    public interface ItemClickListener {
-        void onItemClick(int pos);
+    public interface ItemClickWidgetListener {
+        void onItemWidgetClick(int pos);
     }
 
     /*@Override

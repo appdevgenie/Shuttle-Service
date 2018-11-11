@@ -37,7 +37,7 @@ import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_SEATS;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_ARRIVE_TIME;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_TO_TOWN;
 
-public class BookingHistoryFragment extends Fragment implements BookingHistoryAdapter.ItemClickListener {
+public class BookingHistoryFragment extends Fragment implements BookingHistoryAdapter.ItemClickWidgetListener {
 
     private View view;
     private Context context;
@@ -103,7 +103,7 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
     }
 
     @Override
-    public void onItemClick(int pos) {
+    public void onItemWidgetClick(int pos) {
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         Bundle extras = new Bundle();
