@@ -53,7 +53,7 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_booking_history, container, false);
+        view = inflater.inflate(R.layout.fragment_default_recyclerview, container, false);
         setupVariables();
         return view;
     }
@@ -63,9 +63,10 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
         context = getActivity();
         bookingInfoArrayList = new ArrayList<>();
 
-        progressBar = view.findViewById(R.id.pbBookings);
+        progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
-        recyclerView = view.findViewById(R.id.rvBookingHistory);
+        recyclerView = view.findViewById(R.id.recyclerViewDefault);
         bookingHistoryAdapter = new BookingHistoryAdapter(context, bookingInfoArrayList, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setHasFixedSize(true);

@@ -35,7 +35,7 @@ public class MainRouteStopsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_list_route_and_stops, container, false);
+        view = inflater.inflate(R.layout.fragment_default_recyclerview, container, false);
         setupVariables();
         return view;
 
@@ -53,7 +53,7 @@ public class MainRouteStopsFragment extends Fragment {
             route = CreateRouteStopArrayList.createArrayList(context);
         }
 
-        RecyclerView rvRoute = view.findViewById(R.id.rvRoute);
+        RecyclerView rvRoute = view.findViewById(R.id.recyclerViewDefault);
         routeListAdapter = new RouteListAdapter(context, route);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         //rvRoute.addItemDecoration(dividerItemDecoration);

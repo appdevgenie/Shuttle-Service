@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.fragments.AccountUserInfoFragment;
+import com.appdevgenie.shuttleservice.fragments.AdminUserAccountsFragment;
 import com.appdevgenie.shuttleservice.fragments.BookingAvailabilityQueryFragment;
 import com.appdevgenie.shuttleservice.fragments.BookingHistoryFragment;
 import com.appdevgenie.shuttleservice.fragments.MainPriceCheckFragment;
@@ -78,6 +79,15 @@ public class MainSelectionActivity extends AppCompatActivity {
                     case 8:
                         AccountUserInfoFragment accountUserInfoFragment = new AccountUserInfoFragment();
                         fragmentManager.beginTransaction().replace(R.id.mainActivityContainer, accountUserInfoFragment).commit();
+                        break;
+
+                    case 9:
+
+                        break;
+
+                    case 10:
+                        AdminUserAccountsFragment adminUserAccountsFragment = new AdminUserAccountsFragment();
+                        fragmentManager.beginTransaction().replace(R.id.mainActivityContainer, adminUserAccountsFragment).commit();
                         break;
                 }
 
