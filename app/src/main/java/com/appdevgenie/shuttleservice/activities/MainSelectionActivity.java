@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.fragments.AccountUserInfoFragment;
+import com.appdevgenie.shuttleservice.fragments.AdminTravelInfoFragment;
 import com.appdevgenie.shuttleservice.fragments.AdminUserAccountsFragment;
 import com.appdevgenie.shuttleservice.fragments.BookingAvailabilityQueryFragment;
 import com.appdevgenie.shuttleservice.fragments.BookingHistoryFragment;
@@ -82,7 +83,8 @@ public class MainSelectionActivity extends AppCompatActivity {
                         break;
 
                     case 9:
-
+                        AdminTravelInfoFragment adminTravelInfoFragment = new AdminTravelInfoFragment();
+                        fragmentManager.beginTransaction().replace(R.id.mainActivityContainer, adminTravelInfoFragment).commit();
                         break;
 
                     case 10:
