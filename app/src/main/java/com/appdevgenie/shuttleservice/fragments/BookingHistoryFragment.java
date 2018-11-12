@@ -98,10 +98,8 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
 
                             for (DocumentSnapshot documentSnapshot : list) {
-
                                 BookingInfo bookingInfo = documentSnapshot.toObject(BookingInfo.class);
                                 bookingInfoArrayList.add(bookingInfo);
-
                             }
                             bookingHistoryAdapter.notifyDataSetChanged();
                         }
