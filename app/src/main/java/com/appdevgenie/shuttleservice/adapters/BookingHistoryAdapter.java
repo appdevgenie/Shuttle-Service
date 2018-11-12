@@ -13,7 +13,10 @@ import android.widget.TextView;
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.model.BookingInfo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import static com.appdevgenie.shuttleservice.utils.Constants.VIEW_TYPE_BOOKING_DEFAULT;
 import static com.appdevgenie.shuttleservice.utils.Constants.VIEW_TYPE_BOOKING_SELECTED;
@@ -91,12 +94,16 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         switch (viewType) {
             case VIEW_TYPE_BOOKING_DEFAULT:
-                ((DefaultViewHolder) holder).tvSeats.setText(bookingInfo.getSeats());
+                ((DefaultViewHolder) holder).tvSeats.setText(String.valueOf(bookingInfo.getSeats()));
                 ((DefaultViewHolder) holder).tvDate.setText(bookingInfo.getDate());
                 break;
 
             case VIEW_TYPE_BOOKING_SELECTED:
-                ((SelectedViewHolder) holder).tvSeats.setText(bookingInfo.getSeats());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd MMM, HH:mm", Locale.getDefault());
+                Date date = bookingInfo.getBookingDate();
+                String bookingDateString = simpleDateFormat.format(date);
+                ((SelectedViewHolder) holder).tvBookingDate.setText(bookingDateString);
+                ((SelectedViewHolder) holder).tvSeats.setText(String.valueOf(bookingInfo.getSeats()));
                 ((SelectedViewHolder) holder).tvDate.setText(bookingInfo.getDate());
                 ((SelectedViewHolder) holder).tvFrom.setText(bookingInfo.getFromTown());
                 ((SelectedViewHolder) holder).tvTo.setText(bookingInfo.getToTown());
@@ -156,6 +163,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public class SelectedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        private TextView tvBookingDate;
         private TextView tvDate;
         private TextView tvSeats;
         private TextView tvFrom;
@@ -170,6 +178,8 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         public SelectedViewHolder(View itemView) {
             super(itemView);
+
+            tvBookingDate = itemView.findViewById(R.id.tvBookingMadeDate);
             tvDate = itemView.findViewById(R.id.tvTripDetailsDateValue);
             tvSeats = itemView.findViewById(R.id.tvTripDetailsSeatsValue);
             tvFrom = itemView.findViewById(R.id.tvTripDetailsDepartureTown);

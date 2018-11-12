@@ -4,6 +4,10 @@ import com.appdevgenie.shuttleservice.BuildConfig;
 
 public class Constants {
 
+    public static final String FIRESTORE_USER_COLLECTION = "users";
+    //public static final String FIRESTORE_BOOKINGS_COLLECTION = "bookings";
+    public static final String FIRESTORE_TRAVEL_INFO_COLLECTION = "travelInfo";
+
     public static final String WEATHER_API_KEY = BuildConfig.WEATHER_API_KEY;
 
     public static final String WEATHER_API_QUERY_KEY = "appid";

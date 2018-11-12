@@ -116,20 +116,20 @@
     </string-array>
 
     <string-array name="seats">
-        <item>1 seat</item>
-        <item>2 seats</item>
-        <item>3 seats</item>
-        <item>4 seats</item>
-        <item>5 seats</item>
-        <item>6 seats</item>
-        <item>7 seats</item>
-        <item>8 seats</item>
-        <item>9 seats</item>
-        <item>10 seats</item>
-        <item>11 seats</item>
-        <item>12 seats</item>
-        <item>13 seats</item>
-        <item>14 seats</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
     </string-array>
 
     <string-array name="route_stops_time_morning">

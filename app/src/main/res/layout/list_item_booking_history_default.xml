@@ -13,6 +13,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/tvDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Travel date"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvBookingHistoryDefaultDate"
@@ -20,12 +31,21 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorPrimary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDateLabel"
+            app:layout_constraintTop_toBottomOf="@+id/tvDateLabel"
             tools:text="1 Jan 1999" />
+
+        <TextView
+            android:id="@+id/tvSeatsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="Seats"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBookingHistoryDefaultDate" />
 
         <TextView
             android:id="@+id/tvBookingHistoryDefaultSeats"
@@ -33,14 +53,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvBookingHistoryDefaultDate"
-            app:layout_constraintTop_toBottomOf="@+id/tvBookingHistoryDefaultDate"
-            tools:text="2 seats" />
+            app:layout_constraintStart_toStartOf="@+id/tvSeatsLabel"
+            app:layout_constraintTop_toBottomOf="@+id/tvSeatsLabel"
+            tools:text="2" />
 
         <ImageButton
             android:id="@+id/ibBookingHistoryDefaultExpand"
@@ -55,6 +74,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_expand" />
+
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

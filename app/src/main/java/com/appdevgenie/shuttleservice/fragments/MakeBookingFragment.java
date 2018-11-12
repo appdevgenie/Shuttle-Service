@@ -38,8 +38,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
+import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.HOP_COST;
 
 public class MakeBookingFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
@@ -232,10 +234,10 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                //TODO check if doc exists before overriding
-
                 String[] codes = context.getResources().getStringArray(R.array.route_stops_town_code);
                 ArrayList<String> code = new ArrayList<>(Arrays.asList(codes));
+
+                Date bookingDate = new Date();
 
                 //CollectionReference usersCollectionReference = firebaseFirestore.collection("users");
                 /*DocumentReference usersDocumentReference =
@@ -248,6 +250,10 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                 );
 */
                 BookingInfo bookingInfo = new BookingInfo(
+                        bookingDate,
+                        name.getText().toString(),
+                        email.getText().toString(),
+                        contactNumber.getText().toString(),
                         date.getText().toString(),
                         spFrom.getSelectedItem().toString(),
                         spTo.getSelectedItem().toString(),
@@ -255,9 +261,10 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                         arrivalTime,
                         code.get(fromInt),
                         code.get(toInt),
-                        spSeats.getSelectedItem().toString(),
+                        spSeats.getSelectedItemPosition() + 1,
                         totalCost.getText().toString(),
-                        0
+                        0,
+                        false
                 );
 
                 /*usersDocumentReference.set(user)
@@ -276,9 +283,24 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                             }
                         });*/
 
+                DocumentReference documentReference = firebaseFirestore.collection(FIRESTORE_TRAVEL_INFO_COLLECTION).document();
+                documentReference
+                        .set(bookingInfo)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                loadComplete("yes!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                loadComplete("no!");
+                            }
+                        });
 
 
-                usersDocumentReference.collection("bookings").document().set(bookingInfo)
+                /*usersDocumentReference.collection("bookings").document().set(bookingInfo)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -292,7 +314,7 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                                 loadComplete(e.getMessage());
                                // Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                        });
+                        });*/
 
                 //databaseReference.push();
 

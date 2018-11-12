@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.adapters.AdminUserAccountsAdapter;
@@ -27,6 +26,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_USER_COLLECTION;
 
 public class AdminUserAccountsFragment extends Fragment implements AdminUserAccountsAdapter.EmailClickListener, AdminUserAccountsAdapter.PhoneClickListener {
 
@@ -61,7 +62,7 @@ public class AdminUserAccountsFragment extends Fragment implements AdminUserAcco
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
-        CollectionReference usersCollection = firebaseFirestore.collection("users");
+        CollectionReference usersCollection = firebaseFirestore.collection(FIRESTORE_USER_COLLECTION);
 
         usersCollection.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
