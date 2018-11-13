@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    app:cardBackgroundColor="@color/colorCardDefault"
+    android:minHeight="80dp"
+    app:cardBackgroundColor="@color/colorWhite"
     app:cardCornerRadius="4dp"
     app:cardElevation="4dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/tvDateLabel"
@@ -21,6 +23,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:text="Travel date"
+            android:textColor="@color/colorPrimary"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,8 +34,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvDateLabel"
             app:layout_constraintTop_toBottomOf="@+id/tvDateLabel"
             tools:text="1 Jan 1999" />
@@ -43,9 +49,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:text="Seats"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvBookingHistoryDefaultDate" />
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toStartOf="@+id/ibBookingHistoryDefaultExpand"
+            app:layout_constraintStart_toEndOf="@+id/tvDateLabel"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvBookingHistoryDefaultSeats"
@@ -53,9 +64,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorBlack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvSeatsLabel"
             app:layout_constraintTop_toBottomOf="@+id/tvSeatsLabel"

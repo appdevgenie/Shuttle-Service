@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import com.appdevgenie.shuttleservice.model.BookingInfo;
 import com.appdevgenie.shuttleservice.model.TravelInfo;
 import com.appdevgenie.shuttleservice.utils.CreateTravelInfoArrayList;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -31,6 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
@@ -39,12 +38,11 @@ public class AdminTravelInfoFragment extends Fragment implements View.OnClickLis
 
     private Context context;
     private View view;
-    private RecyclerView recyclerView;
     private AdminTravelInfoAdapter adminTravelInfoAdapter;
     private ArrayList<BookingInfo> bookingInfoArrayList;
     private ArrayList<TravelInfo> travelInfoArrayList;
     private FirebaseFirestore firebaseFirestore;
-    private FirebaseAuth firebaseAuth;
+    //private FirebaseAuth firebaseAuth;
     private ProgressBar progressBar;
     private TextView tvSelectDate;
     private Calendar calendar;
@@ -63,15 +61,13 @@ public class AdminTravelInfoFragment extends Fragment implements View.OnClickLis
 
         context = getActivity();
         //Log.d("AdminTravel", "travel started");
-        bookingInfoArrayList = new ArrayList<>();
-        travelInfoArrayList = new ArrayList<>();
 
         calendar = Calendar.getInstance();
         simpleDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
 
-        recyclerView = view.findViewById(R.id.rvTravelInfo);
+        RecyclerView recyclerView = view.findViewById(R.id.rvTravelInfo);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        adminTravelInfoAdapter = new AdminTravelInfoAdapter(context, travelInfoArrayList);
+        adminTravelInfoAdapter = new AdminTravelInfoAdapter(context);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adminTravelInfoAdapter);
@@ -83,7 +79,12 @@ public class AdminTravelInfoFragment extends Fragment implements View.OnClickLis
         tvSelectDate.setOnClickListener(this);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
+        //firebaseAuth = FirebaseAuth.getInstance();
+
+        Date date = new Date();
+        String dateString = simpleDateFormat.format(date);
+        tvSelectDate.setText(dateString);
+        loadTravelInfo(dateString);
 
         /*CollectionReference collectionReference = firebaseFirestore.collection(FIRESTORE_TRAVEL_INFO_COLLECTION);
         collectionReference.whereEqualTo("date", tvSelectDate.getText().toString())
@@ -169,6 +170,8 @@ public class AdminTravelInfoFragment extends Fragment implements View.OnClickLis
 
     private void loadTravelInfo(String date) {
 
+        bookingInfoArrayList = new ArrayList<>();
+        travelInfoArrayList = new ArrayList<>();
         progressBar.setVisibility(View.VISIBLE);
 
         CollectionReference collectionReference = firebaseFirestore.collection(FIRESTORE_TRAVEL_INFO_COLLECTION);

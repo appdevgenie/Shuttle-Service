@@ -21,9 +21,9 @@ public class AdminTravelInfoAdapter extends RecyclerView.Adapter<AdminTravelInfo
     private Context context;
     private ArrayList<TravelInfo> travelInfoArrayList;
 
-    public AdminTravelInfoAdapter(Context context, ArrayList<TravelInfo> travelInfoArrayList) {
+    public AdminTravelInfoAdapter(Context context) {
         this.context = context;
-        this.travelInfoArrayList = travelInfoArrayList;
+        //this.travelInfoArrayList = travelInfoArrayList;
     }
 
     @NonNull
