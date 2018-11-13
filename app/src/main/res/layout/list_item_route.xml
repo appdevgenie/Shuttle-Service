@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    app:cardElevation="4dp"
+    app:cardElevation="2dp"
     app:cardCornerRadius="4dp"
     app:cardBackgroundColor="@color/colorCardDefault">
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:minHeight="70dp">
 
         <!--<View
             android:id="@+id/viewTopDivider"
@@ -31,11 +32,12 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:padding="5dp"
-            android:gravity="center"
-            android:textColor="@android:color/darker_gray"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:background="@drawable/background_route_time"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/colorBlack"
+            android:fontFamily="sans-serif-light"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -49,6 +51,7 @@
             android:layout_marginLeft="8dp"
             android:gravity="center"
             android:textSize="18sp"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/tvRouteItemTime"
             app:layout_constraintStart_toEndOf="@+id/tvRouteItemTime"
             app:layout_constraintTop_toTopOf="@+id/tvRouteItemTime"
