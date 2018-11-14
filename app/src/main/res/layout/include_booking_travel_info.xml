@@ -7,13 +7,11 @@
 
     <TextView
         android:id="@+id/tvTravelInfoLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextTopGrayLabel"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Travel info"
-        android:textColor="@android:color/darker_gray"
+        android:text="@string/travel_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +23,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="@android:color/darker_gray"
+        android:background="@color/colorDarkGray"
+        android:contentDescription="@string/gray_line_divider"
         app:layout_constraintBottom_toBottomOf="@+id/tvTravelInfoLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvTravelInfoLabel"
@@ -34,15 +33,12 @@
 
     <TextView
         android:id="@+id/tvPassengerInfoDateLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextPrimaryDescription"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:gravity="clip_vertical"
-        android:text="Date:"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
+        android:gravity="center_vertical"
+        android:text="@string/date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTravelInfoLabel" />
 
@@ -57,24 +53,19 @@
         android:layout_marginRight="8dp"
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
-        android:text="Select date"
-        android:textColor="@color/colorBlack"
-        android:textSize="16sp"
+        android:text="@string/select_date"
+        style="@style/TextDefaultUserInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvPassengerInfoDateLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoDateLabel" />
 
     <TextView
         android:id="@+id/tvPassengerInfoFromLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextPrimaryDescription"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:gravity="clip_vertical"
-        android:text="From:"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
+        android:text="@string/from"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoNDate" />
 
@@ -87,22 +78,19 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:entries="@array/route_stops_town_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvPassengerInfoFromLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoFromLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoFromLabel"
+        tools:entries="@array/route_stops_town_name" />
 
     <TextView
         android:id="@+id/tvPassengerInfoToLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextPrimaryDescription"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:gravity="clip_vertical"
-        android:text="To:"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
+        android:gravity="center_vertical"
+        android:text="@string/to"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spPassengerInfoFrom" />
 
@@ -115,22 +103,19 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:entries="@array/route_stops_town_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvPassengerInfoToLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoToLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoToLabel"
+        tools:entries="@array/route_stops_town_name" />
 
     <TextView
         android:id="@+id/tvTravelInfoSeatsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextPrimaryDescription"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:gravity="clip_vertical"
-        android:text="Seats:"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
+        android:text="@string/seats"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spPassengerInfoTo" />
 

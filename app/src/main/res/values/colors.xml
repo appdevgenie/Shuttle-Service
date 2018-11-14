@@ -11,4 +11,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorCardDefault">#f5f5f5</color>
     <color name="colorCardSelected">#fff</color>
+    <color name="colorDarkGray">#aaaaaa</color>
+    <color name="colorDarkGreen">#669900</color>
+    <color name="colorDarkRed">#CC0000</color>
 </resources>

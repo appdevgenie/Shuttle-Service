@@ -6,5 +6,9 @@ Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
     <dimen name="widget_margin">8dp</dimen>
+    <dimen name="text_gray_label_size">14sp</dimen>
+    <dimen name="text_primary_description_size">12sp</dimen>
+    <dimen name="text_default_input_size">16sp</dimen>
+    <dimen name="default_constraint_margin">8dp</dimen>
 
 </resources>

@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tvPriceFrom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        style="@style/TextTopGrayLabel"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="@android:color/darker_gray"
-        android:text="From"
+        android:text="@string/from"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +22,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="@android:color/darker_gray"
+        android:background="@color/colorDarkGray"
+        android:contentDescription="@string/gray_line_divider"
         app:layout_constraintBottom_toBottomOf="@+id/tvPriceFrom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvPriceFrom"
@@ -33,14 +31,11 @@
 
     <TextView
         android:id="@+id/tvPriceSelectPickUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        style="@style/TextPrimaryDescription"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Select pick-up location"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
+        android:text="@string/select_pick_up_location"
         app:layout_constraintStart_toStartOf="@+id/tvPriceFrom"
         app:layout_constraintTop_toBottomOf="@+id/tvPriceFrom" />
 
@@ -48,11 +43,11 @@
         android:id="@+id/spPriceFrom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:entries="@array/route_stops_town_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,13 +55,11 @@
 
     <TextView
         android:id="@+id/tvPriceTo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        style="@style/TextTopGrayLabel"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="@android:color/darker_gray"
-        android:text="To"
+        android:text="@string/to"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spPriceFrom" />
 
@@ -78,7 +71,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="@android:color/darker_gray"
+        android:background="@color/colorDarkGray"
+        android:contentDescription="@string/gray_line_divider"
         app:layout_constraintBottom_toBottomOf="@+id/tvPriceTo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvPriceTo"
@@ -86,14 +80,11 @@
 
     <TextView
         android:id="@+id/tvPriceDropOff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        style="@style/TextPrimaryDescription"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Select drop-off location"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
+        android:text="@string/select_drop_off_location"
         app:layout_constraintStart_toStartOf="@+id/tvPriceTo"
         app:layout_constraintTop_toBottomOf="@+id/tvPriceTo" />
 

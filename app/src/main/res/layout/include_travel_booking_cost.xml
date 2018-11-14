@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tvTravelCostLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextTopGrayLabel"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Travel cost"
-        android:textColor="@android:color/darker_gray"
+        android:text="@string/travel_cost"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,6 +24,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@android:color/darker_gray"
+        android:contentDescription="@string/gray_line_divider"
         app:layout_constraintBottom_toBottomOf="@+id/tvTravelCostLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvTravelCostLabel"
@@ -33,15 +32,11 @@
 
     <TextView
         android:id="@+id/tvTravelCostPerSeatLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextPrimaryDescription"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:gravity="clip_vertical"
-        android:text="Cost per seat:"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
+        android:text="@string/cost_per_seat"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTravelCostLabel" />
 
@@ -53,7 +48,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
         android:gravity="center_vertical"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="@color/colorDarkRed"
+        android:fontFamily="sans-serif-light"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tvTravelCostPerSeatLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvTravelCostPerSeatLabel"
@@ -61,15 +57,11 @@
 
     <TextView
         android:id="@+id/tvTravelCostTotalLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextPrimaryDescription"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:gravity="clip_vertical"
-        android:text="Total cost:"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
+        android:text="@string/total_cost"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTravelCostPerSeat" />
 
@@ -81,8 +73,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
-        android:gravity="center_vertical"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="@color/colorDarkRed"
+        android:fontFamily="sans-serif-light"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvTravelCostTotalLabel"

@@ -24,4 +24,36 @@
         <item name="android:actionMenuTextColor">@color/colorAccent</item>
     </style>
 
+    <style name="TextTopGrayLabel">
+        <item name="android:textColor">@color/colorDarkGray</item>
+        <item name="android:textSize">@dimen/text_gray_label_size</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="TextPrimaryDescription" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="TextInformation" parent="TextAppearance.AppCompat.Medium"/>
+
+    <style name="TextInformationTime" parent="TextInformation">
+        <item name="android:textColor">@color/colorDarkGreen</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="TextInformationDate" parent="TextInformation">
+        <item name="android:textColor">@color/colorDarkRed</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="TextDefaultUserInput">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/text_default_input_size</item>
+    </style>
+
 </resources>
