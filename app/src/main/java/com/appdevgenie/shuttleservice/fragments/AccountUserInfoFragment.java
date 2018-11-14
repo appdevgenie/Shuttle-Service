@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -43,8 +44,9 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
     private EditText etUserName;
     private TextView tvUserEmail;
     private EditText etContactNumber;
-    private ImageView ivUpdate;
-    private ImageView ivDelete;
+    private Button bUpdate;
+    /*private ImageView ivUpdate;
+    private ImageView ivDelete;*/
     private TextView tvDelete;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
@@ -78,10 +80,10 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
         etUserName = view.findViewById(R.id.etUserName);
         tvUserEmail = view.findViewById(R.id.tvUserAccountEmail);
         etContactNumber = view.findViewById(R.id.etUserContactNumber);
-        ivDelete = view.findViewById(R.id.ivUserAccountDelete);
-        ivDelete.setOnClickListener(this);
-        ivUpdate = view.findViewById(R.id.ivUserAccountUpdate);
-        ivUpdate.setOnClickListener(this);
+        /*ivDelete = view.findViewById(R.id.ivUserAccountDelete);
+        ivDelete.setOnClickListener(this);*/
+        bUpdate = view.findViewById(R.id.bUserAccountUpdate);
+        bUpdate.setOnClickListener(this);
 
         firebaseUser = firebaseAuth.getCurrentUser();
 
@@ -115,8 +117,6 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
                         }
                     });
         }
-
-
     }
 
     private void getUserInfo() {
@@ -146,11 +146,11 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
 
         switch (v.getId()) {
 
-            case R.id.ivUserAccountDelete:
+           /* case R.id.ivUserAccountDelete:
                 showDeleteConfirmationDialog();
-                break;
+                break;*/
 
-            case R.id.ivUserAccountUpdate:
+            case R.id.bUserAccountUpdate:
                 updateUserInfo();
                 break;
         }

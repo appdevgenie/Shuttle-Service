@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -62,6 +61,7 @@
 
         <ImageView
             android:id="@+id/ivBookingButtonDivider"
+            android:contentDescription="@string/gray_line_divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="8dp"
@@ -69,7 +69,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/darker_gray"
+            android:background="@color/colorDarkGray"
             app:layout_constraintBottom_toTopOf="@+id/bMakeBooking"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -85,7 +85,7 @@
             android:layout_marginBottom="8dp"
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center_vertical|start"
-            android:text="Check availability"
+            android:text="@string/check_availability"
             android:textColor="@android:color/darker_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bMakeBooking"
@@ -101,7 +101,7 @@
             android:layout_marginBottom="8dp"
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center_vertical|end"
-            android:text="Make booking"
+            android:text="@string/make_booking"
             android:textColor="@android:color/darker_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

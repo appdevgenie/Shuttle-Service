@@ -44,7 +44,7 @@
         android:background="@color/colorPrimary"
         android:gravity="center|center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toTopOf="@+id/bCheckAvailability"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,9 +71,9 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
-        android:text="Check availability"
-        android:textColor="@android:color/darker_gray"
+        android:background="?android:attr/selectableItemBackground"
+        android:text="@string/check_availability"
+        android:textColor="@color/colorDarkGray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

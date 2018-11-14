@@ -10,12 +10,6 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +32,7 @@
 
     <TextView
         android:id="@+id/tvUserAccountEmail"
+        style="@style/TextDefaultUserInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -45,8 +40,6 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:textSize="18sp"
-        android:textColor="@color/colorBlack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivUserAccount"
@@ -62,7 +55,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:textColorHint="@android:color/darker_gray"
+        android:textColorHint="@color/colorDarkGray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvUserAccountEmail">
@@ -91,7 +84,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:textColorHint="@android:color/darker_gray"
+        android:textColorHint="@color/colorDarkGray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutAccountName">
@@ -111,70 +104,98 @@
 
     </android.support.design.widget.TextInputLayout>
 
-   <!-- <TextView
-        android:id="@+id/tvUserAccountNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:letterSpacing="0.2"
-        android:text="Name"
-        android:textAllCaps="true"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="461dp" />
-
-    <TextView
-        android:id="@+id/tvUserAccountName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tvUserAccountNameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserAccountNameLabel"
-        android:text="James Bond" />
-
-
-
-
-    <TextView
-        android:id="@+id/tvUserAccountPhoneLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:letterSpacing="0.2"
-        android:text="Contact number"
-        android:textAllCaps="true"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserAccountName" />
-
-    <TextView
-        android:id="@+id/tvUserAccountPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:text="111 123 4007"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tvUserAccountPhoneLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserAccountPhoneLabel" />-->
-
     <ImageView
+        android:id="@+id/ivBookingButtonDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/gray_line_divider"
+        android:background="@color/colorDarkGray"
+        app:layout_constraintBottom_toTopOf="@+id/bUserAccountUpdate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/bUserAccountUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:text="@string/update"
+        android:textColor="@color/colorDarkGray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- <TextView
+         android:id="@+id/tvUserAccountNameLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="36dp"
+         android:layout_marginLeft="36dp"
+         android:letterSpacing="0.2"
+         android:text="Name"
+         android:textAllCaps="true"
+         android:textColor="@color/colorPrimary"
+         android:textSize="12sp"
+         app:layout_constraintStart_toStartOf="parent"
+         tools:layout_editor_absoluteY="461dp" />
+
+     <TextView
+         android:id="@+id/tvUserAccountName"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="8dp"
+         android:layout_marginLeft="8dp"
+         android:layout_marginTop="8dp"
+         android:textSize="18sp"
+         app:layout_constraintStart_toStartOf="@+id/tvUserAccountNameLabel"
+         app:layout_constraintTop_toBottomOf="@+id/tvUserAccountNameLabel"
+         android:text="James Bond" />
+
+
+
+
+     <TextView
+         android:id="@+id/tvUserAccountPhoneLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="8dp"
+         android:layout_marginLeft="8dp"
+         android:layout_marginTop="8dp"
+         android:letterSpacing="0.2"
+         android:text="Contact number"
+         android:textAllCaps="true"
+         android:textColor="@color/colorPrimary"
+         android:textSize="12sp"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/tvUserAccountName" />
+
+     <TextView
+         android:id="@+id/tvUserAccountPhone"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="8dp"
+         android:layout_marginLeft="8dp"
+         android:layout_marginTop="8dp"
+         android:text="111 123 4007"
+         android:textSize="18sp"
+         app:layout_constraintStart_toStartOf="@+id/tvUserAccountPhoneLabel"
+         app:layout_constraintTop_toBottomOf="@+id/tvUserAccountPhoneLabel" />-->
+
+    <!--<ImageView
         android:id="@+id/ivUserAccountUpdate"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_update_account_details"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/ic_update_account_details"
         app:layout_constraintBottom_toTopOf="@+id/tvUserAccountUpdate"
         app:layout_constraintEnd_toEndOf="@+id/tvUserAccountUpdate"
         app:layout_constraintStart_toStartOf="@+id/tvUserAccountUpdate"
@@ -199,9 +220,9 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_delete_account"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/ic_delete_account"
         app:layout_constraintBottom_toTopOf="@+id/tvUserAccountDelete"
         app:layout_constraintEnd_toEndOf="@+id/tvUserAccountDelete"
         app:layout_constraintStart_toStartOf="@+id/tvUserAccountDelete"
@@ -228,9 +249,9 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_continue"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/ic_continue"
         app:layout_constraintBottom_toTopOf="@+id/tvUserAccountContinue"
         app:layout_constraintEnd_toEndOf="@+id/tvUserAccountContinue"
         app:layout_constraintStart_toStartOf="@+id/tvUserAccountContinue"
@@ -248,7 +269,7 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvUserAccountDelete" />
+        app:layout_constraintStart_toEndOf="@+id/tvUserAccountDelete" />-->
 
     <!--<android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"

@@ -36,4 +36,14 @@
     <string name="cost_per_seat">Cost per seat</string>
     <string name="select_travel_date">Select travel date</string>
     <string name="price_per_person">Price per person/per seat</string>
+    <string name="update">Update</string>
+    <string name="check_availability">Check availability</string>
+    <string name="make_booking">Make booking</string>
+    <string name="shuttle_logo">shuttle_logo</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="not_registered_click_here">Not registered? click here</string>
+    <string name="already_registered_click_here">Already registered? click here</string>
+    <string name="or">or</string>
 </resources>

@@ -72,9 +72,9 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
+        android:background="?android:attr/selectableItemBackground"
         android:text="Make booking"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/colorDarkGray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
