@@ -5,13 +5,19 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     app:cardCornerRadius="4dp"
-    app:cardElevation="2dp">
+    app:cardElevation="1dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <include
+            layout="@layout/include_booking_history_date_seats"
+            android:id="@+id/include_booking_history_date_seats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!--<TextView
             android:id="@+id/tvBookingMadeDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +38,7 @@
             android:background="?android:attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_reduce" />
+            app:srcCompat="@drawable/ic_reduce" />-->
 
         <ImageView
             android:id="@+id/ivBookingTopDivider"
@@ -46,7 +52,7 @@
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ibBookingReduce" />
+            app:layout_constraintTop_toBottomOf="@+id/include_booking_history_date_seats" />
 
         <include
             android:id="@+id/include_layout_trip_details"
@@ -58,14 +64,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivBookingTopDivider" />
 
-        <include
+     <!--   <include
             android:id="@+id/include_date_seats"
             layout="@layout/include_seats_date_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_layout_trip_details" />
+            app:layout_constraintTop_toBottomOf="@+id/include_layout_trip_details" />-->
 
         <ImageView
             android:id="@+id/ivBookingButtonDivider"
@@ -81,7 +87,7 @@
             app:layout_constraintBottom_toTopOf="@+id/bCancelBooking"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_date_seats" />
+            app:layout_constraintTop_toBottomOf="@+id/include_layout_trip_details" />
 
         <Button
             android:id="@+id/bCancelBooking"

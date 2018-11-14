@@ -92,16 +92,21 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         int viewType = holder.getItemViewType();
         BookingInfo bookingInfo = bookingInfoArrayList.get(holder.getAdapterPosition());
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM YYYY", Locale.getDefault());
+        Date date = bookingInfo.getBookingDate();
+        String bookingDateString = "Booking: " + simpleDateFormat.format(date);
+
         switch (viewType) {
             case VIEW_TYPE_BOOKING_DEFAULT:
+                ((DefaultViewHolder) holder).tvBookingDate.setText(bookingDateString);
                 ((DefaultViewHolder) holder).tvSeats.setText(String.valueOf(bookingInfo.getSeats()));
                 ((DefaultViewHolder) holder).tvDate.setText(bookingInfo.getDate());
                 break;
 
             case VIEW_TYPE_BOOKING_SELECTED:
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd MMM, HH:mm", Locale.getDefault());
+                /*SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd MMM, HH:mm", Locale.getDefault());
                 Date date = bookingInfo.getBookingDate();
-                String bookingDateString = simpleDateFormat.format(date);
+                String bookingDateString = simpleDateFormat.format(date);*/
                 ((SelectedViewHolder) holder).tvBookingDate.setText(bookingDateString);
                 ((SelectedViewHolder) holder).tvSeats.setText(String.valueOf(bookingInfo.getSeats()));
                 ((SelectedViewHolder) holder).tvDate.setText(bookingInfo.getDate());
@@ -140,15 +145,17 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public class DefaultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        private TextView tvBookingDate;
         private TextView tvDate;
         private TextView tvSeats;
         private ImageButton ibExpand;
 
         public DefaultViewHolder(View itemView) {
             super(itemView);
-            tvDate = itemView.findViewById(R.id.tvBookingHistoryDefaultDate);
-            tvSeats = itemView.findViewById(R.id.tvBookingHistoryDefaultSeats);
-            ibExpand = itemView.findViewById(R.id.ibBookingHistoryDefaultExpand);
+            tvBookingDate = itemView.findViewById(R.id.tvBookingMadeDate);
+            tvDate = itemView.findViewById(R.id.tvTripDetailsDateValue);
+            tvSeats = itemView.findViewById(R.id.tvTripDetailsSeatsValue);
+            ibExpand = itemView.findViewById(R.id.ibBookingHistoryReduceExpand);
             ibExpand.setOnClickListener(this);
         }
 
@@ -188,8 +195,9 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             tvArriveTime = itemView.findViewById(R.id.tvTripDetailsArrivalTime);
             tvFromCode = itemView.findViewById(R.id.tvTripDetailsDepartureCode);
             tvToCode = itemView.findViewById(R.id.tvTripDetailsArrivalCode);
-            ibReduce = itemView.findViewById(R.id.ibBookingReduce);
+            ibReduce = itemView.findViewById(R.id.ibBookingHistoryReduceExpand);
             ibReduce.setOnClickListener(this);
+            ibReduce.setImageResource(R.drawable.ic_reduce);
             bAddToWidget = itemView.findViewById(R.id.bAddToWidget);
             bAddToWidget.setOnClickListener(this);
             bCancel = itemView.findViewById(R.id.bCancelBooking);
@@ -200,7 +208,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public void onClick(View v) {
 
             switch (v.getId()) {
-                case R.id.ibBookingReduce:
+                case R.id.ibBookingHistoryReduceExpand:
                     BookingInfo bookingInfo = bookingInfoArrayList.get(getAdapterPosition());
                     bookingInfo.setViewType(VIEW_TYPE_BOOKING_DEFAULT);
                     notifyDataSetChanged();
