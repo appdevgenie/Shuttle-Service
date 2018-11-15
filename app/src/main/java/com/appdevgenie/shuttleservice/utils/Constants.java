@@ -7,6 +7,8 @@ public class Constants {
     public static final String FIRESTORE_USER_COLLECTION = "users";
     //public static final String FIRESTORE_BOOKINGS_COLLECTION = "bookings";
     public static final String FIRESTORE_TRAVEL_INFO_COLLECTION = "travelInfo";
+    public static final String FIRESTORE_BOOKING_DATE_FIELD = "bookingDate";
+    public static final String FIRESTORE_USER_EMAIL_FIELD = "userEmail";
 
     public static final String WEATHER_API_KEY = BuildConfig.WEATHER_API_KEY;
 
@@ -28,5 +30,9 @@ public class Constants {
     public static final String SHARED_PREFS_ARRIVE_TIME = "toTime";
     public static final String SHARED_PREFS_DATE = "date";
     public static final String SHARED_PREFS_SEATS = "seats";
+
+    public static final String BUNDLE_FROM_SPINNER = "fromSpinner";
+    public static final String BUNDLE_TO_SPINNER = "toSpinner";
+    public static final String BUNDLE_TRIP_DATE = "tripDate";
 
 }

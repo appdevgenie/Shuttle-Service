@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
+import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_FROM_SPINNER;
+import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TO_SPINNER;
 import static com.appdevgenie.shuttleservice.utils.Constants.HOP_COST;
 
 public class MainPriceCheckFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
@@ -91,6 +93,11 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
             @Override
             public void onClick(View v) {
                 BookingAvailabilityQueryFragment bookingQueryFragment = new BookingAvailabilityQueryFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt(BUNDLE_FROM_SPINNER, spFrom.getSelectedItemPosition());
+                bundle.putInt(BUNDLE_TO_SPINNER, spTo.getSelectedItemPosition());
+                bookingQueryFragment.setArguments(bundle);
+
                 getActivity()
                         .getSupportFragmentManager()
                         .beginTransaction()
@@ -108,7 +115,7 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
 
         Spinner spinner = (Spinner) parent;
 
-        switch (spinner.getId()){
+        switch (spinner.getId()) {
 
             case R.id.spPriceFrom:
                 fromInt = position;
@@ -130,13 +137,13 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
         String arrival;
 
         double costDouble = Math.abs((upstreamDownStream) * HOP_COST);
-        if(costDouble > 0) {
+        if (costDouble > 0) {
             tvPriceValue.setText(TextUtils.concat("R ", String.format(Locale.ENGLISH, "%.2f", costDouble)));
 
-            if(upstreamDownStream >= 0){
+            if (upstreamDownStream >= 0) {
                 departure = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_morning)).get(fromInt);
                 arrival = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_morning)).get(toInt);
-            }else{
+            } else {
                 departure = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_afternoon)).get(fromInt);
                 arrival = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_afternoon)).get(toInt);
             }
@@ -154,11 +161,11 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
             tvArrivalTown.setText(spTo.getSelectedItem().toString());
             tvArrivalTime.setText(arrival);
             tvArrivalLabel.setVisibility(View.VISIBLE);
-            if(firebaseAuth.getCurrentUser() != null) {
+            if (firebaseAuth.getCurrentUser() != null) {
                 bCheckAvailability.setVisibility(View.VISIBLE);
             }
 
-        }else{
+        } else {
             tvPriceValue.setVisibility(View.INVISIBLE);
             tvPriceValueInfo.setVisibility(View.INVISIBLE);
             tvDepartureCode.setText("");
@@ -181,7 +188,7 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
 
             case R.id.tvTripDetailsDepartureCode:
                 spFrom.performClick();

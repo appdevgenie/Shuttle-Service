@@ -15,7 +15,7 @@ import static com.appdevgenie.shuttleservice.utils.Constants.WEATHER_API_QUERY_K
 public class NetworkUtils {
 
     private static final String TAG = NetworkUtils.class.getSimpleName();
-    public static final String BASE_TODAY_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
+    private static final String BASE_TODAY_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
     private static final String BASE_FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast?q=";
 
     public static URL buildWeatherUrl(String apiKeyString, String city) {

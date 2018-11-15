@@ -29,12 +29,15 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_BOOKING_DATE_FIELD;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
+import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_USER_EMAIL_FIELD;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_DATE;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_DEPART_TIME;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_FROM_TOWN;
@@ -84,8 +87,9 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
         DocumentReference documentReference = collectionReference.document(firebaseAuth.getUid());*/
 
         CollectionReference collectionReference = firebaseFirestore.collection(FIRESTORE_TRAVEL_INFO_COLLECTION);
-        collectionReference.whereEqualTo("userEmail", firebaseAuth.getCurrentUser().getEmail())
+        collectionReference.whereEqualTo(FIRESTORE_USER_EMAIL_FIELD, firebaseAuth.getCurrentUser().getEmail())
         //collectionReference
+                //.orderBy(FIRESTORE_BOOKING_DATE_FIELD, Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override

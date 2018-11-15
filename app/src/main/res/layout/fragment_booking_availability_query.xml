@@ -24,13 +24,26 @@
         app:layout_constraintTop_toBottomOf="@+id/include_from_to_selection" />
 
     <TextView
+        android:id="@+id/tvSeatsAmountAvailable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toTopOf="@+id/tvPriceValueInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include4"
+        tools:text="3 seats available" />
+
+    <TextView
         android:id="@+id/tvPriceValueInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryLight"
         android:gravity="center|center_vertical"
         android:padding="2dp"
-        android:text="Price per person/per seat"
+        android:text="@string/price_per_person"
         android:textColor="@color/colorWhite"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/tvPriceValue"
@@ -46,7 +59,7 @@
         android:gravity="center|center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/bCheckAvailability"
+        app:layout_constraintBottom_toTopOf="@+id/bMakeBooking"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="R 123.45" />
@@ -66,30 +79,19 @@
         app:layout_constraintStart_toStartOf="parent" />-->
 
     <Button
-        android:id="@+id/bCheckAvailability"
+        android:id="@+id/bMakeBooking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
         android:background="?android:attr/selectableItemBackground"
-        android:text="Make booking"
+        android:text="@string/make_booking"
         android:textColor="@color/colorDarkGray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/tvSeatsAmountAvailable"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintBottom_toTopOf="@+id/tvPriceValueInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include4"
-        tools:text="3 seats available" />
+
 
 
     <!--<android.support.design.widget.FloatingActionButton

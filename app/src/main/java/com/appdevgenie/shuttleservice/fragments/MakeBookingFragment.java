@@ -38,7 +38,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_FROM_SPINNER;
+import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TO_SPINNER;
+import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TRIP_DATE;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
+import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_USER_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.HOP_COST;
 
 public class MakeBookingFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
@@ -55,12 +59,13 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
     private Spinner spTo;
     private Spinner spSeats;
     private Button bMakeBooking;
+    private Button bCheckAvailability;
     private int fromInt;
     private int toInt;
     private int seatsInt;
     private String departureTime;
     private String arrivalTime;
-    double costPerSeatDouble;
+    private double costPerSeatDouble;
     private Calendar calendar;
     //private DatePickerDialog.OnDateSetListener dateSetListener;
     private SimpleDateFormat simpleDateFormat;
@@ -80,6 +85,13 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
 
         setupVariables();
 
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            spFrom.setSelection(bundle.getInt(BUNDLE_FROM_SPINNER));
+            spTo.setSelection(bundle.getInt(BUNDLE_TO_SPINNER));
+            date.setText(bundle.getString(BUNDLE_TRIP_DATE, context.getString(R.string.select_date)));
+        }
+
         return view;
 
     }
@@ -91,7 +103,7 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         usersDocumentReference =
-                firebaseFirestore.collection("users").document(firebaseAuth.getUid());
+                firebaseFirestore.collection(FIRESTORE_USER_COLLECTION).document(firebaseAuth.getUid());
         //firebaseDatabase = FirebaseDatabase.getInstance();
         //databaseReference = firebaseDatabase.getReference();
 
@@ -107,6 +119,8 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
         date.setOnClickListener(this);
         bMakeBooking = view.findViewById(R.id.bMakeBooking);
         bMakeBooking.setOnClickListener(this);
+        bCheckAvailability = view.findViewById(R.id.bCheckAvailability);
+        bCheckAvailability.setOnClickListener(this);
 
         calendar = Calendar.getInstance();
         /*dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -220,12 +234,12 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
 
             case R.id.bMakeBooking:
 
-                if(TextUtils.equals(date.getText(), "Select date")){
-                    Toast.makeText(context, "Select valid date", Toast.LENGTH_SHORT).show();
+                if(TextUtils.equals(date.getText(), context.getString(R.string.select_date))){
+                    Toast.makeText(context, R.string.select_valid_date, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(TextUtils.isEmpty(totalCost.getText())){
-                    Toast.makeText(context, "Select valid trip", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.select_valid_trip, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -314,8 +328,22 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                         });*/
 
                 //databaseReference.push();
+                break;
 
+            case R.id.bCheckAvailability:
+                BookingAvailabilityQueryFragment bookingQueryFragment = new BookingAvailabilityQueryFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt(BUNDLE_FROM_SPINNER, spFrom.getSelectedItemPosition());
+                bundle.putInt(BUNDLE_TO_SPINNER, spTo.getSelectedItemPosition());
+                bundle.putString(BUNDLE_TRIP_DATE, date.getText().toString());
+                bookingQueryFragment.setArguments(bundle);
 
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.mainActivityContainer, bookingQueryFragment)
+                        //.addToBackStack(null)
+                        .commit();
                 break;
         }
     }

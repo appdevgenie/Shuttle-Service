@@ -46,4 +46,6 @@
     <string name="not_registered_click_here">Not registered? click here</string>
     <string name="already_registered_click_here">Already registered? click here</string>
     <string name="or">or</string>
+    <string name="select_valid_date">Select valid date</string>
+    <string name="select_valid_trip">Select valid trip</string>
 </resources>
