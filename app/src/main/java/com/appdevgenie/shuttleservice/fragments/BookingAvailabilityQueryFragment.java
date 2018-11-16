@@ -14,27 +14,46 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appdevgenie.shuttleservice.R;
+import com.appdevgenie.shuttleservice.model.BookingInfo;
+import com.appdevgenie.shuttleservice.model.TravelInfo;
+import com.appdevgenie.shuttleservice.utils.CreateTravelInfoArrayList;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Locale;
 
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_FROM_SPINNER;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TO_SPINNER;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TRIP_DATE;
+import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_DATE_FIELD;
+import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.HOP_COST;
 
 public class BookingAvailabilityQueryFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
+    public static final int DIRECTION_UPSTREAM = 0;
+    public static final int DIRECTION_DOWNSTREAM = 1;
+
     private TextView tvSelectDate;
     private TextView tvPriceValue;
     private TextView tvPriceValueInfo;
+    private TextView tvSeatsAmountAvailable;
     private Button bMakeBooking;
+    private ProgressBar pbCheckAvailability;
     //private TextView tvDate;
     private String departureTime;
     private String arrivalTime;
@@ -47,6 +66,13 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
     private Calendar calendar;
     private SimpleDateFormat simpleDateFormat;
     private boolean tripSelected;
+    private ArrayList<BookingInfo> bookingInfoArrayList;
+    //private ArrayList<TravelInfo> travelInfoArrayList;
+    private FirebaseFirestore firebaseFirestore;
+    private int seats;
+    private ArrayList<Integer> intArray;
+    private ArrayList<Integer> intRangeArray;
+    private int direction;
     //private DatePickerDialog.OnDateSetListener dateSetListener;
 
     @Nullable
@@ -70,6 +96,11 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
 
         context = getActivity();
 
+        intArray = new ArrayList<>();
+        intRangeArray = new ArrayList<>();
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
         calendar = Calendar.getInstance();
         simpleDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
 
@@ -89,11 +120,14 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
 
         tvPriceValue = view.findViewById(R.id.tvPriceValue);
         tvPriceValueInfo = view.findViewById(R.id.tvPriceValueInfo);
+        tvSeatsAmountAvailable = view.findViewById(R.id.tvSeatsAmountAvailable);
         tvPriceValue.setVisibility(View.INVISIBLE);
         tvPriceValueInfo.setVisibility(View.INVISIBLE);
         bMakeBooking = view.findViewById(R.id.bMakeBooking);
         bMakeBooking.setVisibility(View.INVISIBLE);
         bMakeBooking.setOnClickListener(this);
+
+        pbCheckAvailability = view.findViewById(R.id.pbCheckAvailability);
 
         /*calendar = Calendar.getInstance();
         dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -208,9 +242,11 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
             if(upstreamDownStream >= 0){
                 departureTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_morning)).get(fromInt);
                 arrivalTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_morning)).get(toInt);
+                direction = DIRECTION_UPSTREAM;
             }else{
                 departureTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_afternoon)).get(fromInt);
                 arrivalTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_afternoon)).get(toInt);
+                direction = DIRECTION_DOWNSTREAM;
             }
 
             tvPriceValue.setVisibility(View.VISIBLE);
@@ -219,13 +255,85 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
             tripSelected = true;
             if(!TextUtils.equals(tvSelectDate.getText().toString(), context.getString(R.string.select_date))) {
                 bMakeBooking.setVisibility(View.VISIBLE);
+                loadTravelInfo(tvSelectDate.getText().toString());
+
             }
 
         } else {
             tvPriceValue.setVisibility(View.INVISIBLE);
             tvPriceValueInfo.setVisibility(View.INVISIBLE);
             tvPriceValue.setText("");
+            tvSeatsAmountAvailable.setText("");
             bMakeBooking.setVisibility(View.INVISIBLE);
+
         }
     }
+
+
+
+
+    private void loadTravelInfo(String date) {
+
+        bookingInfoArrayList = new ArrayList<>();
+        //travelInfoArrayList = new ArrayList<>();
+
+
+        pbCheckAvailability.setVisibility(View.VISIBLE);
+
+        CollectionReference collectionReference = firebaseFirestore.collection(FIRESTORE_TRAVEL_INFO_COLLECTION);
+        collectionReference.whereEqualTo(FIRESTORE_TRAVEL_DATE_FIELD, date)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        pbCheckAvailability.setVisibility(View.GONE);
+
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
+                           // seats = documentSnapshot.getLong("seats").intValue();;
+                           // intArray.add(seats);
+                            BookingInfo bookingInfo = documentSnapshot.toObject(BookingInfo.class);
+                            bookingInfoArrayList.add(bookingInfo);
+                        }
+                        //travelInfoArrayList = CreateTravelInfoArrayList.createTravelInfoList(context, bookingInfoArrayList);
+
+                        intRangeArray = CreateTravelInfoArrayList.createPassengerMaxList(context, bookingInfoArrayList);
+                        //intRangeArray = new ArrayList<>(intArray.subList(1, 5));
+                        /*intArray = new ArrayList<>(intRangeArray.subList(fromInt, toInt));
+                        int max = Collections.max(intArray);
+                        //Toast.makeText(context, String.valueOf(intRangeArray.size()), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, String.valueOf(max), Toast.LENGTH_SHORT).show();*/
+                        if(direction == DIRECTION_UPSTREAM){
+                            getMaxSeats(fromInt, toInt);
+                        }
+                        if(direction == DIRECTION_DOWNSTREAM){
+                            getMaxSeats(17 - fromInt, 17 - toInt);
+                        }
+                    }
+                });
+    }
+
+    private void getMaxSeats(int fromInt, int toInt) {
+
+        intArray = new ArrayList<>(intRangeArray.subList(fromInt, toInt));
+        int max = Collections.max(intArray);
+
+        tvSeatsAmountAvailable.setText((String.valueOf(30 - max)) + " seats available");
+
+        //Toast.makeText(context, String.valueOf(intRangeArray.size()), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, String.valueOf(max), Toast.LENGTH_SHORT).show();
+        /*intRangeArray = new ArrayList<>(intArray.subList(fromInt, toInt));
+        int max = Collections.max(intRangeArray);
+        Toast.makeText(context, String.valueOf(max), Toast.LENGTH_SHORT).show();*/
+    }
+
+    /*// Method for getting the maximum value
+    public static int getMax(int[] inputArray){
+        int maxValue = inputArray[0];
+        for(int i = 1; i < inputArray.length; i++){
+            if(inputArray[i] > maxValue){
+                maxValue = inputArray[i];
+            }
+        }
+        return maxValue;
+    }*/
 }

@@ -62,4 +62,39 @@ public class CreateTravelInfoArrayList {
 
         return travelInfoArrayList;
     }
+
+    public static ArrayList<Integer> createPassengerMaxList(Context context, ArrayList<BookingInfo> bookingInfoArrayList) {
+
+        ArrayList<Integer> maxList = new ArrayList<>();
+
+        int totalPassengers = 0;
+
+        String[] towns = context.getResources().getStringArray(R.array.route_stops_town_name);
+        ArrayList<String> town = new ArrayList<>(Arrays.asList(towns));
+
+        String[] times = context.getResources().getStringArray(R.array.route_stops_time);
+        ArrayList<String> time = new ArrayList<>(Arrays.asList(times));
+
+        for (int i = 0; i < towns.length; i++) {
+
+            String townString = town.get(i);
+            String timeString = time.get(i);
+
+            for (int j = 0; j < bookingInfoArrayList.size(); j++) {
+                if (TextUtils.equals(bookingInfoArrayList.get(j).getFromTown(), townString) &&
+                        TextUtils.equals(bookingInfoArrayList.get(j).getDepartureTime(), timeString)) {
+                    totalPassengers = totalPassengers + bookingInfoArrayList.get(j).getSeats();
+
+                }
+                if (TextUtils.equals(bookingInfoArrayList.get(j).getToTown(), townString) &&
+                        TextUtils.equals(bookingInfoArrayList.get(j).getArrivalTime(), timeString)) {
+                    totalPassengers = totalPassengers - bookingInfoArrayList.get(j).getSeats();
+
+                }
+            }
+
+            maxList.add(totalPassengers);
+        }
+        return maxList;
+    }
 }

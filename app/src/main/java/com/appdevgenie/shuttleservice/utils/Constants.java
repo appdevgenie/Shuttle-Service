@@ -9,6 +9,7 @@ public class Constants {
     public static final String FIRESTORE_TRAVEL_INFO_COLLECTION = "travelInfo";
     public static final String FIRESTORE_BOOKING_DATE_FIELD = "bookingDate";
     public static final String FIRESTORE_USER_EMAIL_FIELD = "userEmail";
+    public static final String FIRESTORE_TRAVEL_DATE_FIELD = "date";
 
     public static final String WEATHER_API_KEY = BuildConfig.WEATHER_API_KEY;
 

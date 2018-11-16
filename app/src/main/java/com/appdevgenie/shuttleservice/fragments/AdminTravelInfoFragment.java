@@ -32,6 +32,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_DATE_FIELD;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
 
 public class AdminTravelInfoFragment extends Fragment implements View.OnClickListener {
@@ -175,7 +176,7 @@ public class AdminTravelInfoFragment extends Fragment implements View.OnClickLis
         progressBar.setVisibility(View.VISIBLE);
 
         CollectionReference collectionReference = firebaseFirestore.collection(FIRESTORE_TRAVEL_INFO_COLLECTION);
-        collectionReference.whereEqualTo("date", date)
+        collectionReference.whereEqualTo(FIRESTORE_TRAVEL_DATE_FIELD, date)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
