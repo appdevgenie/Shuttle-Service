@@ -95,15 +95,17 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
-        appCompatActivity.setSupportActionBar(toolbar);
-        appCompatActivity.getSupportActionBar().setTitle("Availability");
-        appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+        if (appCompatActivity != null) {
+            appCompatActivity.setSupportActionBar(toolbar);
+            appCompatActivity.getSupportActionBar().setTitle(R.string.availability);
+            appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().onBackPressed();
+                }
+            });
+        }
 
         intArray = new ArrayList<>();
         intRangeArray = new ArrayList<>();

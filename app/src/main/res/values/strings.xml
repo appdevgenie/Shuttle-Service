@@ -51,4 +51,11 @@
     <string name="seats_available">seats available</string>
     <string name="next_stop">Next stop</string>
     <string name="arriving_in">Arriving in</string>
+    <string name="weather">Weather</string>
+    <string name="route_and_stops">Route and stops</string>
+    <string name="price_check">Price check</string>
+    <string name="booking_history">Booking history</string>
+    <string name="availability">Availability</string>
+    <string name="user_accounts">User accounts</string>
+    <string name="user_info">User info</string>
 </resources>

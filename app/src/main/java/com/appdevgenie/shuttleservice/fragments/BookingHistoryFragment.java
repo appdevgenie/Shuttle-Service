@@ -74,15 +74,17 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
-        appCompatActivity.setSupportActionBar(toolbar);
-        appCompatActivity.getSupportActionBar().setTitle("Booking history");
-        appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+        if (appCompatActivity != null) {
+            appCompatActivity.setSupportActionBar(toolbar);
+            appCompatActivity.getSupportActionBar().setTitle(R.string.booking_history);
+            appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().onBackPressed();
+                }
+            });
+        }
 
         bookingInfoArrayList = new ArrayList<>();
 

@@ -50,17 +50,19 @@ public class MainRouteStopsFragment extends Fragment {
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
-        appCompatActivity.setSupportActionBar(toolbar);
-        appCompatActivity.getSupportActionBar().setTitle("Route and stops");
-        appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-                //Toast.makeText(context, "back1", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (appCompatActivity != null) {
+            appCompatActivity.setSupportActionBar(toolbar);
+            appCompatActivity.getSupportActionBar().setTitle(R.string.route_and_stops);
+            appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().onBackPressed();
+                    //Toast.makeText(context, "back1", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         /*toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

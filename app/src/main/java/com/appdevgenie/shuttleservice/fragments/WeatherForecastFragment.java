@@ -35,7 +35,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import static com.appdevgenie.shuttleservice.utils.Constants.TEMP_KELVIN;
 import static com.appdevgenie.shuttleservice.utils.Constants.WEATHER_API_KEY;
@@ -73,16 +72,18 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
         context = getActivity();
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
-        appCompatActivity.setSupportActionBar(toolbar);
-        appCompatActivity.getSupportActionBar().setTitle("Weather");
-        appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+        AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
+        if (appCompatActivity != null) {
+            appCompatActivity.setSupportActionBar(toolbar);
+            appCompatActivity.getSupportActionBar().setTitle(R.string.weather);
+            appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().onBackPressed();
+                }
+            });
+        }
 
         spSelectTown = view.findViewById(R.id.spWeatherSelectTown);
         ArrayAdapter<CharSequence> spFromAdapter =
@@ -123,7 +124,7 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
 
     }
 
-    private class LoadWeatherTodayAsyncTask extends AsyncTask<String, Void, WeatherTodayInfo>{
+    private class LoadWeatherTodayAsyncTask extends AsyncTask<String, Void, WeatherTodayInfo> {
 
         @Override
         protected void onPreExecute() {
@@ -154,7 +155,7 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
 
             progressBarToday.setVisibility(View.GONE);
 
-            if(weatherTodayInfo != null) {
+            if (weatherTodayInfo != null) {
                 long dateLong = weatherTodayInfo.getDateLong() * 1000;
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
                 //simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -169,7 +170,7 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
                         .concat(String.valueOf(Math.round(weatherTodayInfo.getHumidity()))
                                 , context.getString(R.string.humidity_percentage_symbol)));
                 ivTodayIcon.setImageResource(WeatherIconLoader.getImage(weatherTodayInfo.getIcon()));
-            }else{
+            } else {
                 Toast.makeText(context, "Error loading today`s weather", Toast.LENGTH_SHORT).show();
             }
         }

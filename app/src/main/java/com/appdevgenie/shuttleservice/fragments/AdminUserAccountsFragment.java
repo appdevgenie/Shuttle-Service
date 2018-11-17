@@ -56,7 +56,7 @@ public class AdminUserAccountsFragment extends Fragment implements AdminUserAcco
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
         if (appCompatActivity != null) {
             appCompatActivity.setSupportActionBar(toolbar);
-            appCompatActivity.getSupportActionBar().setTitle("User accounts");
+            appCompatActivity.getSupportActionBar().setTitle(R.string.user_accounts);
             appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
