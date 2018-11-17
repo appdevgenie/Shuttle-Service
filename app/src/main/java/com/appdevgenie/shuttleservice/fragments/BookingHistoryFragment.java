@@ -22,13 +22,10 @@ import com.appdevgenie.shuttleservice.adapters.BookingHistoryAdapter;
 import com.appdevgenie.shuttleservice.model.BookingInfo;
 import com.appdevgenie.shuttleservice.utils.Constants;
 import com.appdevgenie.shuttleservice.widget.ShuttleAppWidgetProvider;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -40,11 +37,11 @@ import java.util.List;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_BOOKING_DATE_FIELD;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_USER_EMAIL_FIELD;
+import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_ARRIVE_TIME;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_DATE;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_DEPART_TIME;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_FROM_TOWN;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_SEATS;
-import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_ARRIVE_TIME;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_TO_TOWN;
 
 public class BookingHistoryFragment extends Fragment implements BookingHistoryAdapter.ItemClickWidgetListener {
@@ -106,7 +103,7 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
         CollectionReference collectionReference = firebaseFirestore.collection(FIRESTORE_TRAVEL_INFO_COLLECTION);
         collectionReference.whereEqualTo(FIRESTORE_USER_EMAIL_FIELD, firebaseAuth.getCurrentUser().getEmail())
         //collectionReference
-                //.orderBy(FIRESTORE_BOOKING_DATE_FIELD, Query.Direction.DESCENDING)
+                .orderBy(FIRESTORE_BOOKING_DATE_FIELD, Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -125,7 +122,15 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
                             bookingHistoryAdapter.notifyDataSetChanged();
                         }
                     }
-                });
+                })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                //Log.d("BookingHistory", e.getMessage());
+            }
+        });
 
         /*DocumentReference usersDocumentReference =
                 firebaseFirestore.collection("users").document(firebaseAuth.getUid());
