@@ -48,4 +48,7 @@
     <string name="or">or</string>
     <string name="select_valid_date">Select valid date</string>
     <string name="select_valid_trip">Select valid trip</string>
+    <string name="seats_available">seats available</string>
+    <string name="next_stop">Next stop</string>
+    <string name="arriving_in">Arriving in</string>
 </resources>

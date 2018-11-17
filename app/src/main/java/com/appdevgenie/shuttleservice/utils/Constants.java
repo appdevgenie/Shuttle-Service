@@ -11,6 +11,9 @@ public class Constants {
     public static final String FIRESTORE_USER_EMAIL_FIELD = "userEmail";
     public static final String FIRESTORE_TRAVEL_DATE_FIELD = "date";
 
+    public static final int DOWNSTREAM_DIFFERENCE = 17;
+    public static final int SHUTTLE_MAX = 30;
+
     public static final String WEATHER_API_KEY = BuildConfig.WEATHER_API_KEY;
 
     public static final String WEATHER_API_QUERY_KEY = "appid";

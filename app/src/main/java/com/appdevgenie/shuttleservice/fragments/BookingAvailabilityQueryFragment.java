@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +19,9 @@ import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.model.BookingInfo;
-import com.appdevgenie.shuttleservice.model.TravelInfo;
 import com.appdevgenie.shuttleservice.utils.CreateTravelInfoArrayList;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -31,7 +31,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Locale;
@@ -39,9 +38,11 @@ import java.util.Locale;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_FROM_SPINNER;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TO_SPINNER;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TRIP_DATE;
+import static com.appdevgenie.shuttleservice.utils.Constants.DOWNSTREAM_DIFFERENCE;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_DATE_FIELD;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.HOP_COST;
+import static com.appdevgenie.shuttleservice.utils.Constants.SHUTTLE_MAX;
 
 public class BookingAvailabilityQueryFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -54,9 +55,6 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
     private TextView tvSeatsAmountAvailable;
     private Button bMakeBooking;
     private ProgressBar pbCheckAvailability;
-    //private TextView tvDate;
-    private String departureTime;
-    private String arrivalTime;
     private int fromInt;
     private int toInt;
     private Spinner spFrom;
@@ -69,7 +67,6 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
     private ArrayList<BookingInfo> bookingInfoArrayList;
     //private ArrayList<TravelInfo> travelInfoArrayList;
     private FirebaseFirestore firebaseFirestore;
-    private int seats;
     private ArrayList<Integer> intArray;
     private ArrayList<Integer> intRangeArray;
     private int direction;
@@ -95,6 +92,18 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
     private void setupVariables() {
 
         context = getActivity();
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        appCompatActivity.setSupportActionBar(toolbar);
+        appCompatActivity.getSupportActionBar().setTitle("Availability");
+        appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         intArray = new ArrayList<>();
         intRangeArray = new ArrayList<>();
@@ -207,6 +216,7 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
                                 tvSelectDate.setText(simpleDateFormat.format(calendar.getTime()));
                                 if(tripSelected) {
                                     bMakeBooking.setVisibility(View.VISIBLE);
+                                    loadTravelInfo(tvSelectDate.getText().toString());
                                 }
                             }
                         },
@@ -240,12 +250,8 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
             tvPriceValue.setText(TextUtils.concat("R ", String.format(Locale.ENGLISH, "%.2f", costPerSeatDouble)));
 
             if(upstreamDownStream >= 0){
-                departureTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_morning)).get(fromInt);
-                arrivalTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_morning)).get(toInt);
                 direction = DIRECTION_UPSTREAM;
             }else{
-                departureTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_afternoon)).get(fromInt);
-                arrivalTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_afternoon)).get(toInt);
                 direction = DIRECTION_DOWNSTREAM;
             }
 
@@ -256,7 +262,6 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
             if(!TextUtils.equals(tvSelectDate.getText().toString(), context.getString(R.string.select_date))) {
                 bMakeBooking.setVisibility(View.VISIBLE);
                 loadTravelInfo(tvSelectDate.getText().toString());
-
             }
 
         } else {
@@ -279,6 +284,7 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
 
 
         pbCheckAvailability.setVisibility(View.VISIBLE);
+        tvSeatsAmountAvailable.setText("");
 
         CollectionReference collectionReference = firebaseFirestore.collection(FIRESTORE_TRAVEL_INFO_COLLECTION);
         collectionReference.whereEqualTo(FIRESTORE_TRAVEL_DATE_FIELD, date)
@@ -306,7 +312,7 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
                             getMaxSeats(fromInt, toInt);
                         }
                         if(direction == DIRECTION_DOWNSTREAM){
-                            getMaxSeats(17 - fromInt, 17 - toInt);
+                            getMaxSeats(DOWNSTREAM_DIFFERENCE - fromInt, DOWNSTREAM_DIFFERENCE - toInt);
                         }
                     }
                 });
@@ -316,8 +322,8 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
 
         intArray = new ArrayList<>(intRangeArray.subList(fromInt, toInt));
         int max = Collections.max(intArray);
-
-        tvSeatsAmountAvailable.setText((String.valueOf(30 - max)) + " seats available");
+        CharSequence seats = TextUtils.concat(String.valueOf(SHUTTLE_MAX - max), " ", getString(R.string.seats_available));
+        tvSeatsAmountAvailable.setText(seats);
 
         //Toast.makeText(context, String.valueOf(intRangeArray.size()), Toast.LENGTH_SHORT).show();
         //Toast.makeText(context, String.valueOf(max), Toast.LENGTH_SHORT).show();

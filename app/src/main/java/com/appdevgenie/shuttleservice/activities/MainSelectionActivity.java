@@ -21,27 +21,21 @@ import static com.appdevgenie.shuttleservice.utils.Constants.EXTRA_PARSE_CLICKED
 
 public class MainSelectionActivity extends AppCompatActivity {
 
-    private FragmentManager fragmentManager;
     //private boolean isLoggedIn;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fragment_container);
 
-        setContentView(R.layout.activity_main_container);
-
-        fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
         if(savedInstanceState == null) {
-
             Intent intent = getIntent();
-
             if(intent != null) {
                 //MainGridIcon mainGridIcon = intent.getParcelableExtra("extra_selection");
-
                 int position = intent.getIntExtra(EXTRA_PARSE_CLICKED_ICON, 1);
                 //isLoggedIn = intent.getBooleanExtra("isLoggedIn", isLoggedIn);
-
                 switch (position){
 
                     case 1:

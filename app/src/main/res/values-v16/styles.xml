@@ -3,15 +3,22 @@
 
     <style name="TextInformation" parent="TextAppearance.AppCompat.Medium"/>
 
-    <style name="TextInformationDate" parent="TextInformation">
+    <style name="TextInformationRed" parent="TextInformation">
         <item name="android:textColor">@color/colorDarkRed</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
 
-    <style name="TextInformationTime" parent="TextInformation">
+    <style name="TextInformationGreen" parent="TextInformation">
         <item name="android:textColor">@color/colorDarkGreen</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="TextInformationHeadline" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">@color/colorDarkerGray</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:fontFamily">sans-serif-light</item>

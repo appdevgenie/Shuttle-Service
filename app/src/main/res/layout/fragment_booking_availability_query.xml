@@ -5,6 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@color/colorWhite" />
+
     <include
         android:id="@+id/include_from_to_selection"
         layout="@layout/include_from_to_selection"
@@ -12,7 +26,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <include
         android:id="@+id/include4"
@@ -27,6 +41,7 @@
         android:id="@+id/tvSeatsAmountAvailable"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@android:color/holo_red_dark"
@@ -40,7 +55,7 @@
         android:id="@+id/tvPriceValueInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryLight"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center|center_vertical"
         android:padding="2dp"
         android:text="@string/price_per_person"
@@ -55,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/gradient"
         android:gravity="center|center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@android:color/white"
@@ -80,14 +95,13 @@
 
     <Button
         android:id="@+id/bMakeBooking"
+        style="@style/ButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        android:background="?android:attr/selectableItemBackground"
         android:text="@string/make_booking"
-        android:textColor="@color/colorDarkGray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -102,7 +116,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton
         android:id="@+id/fabCheckAvailability"
         app:fabSize="normal"
         android:layout_width="wrap_content"
@@ -115,7 +129,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tvPriceValue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvPriceValueInfo"
-        app:srcCompat="@drawable/ic_shuttle_fab" />
+        app:srcCompat="@drawable/ic_shuttle_fab" />-->
 
 
     <!--<android.support.design.widget.FloatingActionButton

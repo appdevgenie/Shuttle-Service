@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.activities.LoginActivity;
@@ -47,7 +46,7 @@ public class MainIconListFragment extends Fragment implements MainIconListAdapte
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.main_grid_recyclerview, container, false);
+        view = inflater.inflate(R.layout.fragment_main_grid_recyclerview, container, false);
 
         firebaseAuth = FirebaseAuth.getInstance();
 

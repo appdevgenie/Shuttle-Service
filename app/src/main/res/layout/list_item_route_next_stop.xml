@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_margin="@dimen/card_layout_margin"
     app:cardBackgroundColor="@color/colorCardSelected"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="1dp">
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_selected_elevation">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,29 +15,22 @@
 
         <TextView
             android:id="@+id/tvRouteItemNextStopLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextPrimaryDescription"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:text="Next stop"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/next_stop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvRouteItemTown" />
 
         <TextView
             android:id="@+id/tvRouteItemTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextInformationGreen"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:fontFamily="sans-serif-light"
             android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvRouteItemNextStopLabel"
@@ -45,30 +38,23 @@
 
         <TextView
             android:id="@+id/tvRouteItemTimeArrivalLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextPrimaryDescription"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="Arriving in"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/arriving_in"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvRouteItemTown" />
 
 
         <TextView
             android:id="@+id/tvRouteItemNextStop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextInformationRed"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:fontFamily="sans-serif-light"
             android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@android:color/holo_red_dark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvRouteItemTimeArrivalLabel"
@@ -76,15 +62,12 @@
 
         <TextView
             android:id="@+id/tvRouteItemTown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextInformationHeadline"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@android:color/holo_green_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -13,13 +13,21 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="colorControlNormal">@color/colorWhite</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>-->
         <!--<item name="android:windowTranslucentStatus">true</item>-->
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <!--<item name="android:textColorPrimary">@color/colorWhite</item>-->
+        <!--<item name="colorControlNormal">@color/colorWhite</item>-->
+        <!--<item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>-->
+    </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:textColorPrimary">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+        <!--<item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>
+        <item name="colorControlNormal">@color/colorWhite</item>-->
         <item name="android:textColorSecondary">@color/colorPrimary</item>
         <item name="android:actionMenuTextColor">@color/colorAccent</item>
     </style>
@@ -39,14 +47,20 @@
 
     <style name="TextInformation" parent="TextAppearance.AppCompat.Medium"/>
 
-    <style name="TextInformationTime" parent="TextInformation">
+    <style name="TextInformationGreen" parent="TextInformation">
         <item name="android:textColor">@color/colorDarkGreen</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
 
-    <style name="TextInformationDate" parent="TextInformation">
+    <style name="TextInformationRed" parent="TextInformation">
         <item name="android:textColor">@color/colorDarkRed</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="TextInformationHeadline" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">@color/colorDarkerGray</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
@@ -54,6 +68,11 @@
     <style name="TextDefaultUserInput">
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">@dimen/text_default_input_size</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:textColor">@color/colorDarkerGray</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
 </resources>
