@@ -1,6 +1,8 @@
 package com.appdevgenie.shuttleservice.fragments;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -115,13 +117,31 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        new LoadWeatherTodayAsyncTask().execute(spSelectTown.getSelectedItem().toString().trim() + ",za");
-        new LoadWeatherForecastAsyncTask().execute(spSelectTown.getSelectedItem().toString().trim() + ",za");
+        if(isNetworkConnected()) {
+            new LoadWeatherTodayAsyncTask().execute(spSelectTown.getSelectedItem().toString().trim() + ",za");
+            new LoadWeatherForecastAsyncTask().execute(spSelectTown.getSelectedItem().toString().trim() + ",za");
+        }else{
+            Toast.makeText(context, "Not connected to network!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private boolean isNetworkConnected() {
+
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = null;
+        if (cm != null) {
+            activeNetwork = cm.getActiveNetworkInfo();
+        }
+
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
     }
 
     private class LoadWeatherTodayAsyncTask extends AsyncTask<String, Void, WeatherTodayInfo> {
