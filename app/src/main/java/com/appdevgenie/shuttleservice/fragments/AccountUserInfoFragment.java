@@ -2,8 +2,10 @@ package com.appdevgenie.shuttleservice.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,7 +39,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import static android.app.Activity.RESULT_OK;
+
 public class AccountUserInfoFragment extends Fragment implements View.OnClickListener {
+
+    public static final int SELECT_IMAGE_REQUEST = 101;
 
     private Context context;
     private ProgressBar progressBar;
@@ -47,6 +53,7 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
     private TextView tvUserEmail;
     private EditText etContactNumber;
     private Button bUpdate;
+    private Button bSelectImage;
     /*private ImageView ivUpdate;
     private ImageView ivDelete;*/
     private TextView tvDelete;
@@ -55,6 +62,7 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
     private FirebaseUser firebaseUser;
     private DocumentReference usersDocumentReference;
     private User user;
+    private Uri imageUri;
 
     @Nullable
     @Override
@@ -100,6 +108,8 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
         ivDelete.setOnClickListener(this);*/
         bUpdate = view.findViewById(R.id.bUserAccountUpdate);
         bUpdate.setOnClickListener(this);
+        bSelectImage = view.findViewById(R.id.bSelectImage);
+        bSelectImage.setOnClickListener(this);
 
         firebaseUser = firebaseAuth.getCurrentUser();
 
@@ -114,7 +124,7 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
                     .error(R.drawable.circle)
                     .into(ivThumb);*/
 
-            Picasso.with(context)
+            /*Picasso.with(context)
                     .load(firebaseUser.getPhotoUrl())
                     .placeholder(R.drawable.circle)
                     .into(ivThumb, new Callback() {
@@ -131,7 +141,7 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
                         public void onError() {
                             ivThumb.setImageResource(R.drawable.circle);
                         }
-                    });
+                    });*/
         }
     }
 
@@ -157,6 +167,41 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
         });
     }
 
+    private void selectUserImage(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, SELECT_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == SELECT_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null){
+
+            imageUri = data.getData();
+
+            Picasso.with(context).load(imageUri)
+                    .into(ivThumb, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Bitmap imageBitmap = ((BitmapDrawable) ivThumb.getDrawable()).getBitmap();
+                            RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), imageBitmap);
+                            imageDrawable.setCircular(true);
+                            imageDrawable.setCornerRadius(Math.max(imageBitmap.getWidth(), imageBitmap.getHeight()) / 2.0f);
+                            ivThumb.setImageDrawable(imageDrawable);
+                        }
+
+                        @Override
+                        public void onError() {
+                            ivThumb.setImageResource(R.drawable.circle);
+                        }
+                    });
+        }
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -168,6 +213,10 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
 
             case R.id.bUserAccountUpdate:
                 updateUserInfo();
+                break;
+
+            case R.id.bSelectImage:
+                selectUserImage();
                 break;
         }
 

@@ -13,7 +13,7 @@
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="75dp"
+    android:minHeight="80dp"
     android:padding="5dp">
 
     <ImageView
@@ -31,17 +31,18 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintLeft_toRightOf="@+id/ivWeatherIcon"
-        tools:text="Today, April 03"/>
+        tools:text="Today, 03:00"/>
 
     <TextView
         android:id="@+id/tvWeatherDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@android:color/darker_gray"
         app:layout_constraintLeft_toLeftOf="@+id/tvWeatherDate"
         app:layout_constraintTop_toTopOf="@+id/guideline"
         tools:text="Rainy"/>

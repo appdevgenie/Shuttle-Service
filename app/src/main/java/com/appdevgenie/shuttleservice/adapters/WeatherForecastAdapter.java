@@ -52,7 +52,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         //SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         //String dateString = simpleDateFormatDate.format(dateLong);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE dd MMM HH:mm", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE HH:mm", Locale.getDefault());
         //SimpleDateFormat simpleDayFormat = new SimpleDateFormat(context.getString(R.string.date_format_weekday), Locale.getDefault());
         //SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(context.getString(R.string.date_format_time), Locale.getDefault());
         //simpleTimeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
