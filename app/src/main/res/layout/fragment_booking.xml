@@ -5,6 +5,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@color/colorWhite" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -13,20 +25,6 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/gradient"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:navigationIcon="@drawable/ic_arrow_back"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:titleTextColor="@color/colorWhite" />
 
             <ProgressBar
                 android:id="@+id/pbMakeBooking"
@@ -46,7 +44,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar"  />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <include
                 android:id="@+id/include2"

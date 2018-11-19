@@ -12,6 +12,7 @@ import com.appdevgenie.shuttleservice.fragments.AdminTravelInfoFragment;
 import com.appdevgenie.shuttleservice.fragments.AdminUserAccountsFragment;
 import com.appdevgenie.shuttleservice.fragments.BookingAvailabilityQueryFragment;
 import com.appdevgenie.shuttleservice.fragments.BookingHistoryFragment;
+import com.appdevgenie.shuttleservice.fragments.ContactUsFragment;
 import com.appdevgenie.shuttleservice.fragments.MainPriceCheckFragment;
 import com.appdevgenie.shuttleservice.fragments.MainRouteStopsFragment;
 import com.appdevgenie.shuttleservice.fragments.MakeBookingFragment;
@@ -49,6 +50,8 @@ public class MainSelectionActivity extends AppCompatActivity {
                         break;
 
                     case 3:
+                        ContactUsFragment contactUsFragment = new ContactUsFragment();
+                        fragmentManager.beginTransaction().replace(R.id.mainActivityContainer, contactUsFragment).commit();
                         break;
 
                     case 4:

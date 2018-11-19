@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@color/colorWhite" />
+
+    <TextView
+        android:id="@+id/tvContactInfoLabel"
+        style="@style/TextTopGrayLabel"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Contact info (office hours)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <ImageView
+        android:id="@+id/ivTravelInfoDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/colorDarkGray"
+        android:contentDescription="@string/gray_line_divider"
+        app:layout_constraintBottom_toBottomOf="@+id/tvContactInfoLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvContactInfoLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvContactInfoLabel" />
+
+
+    <TextView
+        android:id="@+id/tvContactInfoOfficeLabel"
+        style="@style/TextPrimaryDescription"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:text="Address"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContactInfoLabel" />
+
+    <TextView
+        android:id="@+id/tvContactInfoOffice"
+        style="@style/TextDefaultUserInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:text="101 Shuttle Road, OverHere"
+        app:layout_constraintStart_toStartOf="@+id/tvContactInfoOfficeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvContactInfoOfficeLabel" />
+
+    <TextView
+        android:id="@+id/tvContactInfoEmailLabel"
+        style="@style/TextPrimaryDescription"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContactInfoOffice" />
+
+    <TextView
+        android:id="@+id/tvContactInfoEmail"
+        style="@style/TextDefaultUserInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:text="me@shuttleservice.com"
+        app:layout_constraintStart_toStartOf="@+id/tvContactInfoEmailLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvContactInfoEmailLabel" />
+
+    <TextView
+        android:id="@+id/tvContactInfoNumLabel"
+        style="@style/TextPrimaryDescription"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/contact_number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContactInfoEmail" />
+
+    <TextView
+        android:id="@+id/tvContactInfoNum"
+        style="@style/TextDefaultUserInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:text="011 123 4567"
+        app:layout_constraintStart_toStartOf="@+id/tvContactInfoNumLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tvContactInfoNumLabel" />
+
+    <!--   <TextView
+           android:id="@+id/tvContactInfoAHLabel"
+           style="@style/TextTopGrayLabel"
+           android:layout_marginStart="8dp"
+           android:layout_marginLeft="8dp"
+           android:layout_marginTop="8dp"
+           android:text="Contact info (After hours)"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/tvContactInfoNum" />
+
+       <ImageView
+           android:id="@+id/ivTravelInfoAHDivider"
+           android:layout_width="0dp"
+           android:layout_height="1dp"
+           android:layout_marginStart="8dp"
+           android:layout_marginLeft="8dp"
+           android:layout_marginEnd="8dp"
+           android:layout_marginRight="8dp"
+           android:background="@color/colorDarkGray"
+           android:contentDescription="@string/gray_line_divider"
+           app:layout_constraintBottom_toBottomOf="@+id/tvContactInfoAHLabel"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toEndOf="@+id/tvContactInfoAHLabel"
+           app:layout_constraintTop_toTopOf="@+id/tvContactInfoAHLabel" />
+
+       <TextView
+           android:id="@+id/tvContactInfoAHNumLabel"
+           style="@style/TextPrimaryDescription"
+           android:layout_marginStart="8dp"
+           android:layout_marginLeft="8dp"
+           android:layout_marginTop="8dp"
+           android:gravity="center_vertical"
+           android:text="@string/contact_number"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/tvContactInfoAHLabel" />
+
+       <TextView
+           android:id="@+id/tvContactInfoAHNum"
+           style="@style/TextDefaultUserInput"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="16dp"
+           android:layout_marginLeft="16dp"
+           android:layout_marginTop="4dp"
+           android:gravity="center_vertical"
+           app:layout_constraintStart_toStartOf="@+id/tvContactInfoAHNumLabel"
+           app:layout_constraintTop_toBottomOf="@+id/tvContactInfoAHNumLabel"
+           android:text="011 321 7654" />-->
+
+    <ImageView
+        android:id="@+id/ivContactInfoDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorDarkGray"
+        android:contentDescription="@string/gray_line_divider"
+        app:layout_constraintBottom_toTopOf="@+id/ibUserContactEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ibUserContactEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical|start"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ibUserContactShare"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_email" />
+
+    <ImageButton
+        android:id="@+id/ibUserContactShare"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical|center"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ibUserContactPhone"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/ibUserContactEmail"
+        app:srcCompat="@drawable/ic_share" />
+
+    <ImageButton
+        android:id="@+id/ibUserContactPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical|end"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/ibUserContactShare"
+        app:srcCompat="@drawable/ic_phone" />
+
+
+</android.support.constraint.ConstraintLayout>

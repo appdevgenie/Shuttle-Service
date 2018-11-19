@@ -56,7 +56,7 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
     private Button bSelectImage;
     /*private ImageView ivUpdate;
     private ImageView ivDelete;*/
-    private TextView tvDelete;
+    //private TextView tvDelete;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseUser firebaseUser;
@@ -183,7 +183,8 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
 
             imageUri = data.getData();
 
-            Picasso.with(context).load(imageUri)
+            Picasso.with(context)
+                    .load(imageUri)
                     .into(ivThumb, new Callback() {
                         @Override
                         public void onSuccess() {

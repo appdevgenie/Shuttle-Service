@@ -109,7 +109,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/file/ic_cloud_off_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_share_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -120,8 +120,8 @@
                         <option name="values">
                           <map>
                             <entry key="autoMirrored" value="true" />
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_cloud_off" />
+                            <entry key="color" value="3f51b5" />
+                            <entry key="outputName" value="ic_share" />
                             <entry key="sourceFile" value="C:\Users\Eugene\Downloads\baseline-expand_more-24px.svg" />
                           </map>
                         </option>
