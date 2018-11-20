@@ -36,6 +36,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -59,10 +62,14 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
     //private TextView tvDelete;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference storageReference;
+    private StorageReference imageStorageReference;
     private FirebaseUser firebaseUser;
     private DocumentReference usersDocumentReference;
     private User user;
     private Uri imageUri;
+    private ProgressBar pbImageLoading;
 
     @Nullable
     @Override
@@ -81,7 +88,7 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
         context = getActivity();
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
         if (appCompatActivity != null) {
             appCompatActivity.setSupportActionBar(toolbar);
             appCompatActivity.getSupportActionBar().setTitle(R.string.user_info);
@@ -96,10 +103,14 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
+        imageStorageReference = storageReference.child(firebaseAuth.getUid()).child("user.jpg");
         usersDocumentReference =
                 firebaseFirestore.collection("users").document(firebaseAuth.getUid());
 
         progressBar = view.findViewById(R.id.progressBarDelete);
+        pbImageLoading = view.findViewById(R.id.pbImageLoading);
         ivThumb = view.findViewById(R.id.ivUserAccount);
         etUserName = view.findViewById(R.id.etUserName);
         tvUserEmail = view.findViewById(R.id.tvUserAccountEmail);
@@ -165,9 +176,24 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
                 }
             }
         });
+
+        pbImageLoading.setVisibility(View.VISIBLE);
+        imageStorageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                pbImageLoading.setVisibility(View.GONE);
+                loadImageView(uri);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                pbImageLoading.setVisibility(View.GONE);
+                loadComplete(e.getMessage());
+            }
+        });
     }
 
-    private void selectUserImage(){
+    private void selectUserImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -178,29 +204,35 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == SELECT_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null){
+        if (requestCode == SELECT_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
 
             imageUri = data.getData();
 
-            Picasso.with(context)
-                    .load(imageUri)
-                    .into(ivThumb, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            Bitmap imageBitmap = ((BitmapDrawable) ivThumb.getDrawable()).getBitmap();
-                            RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), imageBitmap);
-                            imageDrawable.setCircular(true);
-                            imageDrawable.setCornerRadius(Math.max(imageBitmap.getWidth(), imageBitmap.getHeight()) / 2.0f);
-                            ivThumb.setImageDrawable(imageDrawable);
-                        }
+            loadImageView(imageUri);
 
-                        @Override
-                        public void onError() {
-                            ivThumb.setImageResource(R.drawable.circle);
-                        }
-                    });
         }
+    }
+
+    private void loadImageView(Uri imageUri) {
+        Picasso.with(context)
+                .load(imageUri)
+                .placeholder(R.drawable.ic_account)
+                .into(ivThumb, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Bitmap imageBitmap = ((BitmapDrawable) ivThumb.getDrawable()).getBitmap();
+                        RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), imageBitmap);
+                        imageDrawable.setCircular(true);
+                        imageDrawable.setCornerRadius(Math.max(imageBitmap.getWidth(), imageBitmap.getHeight()) / 2.0f);
+                        ivThumb.setImageDrawable(imageDrawable);
+                    }
+
+                    @Override
+                    public void onError() {
+                        ivThumb.setImageResource(R.drawable.circle);
+                    }
+                });
     }
 
     @Override
@@ -225,6 +257,7 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
 
     private void updateUserInfo() {
         progressBar.setVisibility(View.VISIBLE);
+        pbImageLoading.setVisibility(View.VISIBLE);
 
         user = new User(
                 etUserName.getText().toString(),
@@ -236,16 +269,31 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
                     @Override
                     public void onSuccess(Void aVoid) {
                         loadComplete("firebaseUser update success");
-                        //Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         loadComplete(e.getMessage());
-                        //Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        imageStorageReference.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        pbImageLoading.setVisibility(View.GONE);
+                        loadComplete("Image uploaded");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        pbImageLoading.setVisibility(View.GONE);
+                        Toast.makeText(context, exception.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
     }
 
     private void loadComplete(String toastString) {

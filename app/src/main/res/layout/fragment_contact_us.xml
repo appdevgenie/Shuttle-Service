@@ -171,6 +171,7 @@
         android:layout_height="1dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
@@ -178,7 +179,8 @@
         android:contentDescription="@string/gray_line_divider"
         app:layout_constraintBottom_toTopOf="@+id/ibUserContactEmail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContactInfoNum" />
 
     <ImageButton
         android:id="@+id/ibUserContactEmail"
@@ -186,44 +188,44 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical|start"
         android:padding="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ibUserContactShare"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivContactInfoDivider"
         app:srcCompat="@drawable/ic_email" />
 
     <ImageButton
         android:id="@+id/ibUserContactShare"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical|center"
         android:padding="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ibUserContactPhone"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/ibUserContactEmail"
+        app:layout_constraintTop_toBottomOf="@+id/ivContactInfoDivider"
         app:srcCompat="@drawable/ic_share" />
 
     <ImageButton
         android:id="@+id/ibUserContactPhone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical|end"
         android:padding="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/ibUserContactShare"
+        app:layout_constraintTop_toBottomOf="@+id/ivContactInfoDivider"
         app:srcCompat="@drawable/ic_phone" />
 
 
