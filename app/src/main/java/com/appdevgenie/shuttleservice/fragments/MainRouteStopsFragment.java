@@ -33,7 +33,7 @@ public class MainRouteStopsFragment extends Fragment {
     private Handler handler = new Handler();
     private Runnable runnable;
     private RouteListAdapter routeListAdapter;
-    private Toolbar toolbar;
+    //private Toolbar toolbar;
 
     @Nullable
     @Override
@@ -47,8 +47,12 @@ public class MainRouteStopsFragment extends Fragment {
     private void setupVariables() {
 
         context = getActivity();
+        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        if (appCompatActivity != null) {
+            appCompatActivity.getSupportActionBar().setTitle(R.string.route_and_stops);
+        }
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
         if (appCompatActivity != null) {
             appCompatActivity.setSupportActionBar(toolbar);
@@ -62,7 +66,7 @@ public class MainRouteStopsFragment extends Fragment {
                     //Toast.makeText(context, "back1", Toast.LENGTH_SHORT).show();
                 }
             });
-        }
+        }*/
         /*toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

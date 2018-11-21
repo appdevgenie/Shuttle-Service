@@ -13,7 +13,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.appdevgenie.shuttleservice.R;
@@ -22,9 +22,9 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
 
     private View view;
     private Context context;
-    private ImageButton ibEmail;
-    private ImageButton ibShare;
-    private ImageButton ibPhone;
+    private Button bEmail;
+    private Button bShare;
+    private Button bPhone;
     private TextView tvContactInfoNum;
     private TextView tvContactInfoEmail;
 
@@ -39,8 +39,12 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
     private void setupVariables() {
 
         context = getActivity();
+        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        if (appCompatActivity != null) {
+            appCompatActivity.getSupportActionBar().setTitle(R.string.contact_info);
+        }
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
         if (appCompatActivity != null) {
             appCompatActivity.setSupportActionBar(toolbar);
@@ -52,17 +56,17 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
                     getActivity().onBackPressed();
                 }
             });
-        }
+        }*/
 
         tvContactInfoNum = view.findViewById(R.id.tvContactInfoNum);
         tvContactInfoEmail = view.findViewById(R.id.tvContactInfoEmail);
 
-        ibEmail = view.findViewById(R.id.ibUserContactEmail);
-        ibShare = view.findViewById(R.id.ibUserContactShare);
-        ibPhone = view.findViewById(R.id.ibUserContactPhone);
-        ibEmail.setOnClickListener(this);
-        ibShare.setOnClickListener(this);
-        ibPhone.setOnClickListener(this);
+        bEmail = view.findViewById(R.id.bUserContactEmail);
+        bShare = view.findViewById(R.id.bUserContactShare);
+        bPhone = view.findViewById(R.id.bUserContactPhone);
+        bEmail.setOnClickListener(this);
+        bShare.setOnClickListener(this);
+        bPhone.setOnClickListener(this);
 
     }
 
@@ -75,15 +79,15 @@ public class ContactUsFragment extends Fragment implements View.OnClickListener 
 
         switch (v.getId()){
 
-            case R.id.ibUserContactEmail:
+            case R.id.bUserContactEmail:
                 onEmailClicked(email);
                 break;
 
-            case R.id.ibUserContactShare:
+            case R.id.bUserContactShare:
                 shareContactInfo(shareText.toString());
                 break;
 
-            case R.id.ibUserContactPhone:
+            case R.id.bUserContactPhone:
                 onPhoneClicked(phone);
                 break;
         }

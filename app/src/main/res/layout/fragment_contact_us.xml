@@ -2,21 +2,22 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleTextColor="@color/colorWhite" />
+    <!-- <android.support.v7.widget.Toolbar
+         android:id="@+id/toolbar"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:background="@drawable/gradient"
+         android:minHeight="?attr/actionBarSize"
+         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:navigationIcon="@drawable/ic_arrow_back"
+         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+         app:titleTextColor="@color/colorWhite" />-->
 
     <TextView
         android:id="@+id/tvContactInfoLabel"
@@ -26,7 +27,7 @@
         android:layout_marginTop="8dp"
         android:text="Contact info (office hours)"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivTravelInfoDivider"
@@ -171,61 +172,56 @@
         android:layout_height="1dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorDarkGray"
         android:contentDescription="@string/gray_line_divider"
-        app:layout_constraintBottom_toTopOf="@+id/ibUserContactEmail"
+        app:layout_constraintBottom_toTopOf="@+id/bUserContactEmail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvContactInfoNum" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageButton
-        android:id="@+id/ibUserContactEmail"
+    <Button
+        android:id="@+id/bUserContactEmail"
+        style="@style/ButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:gravity="center_vertical|start"
-        android:padding="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/ibUserContactShare"
+        android:layout_marginBottom="8dp"
+        android:text="Email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bUserContactShare"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivContactInfoDivider"
         app:srcCompat="@drawable/ic_email" />
 
-    <ImageButton
-        android:id="@+id/ibUserContactShare"
+    <Button
+        android:id="@+id/bUserContactShare"
+        style="@style/ButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:gravity="center_vertical|center"
-        android:padding="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/ibUserContactPhone"
+        android:layout_marginBottom="8dp"
+        android:text="Share"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bUserContactPhone"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/ibUserContactEmail"
-        app:layout_constraintTop_toBottomOf="@+id/ivContactInfoDivider"
+        app:layout_constraintStart_toEndOf="@+id/bUserContactEmail"
         app:srcCompat="@drawable/ic_share" />
 
-    <ImageButton
-        android:id="@+id/ibUserContactPhone"
+    <Button
+        android:id="@+id/bUserContactPhone"
+        style="@style/ButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:gravity="center_vertical|end"
-        android:padding="4dp"
+        android:layout_marginBottom="8dp"
+        android:text="Phone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/ibUserContactShare"
-        app:layout_constraintTop_toBottomOf="@+id/ivContactInfoDivider"
+        app:layout_constraintStart_toEndOf="@+id/bUserContactShare"
         app:srcCompat="@drawable/ic_phone" />
 
 

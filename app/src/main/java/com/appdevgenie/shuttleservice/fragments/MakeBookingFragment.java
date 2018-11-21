@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +42,7 @@ import java.util.Locale;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_FROM_SPINNER;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TO_SPINNER;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TRIP_DATE;
+import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_IS_DUAL_PANE;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_USER_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.HOP_COST;
@@ -68,6 +68,7 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
     private String departureTime;
     private String arrivalTime;
     private double costPerSeatDouble;
+    private boolean dualPane;
     private Calendar calendar;
     //private DatePickerDialog.OnDateSetListener dateSetListener;
     private SimpleDateFormat simpleDateFormat;
@@ -87,12 +88,20 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
 
         setupVariables();
 
-        Bundle bundle = getArguments();
-        if(bundle != null){
-            spFrom.setSelection(bundle.getInt(BUNDLE_FROM_SPINNER));
-            spTo.setSelection(bundle.getInt(BUNDLE_TO_SPINNER));
-            date.setText(bundle.getString(BUNDLE_TRIP_DATE, context.getString(R.string.select_date)));
+        if(savedInstanceState == null) {
+            Bundle bundle = getArguments();
+            if (bundle != null) {
+                spFrom.setSelection(bundle.getInt(BUNDLE_FROM_SPINNER, 0));
+                spTo.setSelection(bundle.getInt(BUNDLE_TO_SPINNER, 0));
+                date.setText(bundle.getString(BUNDLE_TRIP_DATE, context.getString(R.string.select_date)));
+                dualPane = bundle.getBoolean(BUNDLE_IS_DUAL_PANE);
+            }
+        }else{
+            dualPane = savedInstanceState.getBoolean("dualPane");
         }
+        /*if(dualPane){
+            bCheckAvailability.setVisibility(View.GONE);
+        }*/
 
         return view;
 
@@ -101,8 +110,12 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
     private void setupVariables() {
 
         context = getActivity();
+        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        if (appCompatActivity != null) {
+            appCompatActivity.getSupportActionBar().setTitle(R.string.make_booking);
+        }
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
         if (appCompatActivity != null) {
             appCompatActivity.setSupportActionBar(toolbar);
@@ -114,7 +127,7 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                     getActivity().onBackPressed();
                 }
             });
-        }
+        }*/
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -352,14 +365,24 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                 bundle.putInt(BUNDLE_FROM_SPINNER, spFrom.getSelectedItemPosition());
                 bundle.putInt(BUNDLE_TO_SPINNER, spTo.getSelectedItemPosition());
                 bundle.putString(BUNDLE_TRIP_DATE, date.getText().toString());
+                bundle.putBoolean(BUNDLE_IS_DUAL_PANE, dualPane);
                 bookingQueryFragment.setArguments(bundle);
 
-                getActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.mainActivityContainer, bookingQueryFragment)
-                        //.addToBackStack(null)
-                        .commit();
+                if(dualPane) {
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragmentInfoContainer, bookingQueryFragment)
+                            //.addToBackStack(null)
+                            .commit();
+                }else{
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragmentContainer, bookingQueryFragment)
+                            //.addToBackStack(null)
+                            .commit();
+                }
                 break;
         }
     }
@@ -392,5 +415,12 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
     private void loadComplete(String toastString) {
         Toast.makeText(context, toastString, Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean("dualPane", dualPane);
     }
 }

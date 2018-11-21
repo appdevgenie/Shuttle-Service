@@ -68,8 +68,12 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
     private void setupVariables() {
 
         context = getActivity();
+        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        if (appCompatActivity != null) {
+            appCompatActivity.getSupportActionBar().setTitle(R.string.booking_history);
+        }
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
         if (appCompatActivity != null) {
             appCompatActivity.setSupportActionBar(toolbar);
@@ -81,7 +85,7 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
                     getActivity().onBackPressed();
                 }
             });
-        }
+        }*/
 
         bookingInfoArrayList = new ArrayList<>();
 

@@ -92,7 +92,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         int viewType = holder.getItemViewType();
         BookingInfo bookingInfo = bookingInfoArrayList.get(holder.getAdapterPosition());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM YYYY, HH:mm", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault());
         Date date = bookingInfo.getBookingDate();
         String bookingDateString = "Booking: " + simpleDateFormat.format(date);
 

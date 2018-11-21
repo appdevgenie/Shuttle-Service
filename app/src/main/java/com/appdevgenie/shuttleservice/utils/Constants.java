@@ -21,8 +21,6 @@ public class Constants {
 
     public static final String USER_ADMIN = "appdevgenie@gmail.com";
     public static final double HOP_COST = 65.25;
-    public static final String EXTRA_PARSE_IS_SIGNED_IN = "isSignedIn";
-    public static final String EXTRA_PARSE_CLICKED_ICON = "clickedIconPosition";
 
     public static final int VIEW_TYPE_BOOKING_SELECTED = 1;
     public static final int VIEW_TYPE_BOOKING_DEFAULT = 0;
@@ -38,5 +36,8 @@ public class Constants {
     public static final String BUNDLE_FROM_SPINNER = "fromSpinner";
     public static final String BUNDLE_TO_SPINNER = "toSpinner";
     public static final String BUNDLE_TRIP_DATE = "tripDate";
+    public static final String BUNDLE_IS_SIGNED_IN = "isSignedIn";
+    public static final String BUNDLE_CLICKED_ICON = "clickedIconPosition";
+    public static final String BUNDLE_IS_DUAL_PANE = "dualPane";
 
 }

@@ -29,6 +29,7 @@ import com.appdevgenie.shuttleservice.adapters.WeatherForecastAdapter;
 import com.appdevgenie.shuttleservice.model.WeatherInfo;
 import com.appdevgenie.shuttleservice.model.WeatherInfoList;
 import com.appdevgenie.shuttleservice.model.WeatherTodayInfo;
+import com.appdevgenie.shuttleservice.utils.CheckNetworkConnection;
 import com.appdevgenie.shuttleservice.utils.NetworkUtils;
 import com.appdevgenie.shuttleservice.utils.WeatherIconLoader;
 import com.appdevgenie.shuttleservice.utils.WeatherJsonUtils;
@@ -72,8 +73,12 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
     private void setupVariables() {
 
         context = getActivity();
+        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        if (appCompatActivity != null) {
+            appCompatActivity.getSupportActionBar().setTitle(R.string.weather);
+        }
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
         if (appCompatActivity != null) {
             appCompatActivity.setSupportActionBar(toolbar);
@@ -86,10 +91,10 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
                 }
             });
         }
-
+*/
         spSelectTown = view.findViewById(R.id.spWeatherSelectTown);
         ArrayAdapter<CharSequence> spFromAdapter =
-                ArrayAdapter.createFromResource(context, R.array.town_names_weather, R.layout.spinner_weather_item);
+                ArrayAdapter.createFromResource(context, R.array.town_names_weather, android.R.layout.simple_spinner_item);
         spFromAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spSelectTown.setAdapter(spFromAdapter);
         spSelectTown.setOnItemSelectedListener(this);
@@ -117,7 +122,7 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if(isNetworkConnected()) {
+        if(CheckNetworkConnection.isNetworkConnected(context)) {
             new LoadWeatherTodayAsyncTask().execute(spSelectTown.getSelectedItem().toString().trim() + ",za");
             new LoadWeatherForecastAsyncTask().execute(spSelectTown.getSelectedItem().toString().trim() + ",za");
         }else{
@@ -130,7 +135,7 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
 
     }
 
-    private boolean isNetworkConnected() {
+    /*private boolean isNetworkConnected() {
 
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -142,7 +147,7 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
 
         return activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
-    }
+    }*/
 
     private class LoadWeatherTodayAsyncTask extends AsyncTask<String, Void, WeatherTodayInfo> {
 

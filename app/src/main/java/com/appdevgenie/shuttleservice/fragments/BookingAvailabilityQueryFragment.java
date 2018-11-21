@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +38,7 @@ import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_FROM_SPINNER
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TO_SPINNER;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TRIP_DATE;
 import static com.appdevgenie.shuttleservice.utils.Constants.DOWNSTREAM_DIFFERENCE;
+import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_IS_DUAL_PANE;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_DATE_FIELD;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.HOP_COST;
@@ -70,6 +70,7 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
     private ArrayList<Integer> intArray;
     private ArrayList<Integer> intRangeArray;
     private int direction;
+    private boolean dualPane;
     //private DatePickerDialog.OnDateSetListener dateSetListener;
 
     @Nullable
@@ -79,11 +80,16 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
 
         setupVariables();
 
-        Bundle bundle = getArguments();
-        if(bundle != null){
-            spFrom.setSelection(bundle.getInt(BUNDLE_FROM_SPINNER));
-            spTo.setSelection(bundle.getInt(BUNDLE_TO_SPINNER));
-            tvSelectDate.setText(bundle.getString(BUNDLE_TRIP_DATE, context.getString(R.string.select_date)));
+        if(savedInstanceState == null) {
+            Bundle bundle = getArguments();
+            if (bundle != null) {
+                spFrom.setSelection(bundle.getInt(BUNDLE_FROM_SPINNER, 0));
+                spTo.setSelection(bundle.getInt(BUNDLE_TO_SPINNER, 0));
+                tvSelectDate.setText(bundle.getString(BUNDLE_TRIP_DATE, context.getString(R.string.select_date)));
+                dualPane = bundle.getBoolean(BUNDLE_IS_DUAL_PANE);
+            }
+        }else{
+            dualPane = savedInstanceState.getBoolean("dualPane");
         }
 
         return view;
@@ -92,8 +98,12 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
     private void setupVariables() {
 
         context = getActivity();
+        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        if (appCompatActivity != null) {
+            appCompatActivity.getSupportActionBar().setTitle(R.string.availability);
+        }
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
         if (appCompatActivity != null) {
             appCompatActivity.setSupportActionBar(toolbar);
@@ -105,7 +115,7 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
                     getActivity().onBackPressed();
                 }
             });
-        }
+        }*/
 
         intArray = new ArrayList<>();
         intRangeArray = new ArrayList<>();
@@ -220,6 +230,9 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
                                     bMakeBooking.setVisibility(View.VISIBLE);
                                     loadTravelInfo(tvSelectDate.getText().toString());
                                 }
+                                /*if(dualPane){
+                                    bMakeBooking.setVisibility(View.GONE);
+                                }*/
                             }
                         },
                         calendar.get(Calendar.YEAR),
@@ -233,12 +246,22 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
                 bundle.putInt(BUNDLE_FROM_SPINNER, spFrom.getSelectedItemPosition());
                 bundle.putInt(BUNDLE_TO_SPINNER, spTo.getSelectedItemPosition());
                 bundle.putString(BUNDLE_TRIP_DATE, tvSelectDate.getText().toString());
+                bundle.putBoolean(BUNDLE_IS_DUAL_PANE, dualPane);
                 makeBookingFragment.setArguments(bundle);
-                getActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.mainActivityContainer, makeBookingFragment)
-                        .commit();
+
+                if(dualPane) {
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragmentInfoContainer, makeBookingFragment)
+                            .commit();
+                }else{
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragmentContainer, makeBookingFragment)
+                            .commit();
+                }
                 break;
         }
     }
@@ -265,6 +288,9 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
                 bMakeBooking.setVisibility(View.VISIBLE);
                 loadTravelInfo(tvSelectDate.getText().toString());
             }
+            /*if(dualPane){
+                bMakeBooking.setVisibility(View.GONE);
+            }*/
 
         } else {
             tvPriceValue.setVisibility(View.INVISIBLE);
@@ -332,6 +358,13 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
         /*intRangeArray = new ArrayList<>(intArray.subList(fromInt, toInt));
         int max = Collections.max(intRangeArray);
         Toast.makeText(context, String.valueOf(max), Toast.LENGTH_SHORT).show();*/
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean("dualPane", dualPane);
     }
 
     /*// Method for getting the maximum value

@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -68,8 +67,8 @@ public class AdminUserAccountsAdapter extends RecyclerView.Adapter<AdminUserAcco
             tvName = itemView.findViewById(R.id.tvPassengerInfoName);
             tvEmail = itemView.findViewById(R.id.tvPassengerInfoEmail);
             tvNumber = itemView.findViewById(R.id.tvPassengerInfoContactNum);
-            bEmail = itemView.findViewById(R.id.ibUserContactEmail);
-            bPhone = itemView.findViewById(R.id.ibUserContactPhone);
+            bEmail = itemView.findViewById(R.id.bUserContactEmail);
+            bPhone = itemView.findViewById(R.id.bUserContactPhone);
             bEmail.setOnClickListener(this);
             bPhone.setOnClickListener(this);
         }
@@ -82,11 +81,11 @@ public class AdminUserAccountsAdapter extends RecyclerView.Adapter<AdminUserAcco
             String email = userArrayList.get(position).getEmail();
 
             switch (v.getId()){
-                case R.id.ibUserContactEmail:
+                case R.id.bUserContactEmail:
                     emailClickListener.onEmailClicked(email);
                     break;
 
-                case R.id.ibUserContactPhone:
+                case R.id.bUserContactPhone:
                     phoneClickListener.onPhoneClicked(phone);
                     break;
             }

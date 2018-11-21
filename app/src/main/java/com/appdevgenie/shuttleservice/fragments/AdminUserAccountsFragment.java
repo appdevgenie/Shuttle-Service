@@ -51,8 +51,12 @@ public class AdminUserAccountsFragment extends Fragment implements AdminUserAcco
     private void setupVariables() {
 
         context = getActivity();
+        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        if (appCompatActivity != null) {
+            appCompatActivity.getSupportActionBar().setTitle(R.string.user_account);
+        }
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
         if (appCompatActivity != null) {
             appCompatActivity.setSupportActionBar(toolbar);
@@ -64,7 +68,7 @@ public class AdminUserAccountsFragment extends Fragment implements AdminUserAcco
                     getActivity().onBackPressed();
                 }
             });
-        }
+        }*/
 
         userArrayList = new ArrayList<>();
 

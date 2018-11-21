@@ -63,9 +63,13 @@ public class AdminTravelInfoFragment extends Fragment implements View.OnClickLis
     private void setupVariables() {
 
         context = getActivity();
+        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        if (appCompatActivity != null) {
+            appCompatActivity.getSupportActionBar().setTitle(R.string.travel_info);
+        }
         //Log.d("AdminTravel", "travel started");
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
         AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
         if (appCompatActivity != null) {
             appCompatActivity.setSupportActionBar(toolbar);
@@ -77,7 +81,7 @@ public class AdminTravelInfoFragment extends Fragment implements View.OnClickLis
                     getActivity().onBackPressed();
                 }
             });
-        }
+        }*/
 
         calendar = Calendar.getInstance();
         simpleDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
