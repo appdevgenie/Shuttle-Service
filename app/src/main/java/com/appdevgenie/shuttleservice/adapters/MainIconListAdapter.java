@@ -19,6 +19,7 @@ public class MainIconListAdapter extends RecyclerView.Adapter<MainIconListAdapte
     private Context context;
     private ArrayList<MainGridIcon> mainGridIcons;
     private ListItemClickListener listItemClickListener;
+    private int selectedPos = RecyclerView.NO_POSITION;
 
     public MainIconListAdapter(Context context, ListItemClickListener listItemClickListener) {
         this.context = context;
@@ -38,6 +39,7 @@ public class MainIconListAdapter extends RecyclerView.Adapter<MainIconListAdapte
     public void onBindViewHolder(@NonNull MainIconListAdapter.MainViewHolder holder, int position) {
 
         MainGridIcon mainGridIcon = mainGridIcons.get(holder.getAdapterPosition());
+        holder.itemView.setSelected(selectedPos == position);
 
         holder.tvIcon.setText(mainGridIcon.getIconString());
         holder.ivIcon.setImageResource(mainGridIcon.getIconImage());
@@ -74,6 +76,10 @@ public class MainIconListAdapter extends RecyclerView.Adapter<MainIconListAdapte
             //MainGridIcon mainGridIcon = mainGridIcons.get(getAdapterPosition());
             int position = getAdapterPosition();
             listItemClickListener.onItemClicked(position);
+
+            notifyItemChanged(selectedPos);
+            selectedPos = getLayoutPosition();
+            notifyItemChanged(selectedPos);
         }
     }
 

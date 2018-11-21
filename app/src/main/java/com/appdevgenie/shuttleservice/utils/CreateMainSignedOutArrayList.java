@@ -18,10 +18,10 @@ public class CreateMainSignedOutArrayList {
         ArrayList<String> iconName = new ArrayList<>(Arrays.asList(iconNames));
 
         Integer[] icons = {
-                R.drawable.ic_login,
-                R.drawable.ic_location,
-                R.drawable.ic_price,
-                R.drawable.ic_contact_us};
+                R.drawable.ic_lock,
+                R.drawable.ic_route_stop,
+                R.drawable.ic_price_list,
+                R.drawable.ic_contact_info};
         ArrayList<Integer> icon = new ArrayList<>(Arrays.asList(icons));
 
         for (int i = 0; i < iconNames.length; i++) {

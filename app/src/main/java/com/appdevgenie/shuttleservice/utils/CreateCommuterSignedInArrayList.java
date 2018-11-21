@@ -18,14 +18,14 @@ public class CreateCommuterSignedInArrayList {
         ArrayList<String> iconName = new ArrayList<>(Arrays.asList(iconNames));
 
         Integer[] icons = {
-                R.drawable.ic_login,
-                R.drawable.ic_location,
-                R.drawable.ic_price,
-                R.drawable.ic_contact_us,
-                R.drawable.ic_booking_availibility,
-                R.drawable.ic_route_stops,
-                R.drawable.ic_booking_history,
-                R.drawable.ic_weather,
+                R.drawable.ic_lock,
+                R.drawable.ic_route_stop,
+                R.drawable.ic_price_list,
+                R.drawable.ic_contact_info,
+                R.drawable.ic_check_availibility,
+                R.drawable.ic_make_booking,
+                R.drawable.ic_booking_history_list,
+                R.drawable.ic_weather_clear,
                 R.drawable.ic_account};
         ArrayList<Integer> icon = new ArrayList<>(Arrays.asList(icons));
 

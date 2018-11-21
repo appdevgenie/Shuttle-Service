@@ -50,18 +50,18 @@
 
             <TextClock
                 android:id="@+id/textClock"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-light"
-                android:textStyle="italic"
                 android:format12Hour="HH:mm"
                 android:gravity="center"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp"
+                android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tvSignedInInfo"
-                app:layout_constraintStart_toEndOf="@+id/ivNetworkConnectivity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/ivLogo"
                 tools:targetApi="jelly_bean_mr1" />
 
             <TextView
