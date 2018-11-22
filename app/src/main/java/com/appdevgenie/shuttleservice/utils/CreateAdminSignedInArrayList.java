@@ -18,17 +18,17 @@ public class CreateAdminSignedInArrayList {
         ArrayList<String> iconName = new ArrayList<>(Arrays.asList(iconNames));
 
         Integer[] icons = {
-                R.drawable.ic_lock,
-                R.drawable.ic_route_stop,
-                R.drawable.ic_price_list,
-                R.drawable.ic_contact_info,
-                R.drawable.ic_check_availibility,
-                R.drawable.ic_make_booking,
-                R.drawable.ic_booking_history_list,
+                R.drawable.ic_sign_in,
+                R.drawable.ic_road,
+                R.drawable.ic_cost,
+                R.drawable.ic_contact,
+                R.drawable.ic_available,
+                R.drawable.ic_booking,
+                R.drawable.ic_history,
                 R.drawable.ic_weather_clear,
                 R.drawable.ic_account,
-                R.drawable.ic_travel_info_list,
-                R.drawable.ic_user_accounts
+                R.drawable.ic_date_info,
+                R.drawable.ic_accounts
         };
         ArrayList<Integer> icon = new ArrayList<>(Arrays.asList(icons));
 
