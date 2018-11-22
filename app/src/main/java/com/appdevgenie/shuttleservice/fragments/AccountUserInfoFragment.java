@@ -222,7 +222,8 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
         Picasso.with(context)
                 .load(imageUri)
                 .placeholder(R.drawable.ic_account)
-                .into(ivThumb, new Callback() {
+                .into(ivThumb);
+                /*.into(ivThumb, new Callback() {
                     @Override
                     public void onSuccess() {
                         Bitmap imageBitmap = ((BitmapDrawable) ivThumb.getDrawable()).getBitmap();
@@ -236,7 +237,7 @@ public class AccountUserInfoFragment extends Fragment implements View.OnClickLis
                     public void onError() {
                         ivThumb.setImageResource(R.drawable.circle);
                     }
-                });
+                });*/
     }
 
     @Override

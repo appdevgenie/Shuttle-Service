@@ -24,6 +24,8 @@ import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_CLICKED_ICON
 
 public class MainSelectionActivity extends AppCompatActivity {
 
+    //only visible on phones
+
     //private boolean isLoggedIn;
     //private String toolbarTitle;
 

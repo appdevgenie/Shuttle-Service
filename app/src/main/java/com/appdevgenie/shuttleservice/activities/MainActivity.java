@@ -104,9 +104,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
-
-
         ivNetworkConnectivity = findViewById(R.id.ivNetworkConnectivity);
         if(CheckNetworkConnection.isNetworkConnected(this)){
             ivNetworkConnectivity.setImageResource(R.drawable.ic_cloud_on);

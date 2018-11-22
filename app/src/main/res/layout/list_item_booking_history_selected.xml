@@ -84,13 +84,13 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:background="@color/colorDarkGray"
-            app:layout_constraintBottom_toTopOf="@+id/bCancelBooking"
+            app:layout_constraintBottom_toTopOf="@+id/bShareBooking"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_layout_trip_details" />
 
         <Button
-            android:id="@+id/bCancelBooking"
+            android:id="@+id/bShareBooking"
             style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="8dp"
             android:gravity="start|center_vertical"
-            android:text="Cancel booking"
+            android:text="Share"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bAddToWidget"
             app:layout_constraintHorizontal_chainStyle="spread"
@@ -117,7 +117,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toEndOf="@+id/bCancelBooking" />
+            app:layout_constraintStart_toEndOf="@+id/bShareBooking" />
 
         <ImageView
             android:id="@+id/ivBookingCancelled"

@@ -181,7 +181,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         private TextView tvToCode;
         private ImageButton ibReduce;
         private Button bAddToWidget;
-        private Button bCancel;
+        private Button bShare;
 
         public SelectedViewHolder(View itemView) {
             super(itemView);
@@ -200,8 +200,8 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ibReduce.setImageResource(R.drawable.ic_reduce);
             bAddToWidget = itemView.findViewById(R.id.bAddToWidget);
             bAddToWidget.setOnClickListener(this);
-            bCancel = itemView.findViewById(R.id.bCancelBooking);
-            bCancel.setOnClickListener(this);
+            bShare = itemView.findViewById(R.id.bShareBooking);
+            bShare.setOnClickListener(this);
         }
 
         @Override
@@ -218,7 +218,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     itemClickWidgetListener.onItemWidgetClick(getAdapterPosition());
                     break;
 
-                case R.id.bCancelBooking:
+                case R.id.bShareBooking:
 
                     break;
             }

@@ -27,6 +27,7 @@ import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_FROM_SPINNER
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TO_SPINNER;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_IS_DUAL_PANE;
 import static com.appdevgenie.shuttleservice.utils.Constants.HOP_COST;
+import static com.appdevgenie.shuttleservice.utils.Constants.SAVED_DUAL_PANE;
 
 public class MainPriceCheckFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -54,11 +55,20 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_price_check, container, false);
-        Bundle bundle = getArguments();
-        if(bundle != null){
-            dualPane = bundle.getBoolean(BUNDLE_IS_DUAL_PANE);
-        }
+
         setupVariables();
+
+        if(savedInstanceState == null) {
+            Bundle bundle = getArguments();
+            if (bundle != null) {
+                dualPane = bundle.getBoolean(BUNDLE_IS_DUAL_PANE);
+            }
+        }else{
+            /*spFrom.setSelection(savedInstanceState.getInt("spFrom"));
+            spTo.setSelection(savedInstanceState.getInt("spTo"));
+            dualPane = savedInstanceState.getBoolean(SAVED_DUAL_PANE);*/
+        }
+
         return view;
     }
 
@@ -238,5 +248,14 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
                 spTo.performClick();
                 break;
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("spFrom", spFrom.getSelectedItemPosition());
+        outState.putInt("spTo", spTo.getSelectedItemPosition());
+        outState.putBoolean(SAVED_DUAL_PANE, dualPane);
     }
 }

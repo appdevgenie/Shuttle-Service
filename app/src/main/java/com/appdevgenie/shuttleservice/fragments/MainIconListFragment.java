@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_CLICKED_ICON;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_IS_DUAL_PANE;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_IS_SIGNED_IN;
+import static com.appdevgenie.shuttleservice.utils.Constants.SAVED_DUAL_PANE;
+import static com.appdevgenie.shuttleservice.utils.Constants.SAVED_SELECTED_ICON;
 import static com.appdevgenie.shuttleservice.utils.Constants.USER_ADMIN;
 
 public class MainIconListFragment extends Fragment implements MainIconListAdapter.ListItemClickListener {
@@ -45,30 +47,41 @@ public class MainIconListFragment extends Fragment implements MainIconListAdapte
     private String userEmail;
     private FirebaseAuth firebaseAuth;
     private FragmentManager fragmentManager;
+    private int selectedPosition = -1;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_main_grid_recyclerview, container, false);
-
+        context = getActivity();
         firebaseAuth = FirebaseAuth.getInstance();
-
         fragmentManager = getFragmentManager();
 
-        context = getActivity();
+        if(savedInstanceState == null){
+            Bundle bundle = getArguments();
+            if(bundle != null) {
+                isSignedIn = bundle.getBoolean(BUNDLE_IS_SIGNED_IN);
+                dualPane = bundle.getBoolean(BUNDLE_IS_DUAL_PANE);
+            }
+                /*if (dualPane) {
+                    MainRouteStopsFragment mainRouteStopsFragment = new MainRouteStopsFragment();
+                    fragmentManager.beginTransaction().replace(R.id.fragmentInfoContainer, mainRouteStopsFragment).commit();
+                    //onItemClicked(1);
+                }*/
+        }else{
+            //onItemClicked(savedInstanceState.getInt("selectedPosition"));
+            selectedPosition = savedInstanceState.getInt(SAVED_SELECTED_ICON);
+            dualPane = savedInstanceState.getBoolean(SAVED_DUAL_PANE);
+            //Toast.makeText(getActivity(), String.valueOf(dualPane), Toast.LENGTH_SHORT).show();
+            if(dualPane){
+                onItemClicked(selectedPosition);
+            }
+        }
 
         /*tvSignedInInfo = view.findViewById(R.id.tvSignedInInfo);*/
 
-        Bundle bundle = getArguments();
-        if(bundle != null){
-            isSignedIn = bundle.getBoolean(BUNDLE_IS_SIGNED_IN);
-            dualPane = bundle.getBoolean(BUNDLE_IS_DUAL_PANE);
-        }
-        if(dualPane){
-            MainRouteStopsFragment mainRouteStopsFragment = new MainRouteStopsFragment();
-            fragmentManager.beginTransaction().replace(R.id.fragmentInfoContainer, mainRouteStopsFragment).commit();
-        }
+
         //userEmail = firebaseAuth.getCurrentUser().getEmail();
 
         recyclerView = view.findViewById(R.id.rvMainLoggedOut);
@@ -126,6 +139,8 @@ public class MainIconListFragment extends Fragment implements MainIconListAdapte
     @Override
     public void onItemClicked(int position) {
 
+        selectedPosition = position;
+
         Bundle bundle = new Bundle();
         bundle.putBoolean(BUNDLE_IS_DUAL_PANE, dualPane);
 
@@ -147,7 +162,6 @@ public class MainIconListFragment extends Fragment implements MainIconListAdapte
                     break;
             }
         }else{
-
             switch (position) {
                 case 0:
                     if (!isSignedIn) {
@@ -212,6 +226,14 @@ public class MainIconListFragment extends Fragment implements MainIconListAdapte
                     break;
             }
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(SAVED_SELECTED_ICON, selectedPosition);
+        outState.putBoolean(SAVED_DUAL_PANE, dualPane);
     }
 
     /*private boolean isNetworkConnected() {
