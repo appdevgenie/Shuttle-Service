@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     isSignedIn = true;
                     checkUserInfo();
                 }
+                
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(BUNDLE_IS_SIGNED_IN, isSignedIn);
                 bundle.putBoolean(BUNDLE_IS_DUAL_PANE, dualPane);
