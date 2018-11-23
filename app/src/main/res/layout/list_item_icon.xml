@@ -15,7 +15,7 @@
         android:padding="8dp"
         android:foregroundGravity="center"
         android:background="@drawable/icon_background"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:foreground="@drawable/main_icon_selector"
         android:contentDescription="@string/icon_image_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

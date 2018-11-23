@@ -2,6 +2,7 @@ package com.appdevgenie.shuttleservice.fragments;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_FROM_T
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_SEATS;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_TO_TOWN;
 
-public class BookingHistoryFragment extends Fragment implements BookingHistoryAdapter.ItemClickWidgetListener {
+public class BookingHistoryFragment extends Fragment implements BookingHistoryAdapter.ItemClickWidgetListener, BookingHistoryAdapter.ItemClickShareListener {
 
     private View view;
     private Context context;
@@ -52,7 +53,6 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
     private RecyclerView recyclerView;
     private ArrayList<BookingInfo> bookingInfoArrayList;
     private ProgressBar progressBar;
-
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
@@ -93,7 +93,7 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
         progressBar.setVisibility(View.VISIBLE);
 
         recyclerView = view.findViewById(R.id.recyclerViewDefault);
-        bookingHistoryAdapter = new BookingHistoryAdapter(context, bookingInfoArrayList, this);
+        bookingHistoryAdapter = new BookingHistoryAdapter(context, bookingInfoArrayList, this, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -182,6 +182,20 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
         ShuttleAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
 
         Toast.makeText(context, "added to widget", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemShareClick(int pos) {
+
+        String date = bookingInfoArrayList.get(pos).getDate();
+        CharSequence depart = TextUtils.concat("Depart: ", bookingInfoArrayList.get(pos).getDepartureTime());
+        CharSequence arrive = TextUtils.concat("Arrive: ", bookingInfoArrayList.get(pos).getArrivalTime());
+        CharSequence shareText = TextUtils.concat(date, "\n", depart, ", ", arrive);
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.app_name)));
     }
 
    /* @Override

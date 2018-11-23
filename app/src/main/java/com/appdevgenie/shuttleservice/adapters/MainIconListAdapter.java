@@ -68,7 +68,7 @@ public class MainIconListAdapter extends RecyclerView.Adapter<MainIconListAdapte
 
             ivIcon = itemView.findViewById(R.id.ivIcon);
             tvIcon = itemView.findViewById(R.id.tvIcon);
-            ivIcon.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override

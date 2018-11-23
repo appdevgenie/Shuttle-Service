@@ -27,11 +27,18 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private ArrayList<BookingInfo> bookingInfoArrayList = new ArrayList<>();
     //private ItemLongClickListener itemLongClickListener;
     private ItemClickWidgetListener itemClickWidgetListener;
+    private ItemClickShareListener itemClickShareListener;
 
-    public BookingHistoryAdapter(Context context, ArrayList<BookingInfo> bookingInfoArrayList, ItemClickWidgetListener itemClickWidgetListener) {
+    public BookingHistoryAdapter(
+            Context context,
+            ArrayList<BookingInfo> bookingInfoArrayList,
+            ItemClickWidgetListener itemClickWidgetListener,
+            ItemClickShareListener itemClickShareListener) {
+
         this.context = context;
         this.bookingInfoArrayList = bookingInfoArrayList;
         this.itemClickWidgetListener = itemClickWidgetListener;
+        this.itemClickShareListener = itemClickShareListener;
         //this.itemLongClickListener = itemLongClickListener;
     }
 
@@ -219,7 +226,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     break;
 
                 case R.id.bShareBooking:
-
+                    itemClickShareListener.onItemShareClick(getAdapterPosition());
                     break;
             }
         }
@@ -227,6 +234,10 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public interface ItemClickWidgetListener {
         void onItemWidgetClick(int pos);
+    }
+
+    public interface ItemClickShareListener {
+        void onItemShareClick(int pos);
     }
 
     /*@Override
