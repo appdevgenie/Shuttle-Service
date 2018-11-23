@@ -24,6 +24,8 @@
         <!--<item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>-->
     </style>
 
+    <style name="MainAppBarTheme" parent="AppTheme"/>
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:textColorPrimary">@color/colorWhite</item>
         <!--<item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>

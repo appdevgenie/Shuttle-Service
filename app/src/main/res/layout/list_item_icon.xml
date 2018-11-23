@@ -31,7 +31,7 @@
         android:layout_marginBottom="8dp"
         android:ems="5"
         android:gravity="center|top"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorDarkGray"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/ivIcon"
