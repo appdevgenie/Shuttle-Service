@@ -20,6 +20,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.appdevgenie.shuttleservice.R;
+import com.appdevgenie.shuttleservice.utils.CheckNetworkConnection;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -99,24 +100,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        
+        if(CheckNetworkConnection.isNetworkConnected(context)) {
+            switch (v.getId()) {
+                case R.id.bLoginRegister:
+                    if (tbRegisteredInfo.isChecked()) {
+                        registerUser();
+                    } else {
+                        loginUser();
+                    }
+                    break;
 
-        switch (v.getId()){
+                case R.id.bGoogleSignIn:
+                    googleSignIn();
+                    break;
 
-            case R.id.bLoginRegister:
-                if(tbRegisteredInfo.isChecked()){
-                    registerUser();
-                }else{
-                    loginUser();
-                }
-                break;
-
-            case R.id.bGoogleSignIn:
-                googleSignIn();
-                break;
-
-            case R.id.bLoginForgotPassword:
-                sendResetPassword();
-                break;
+                case R.id.bLoginForgotPassword:
+                    sendResetPassword();
+                    break;
+            }
+        }else{
+            Toast.makeText(context, "Not connected to network", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -297,16 +301,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
         // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE
-                        // Set the content to appear under the system bars so that the
-                        // content doesn't resize when the system bars hide and show.
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        // Hide the nav bar and status bar
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_IMMERSIVE
+                            // Set the content to appear under the system bars so that the
+                            // content doesn't resize when the system bars hide and show.
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            // Hide the nav bar and status bar
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN);
+        }
     }
 
 }

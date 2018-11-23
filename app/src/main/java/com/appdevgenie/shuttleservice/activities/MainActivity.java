@@ -152,15 +152,30 @@ public class MainActivity extends AppCompatActivity {
         switch (itemID) {
 
             case R.id.menu_sign_out:
-
                 firebaseAuth.signOut();
                 finish();
+                return true;
 
+            case R.id.menu_exit:
+                finish();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if(user == null){
+            menu.findItem(R.id.menu_exit).setVisible(true);
+            menu.findItem(R.id.menu_sign_out).setVisible(false);
+        }else{
+            menu.findItem(R.id.menu_exit).setVisible(false);
+            menu.findItem(R.id.menu_sign_out).setVisible(true);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override

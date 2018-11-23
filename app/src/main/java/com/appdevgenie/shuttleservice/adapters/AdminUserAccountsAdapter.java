@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -58,8 +59,8 @@ public class AdminUserAccountsAdapter extends RecyclerView.Adapter<AdminUserAcco
         private TextView tvName;
         private TextView tvEmail;
         private TextView tvNumber;
-        private ImageButton bEmail;
-        private ImageButton bPhone;
+        private Button bEmail;
+        private Button bPhone;
 
         public UserViewHolder(View itemView) {
             super(itemView);
