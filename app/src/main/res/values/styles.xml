@@ -24,7 +24,11 @@
         <!--<item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>-->
     </style>
 
-    <style name="MainAppBarTheme" parent="AppTheme"/>
+    <style name="AppDarkTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:textColorPrimary">@color/colorWhite</item>
@@ -47,16 +51,28 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
 
-    <style name="TextInformation" parent="TextAppearance.AppCompat.Medium"/>
+    <style name="TextAccentDescription" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
 
-    <style name="TextInformationGreen" parent="TextInformation">
+    <style name="TextInformation" parent="TextAppearance.AppCompat.Large"/>
+
+    <style name="TextInformationLargeGreen" parent="TextInformation">
         <item name="android:textColor">@color/colorDarkGreen</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
 
-    <style name="TextInformationRed" parent="TextInformation">
+    <style name="TextInformationLargeRed" parent="TextInformation">
         <item name="android:textColor">@color/colorDarkRed</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="TextInformationMediumPrimary" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/primary_text</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>

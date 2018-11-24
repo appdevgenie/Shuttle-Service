@@ -127,14 +127,14 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
 
         spFrom = view.findViewById(R.id.spPriceFrom);
         ArrayAdapter<CharSequence> spFromAdapter =
-                ArrayAdapter.createFromResource(context, R.array.town_names, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(context, R.array.town_names, R.layout.spinner_item);
         spFromAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spFrom.setAdapter(spFromAdapter);
         spFrom.setOnItemSelectedListener(this);
 
         spTo = view.findViewById(R.id.spPriceTo);
         ArrayAdapter<CharSequence> spToAdapter =
-                ArrayAdapter.createFromResource(context, R.array.town_names, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(context, R.array.town_names, R.layout.spinner_item);
         spToAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTo.setAdapter(spToAdapter);
         spTo.setOnItemSelectedListener(this);

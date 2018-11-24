@@ -50,6 +50,7 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
     private Context context;
     private FirebaseAuth firebaseAuth;
     private boolean dualPane;
+    private View vTripDetails;
 
     @Nullable
     @Override
@@ -98,18 +99,19 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
 
         spFrom = view.findViewById(R.id.spPriceFrom);
         ArrayAdapter<CharSequence> spFromAdapter =
-                ArrayAdapter.createFromResource(context, R.array.town_names, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(context, R.array.town_names, R.layout.spinner_item);
         spFromAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spFrom.setAdapter(spFromAdapter);
         spFrom.setOnItemSelectedListener(this);
 
         spTo = view.findViewById(R.id.spPriceTo);
         ArrayAdapter<CharSequence> spToAdapter =
-                ArrayAdapter.createFromResource(context, R.array.town_names, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(context, R.array.town_names, R.layout.spinner_item);
         spToAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTo.setAdapter(spToAdapter);
         spTo.setOnItemSelectedListener(this);
 
+        vTripDetails = view.findViewById(R.id.include_layout_trip_details);
         tvPriceValue = view.findViewById(R.id.tvPriceValue);
         tvPriceValueInfo = view.findViewById(R.id.tvPriceValueInfo);
         tvDepartureCode = view.findViewById(R.id.tvTripDetailsDepartureCode);
@@ -198,16 +200,18 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
             String[] codes = context.getResources().getStringArray(R.array.route_stops_town_code);
             ArrayList<String> code = new ArrayList<>(Arrays.asList(codes));
 
+            vTripDetails.setVisibility(View.VISIBLE);
+
             tvPriceValue.setVisibility(View.VISIBLE);
             tvPriceValueInfo.setVisibility(View.VISIBLE);
             tvDepartureCode.setText(code.get(fromInt));
             tvDepartureTown.setText(spFrom.getSelectedItem().toString());
             tvDepartureTime.setText(departure);
-            tvDepartureLabel.setVisibility(View.VISIBLE);
+            //tvDepartureLabel.setVisibility(View.VISIBLE);
             tvArrivalCode.setText(code.get(toInt));
             tvArrivalTown.setText(spTo.getSelectedItem().toString());
             tvArrivalTime.setText(arrival);
-            tvArrivalLabel.setVisibility(View.VISIBLE);
+            //tvArrivalLabel.setVisibility(View.VISIBLE);
             if (firebaseAuth.getCurrentUser() != null) {
                 bCheckAvailability.setVisibility(View.VISIBLE);
             }
@@ -216,16 +220,18 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
             }*/
 
         } else {
+            vTripDetails.setVisibility(View.INVISIBLE);
+
             tvPriceValue.setVisibility(View.INVISIBLE);
             tvPriceValueInfo.setVisibility(View.INVISIBLE);
-            tvDepartureCode.setText("");
-            tvDepartureTown.setText("");
-            tvDepartureTime.setText("");
-            tvDepartureLabel.setVisibility(View.INVISIBLE);
-            tvArrivalCode.setText("");
-            tvArrivalTown.setText("");
-            tvArrivalTime.setText("");
-            tvArrivalLabel.setVisibility(View.INVISIBLE);
+            //tvDepartureCode.setText("");
+            //tvDepartureTown.setText("");
+            //tvDepartureTime.setText("");
+            //tvDepartureLabel.setVisibility(View.INVISIBLE);
+            //tvArrivalCode.setText("");
+            //tvArrivalTown.setText("");
+            //tvArrivalTime.setText("");
+            //tvArrivalLabel.setVisibility(View.INVISIBLE);
             bCheckAvailability.setVisibility(View.GONE);
         }
     }

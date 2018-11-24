@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/MainAppBarTheme">
+            android:theme="@style/AppDarkTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".activities.LoginActivity"
-            android:theme="@style/MainAppBarTheme"/>
+            android:theme="@style/AppDarkTheme"/>
         <activity android:name=".activities.MainSelectionActivity" />
 
         <receiver android:name=".widget.ShuttleAppWidgetProvider">

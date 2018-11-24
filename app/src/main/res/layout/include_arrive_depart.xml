@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/tvTripDetailsDepartureTime"
-        style="@style/TextInformationGreen"
+        style="@style/TextInformationLargeRed"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
@@ -37,7 +37,7 @@
 
     <TextView
         android:id="@+id/tvTripDetailsArrivalTime"
-        style="@style/TextInformationGreen"
+        style="@style/TextInformationLargeRed"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"

@@ -2,7 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/tvPriceFrom"
@@ -43,15 +44,17 @@
         android:id="@+id/spPriceFrom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:entries="@array/route_stops_town_name"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        tools:entries="@array/route_stops_town_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPriceSelectPickUp" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceSelectPickUp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TextView
         android:id="@+id/tvPriceTo"
@@ -92,16 +95,17 @@
         android:id="@+id/spPriceTo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        android:entries="@array/route_stops_town_name"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        tools:entries="@array/route_stops_town_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPriceDropOff" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceDropOff"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 </android.support.constraint.ConstraintLayout>
