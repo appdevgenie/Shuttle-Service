@@ -18,9 +18,9 @@
 
 
    <!-- <color name="colorPrimary">#2F3D9A</color>
-    <color name="colorPrimaryDark">#1E2763</color>-->
+    <color name="colorPrimaryDark">#1E2763</color>
     <color name="colorPrimaryLight">#818CD9</color>
-    <!--<color name="colorAccent">#FF4081</color>-->
+    <color name="colorAccent">#FF4081</color>-->
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorCardDefault">#f5f5f5</color>
@@ -31,4 +31,6 @@
     <color name="colorDarkGreen">#669900</color>
     <color name="colorDarkRed">#CC0000</color>
     <color name="colorActivityBackground">#eeeeee</color>
+    <color name="colorDarkBlue">#0099cc</color>
+    <color name="iconBackground">#BFBFBF</color>
 </resources>

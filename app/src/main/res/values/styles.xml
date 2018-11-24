@@ -71,6 +71,18 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
 
+    <style name="TextInformationLargeBlue" parent="TextInformation">
+        <item name="android:textColor">@color/colorDarkBlue</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="TextInformationLargeBlack" parent="TextInformation">
+        <item name="android:textColor">@color/colorDarkBlue</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
     <style name="TextInformationMediumPrimary" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textColor">@color/primary_text</item>
         <item name="android:layout_height">wrap_content</item>
@@ -91,6 +103,7 @@
     <style name="ButtonStyle">
         <item name="android:textColor">@color/colorDarkerGray</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:minHeight">@dimen/button_min_height</item>
     </style>
 
 </resources>

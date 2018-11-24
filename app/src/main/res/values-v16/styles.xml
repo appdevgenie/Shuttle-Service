@@ -17,6 +17,20 @@
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
+    <style name="TextInformationLargeBlue" parent="TextInformation">
+        <item name="android:textColor">@color/colorDarkBlue</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="TextInformationLargeBlack" parent="TextInformation">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
     <style name="TextInformationMediumPrimary" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textColor">@color/primary_text</item>
         <item name="android:layout_height">wrap_content</item>

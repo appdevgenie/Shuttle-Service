@@ -61,11 +61,8 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.fragment_weather_forecast, container, false);
-
         setupVariables();
-
         return view;
 
     }
@@ -94,7 +91,7 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
 */
         spSelectTown = view.findViewById(R.id.spWeatherSelectTown);
         ArrayAdapter<CharSequence> spFromAdapter =
-                ArrayAdapter.createFromResource(context, R.array.town_names_weather, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(context, R.array.town_names_weather, R.layout.spinner_item);
         spFromAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spSelectTown.setAdapter(spFromAdapter);
         spSelectTown.setOnItemSelectedListener(this);

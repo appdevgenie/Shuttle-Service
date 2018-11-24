@@ -12,9 +12,8 @@
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:text="Selection"
-        android:textColor="@color/colorDarkGray"
+        android:textColor="@color/divider"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
 
     <ImageView
         android:id="@+id/ivSelectTownDivider"
@@ -26,9 +25,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/colorDarkGray"
+        android:background="@color/divider"
         android:contentDescription="@string/gray_line_divider" />
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvMainLoggedOut"

@@ -170,21 +170,21 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
 
         spFrom = view.findViewById(R.id.spPassengerInfoFrom);
         ArrayAdapter<CharSequence> spFromAdapter =
-                ArrayAdapter.createFromResource(context, R.array.town_names, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(context, R.array.town_names, R.layout.spinner_item);
         spFromAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spFrom.setAdapter(spFromAdapter);
         spFrom.setOnItemSelectedListener(this);
 
         spTo = view.findViewById(R.id.spPassengerInfoTo);
         ArrayAdapter<CharSequence> spToAdapter =
-                ArrayAdapter.createFromResource(context, R.array.town_names, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(context, R.array.town_names, R.layout.spinner_item);
         spToAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTo.setAdapter(spToAdapter);
         spTo.setOnItemSelectedListener(this);
 
         spSeats = view.findViewById(R.id.spTravelInfoSeats);
         ArrayAdapter<CharSequence> spSeatsAdapter =
-                ArrayAdapter.createFromResource(context, R.array.seats, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(context, R.array.seats, R.layout.spinner_item);
         spSeatsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spSeats.setAdapter(spSeatsAdapter);
         spSeats.setOnItemSelectedListener(this);

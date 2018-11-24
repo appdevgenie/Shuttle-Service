@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorActivityBackground">
+    android:background="@color/colorActivityBackground"
+    android:theme="@style/AppTheme">
 
     <!--    <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -91,9 +92,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/check_availability"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_goneMarginBottom="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

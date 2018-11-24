@@ -44,6 +44,7 @@
 
     <TextView
         android:id="@+id/tvPassengerInfoNDate"
+        style="@style/TextDefaultUserInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -54,7 +55,6 @@
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:text="@string/select_date"
-        style="@style/TextDefaultUserInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvPassengerInfoDateLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoDateLabel" />
@@ -73,14 +73,15 @@
         android:id="@+id/spPassengerInfoFrom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvPassengerInfoFromLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoFromLabel"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:entries="@array/route_stops_town_name" />
 
     <TextView
@@ -98,14 +99,15 @@
         android:id="@+id/spPassengerInfoTo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvPassengerInfoToLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoToLabel"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:entries="@array/route_stops_town_name" />
 
     <TextView
@@ -123,17 +125,18 @@
         android:id="@+id/spTravelInfoSeats"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
         android:entries="@array/seats"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvTravelInfoSeatsLabel"
-        app:layout_constraintTop_toBottomOf="@+id/tvTravelInfoSeatsLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTravelInfoSeatsLabel"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
 </android.support.constraint.ConstraintLayout>
