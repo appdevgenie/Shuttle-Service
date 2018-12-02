@@ -39,6 +39,7 @@ public class Constants {
     public static final String BUNDLE_IS_SIGNED_IN = "isSignedIn";
     public static final String BUNDLE_CLICKED_ICON = "clickedIconPosition";
     public static final String BUNDLE_IS_DUAL_PANE = "dualPane";
+    public static final String BUNDLE_RECEIVER_DESTINATION = "destination";
 
     public static final String SAVED_DUAL_PANE = "dualPane";
     public static final String SAVED_SELECTED_ICON = "selectedPosition";

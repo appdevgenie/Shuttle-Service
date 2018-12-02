@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/ivShuttle"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:contentDescription="@string/shuttle_image_view"
         app:layout_constraintBottom_toBottomOf="@+id/ivTripDetailsDivider"
         app:layout_constraintEnd_toEndOf="@+id/ivTripDetailsDivider"

@@ -1,7 +1,11 @@
 package com.appdevgenie.shuttleservice.fragments;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +27,7 @@ import android.widget.Toast;
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.model.BookingInfo;
 import com.appdevgenie.shuttleservice.model.User;
+import com.appdevgenie.shuttleservice.utils.AlarmReceiver;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,22 +37,27 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_FROM_SPINNER;
+import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_IS_DUAL_PANE;
+import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_RECEIVER_DESTINATION;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TO_SPINNER;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TRIP_DATE;
-import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_IS_DUAL_PANE;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_USER_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.HOP_COST;
 
 public class MakeBookingFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+
+    public static final int THIRTY_MINUTES = 30 * 60 * 1000;
 
     private View view;
     private Context context;
@@ -88,7 +98,7 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
 
         setupVariables();
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             Bundle bundle = getArguments();
             if (bundle != null) {
                 spFrom.setSelection(bundle.getInt(BUNDLE_FROM_SPINNER, 0));
@@ -96,7 +106,7 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                 date.setText(bundle.getString(BUNDLE_TRIP_DATE, context.getString(R.string.select_date)));
                 dualPane = bundle.getBoolean(BUNDLE_IS_DUAL_PANE);
             }
-        }else{
+        } else {
             dualPane = savedInstanceState.getBoolean("dualPane");
         }
         /*if(dualPane){
@@ -110,7 +120,7 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
     private void setupVariables() {
 
         context = getActivity();
-        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
         if (appCompatActivity != null) {
             appCompatActivity.getSupportActionBar().setTitle(R.string.make_booking);
         }
@@ -222,10 +232,10 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
             costPerSeat.setText(TextUtils.concat("R ", String.format(Locale.ENGLISH, "%.2f", costPerSeatDouble)));
             totalCost.setText(TextUtils.concat("R ", String.format(Locale.ENGLISH, "%.2f", costPerSeatDouble * seatsInt)));
 
-            if(upstreamDownStream >= 0){
+            if (upstreamDownStream >= 0) {
                 departureTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_morning)).get(fromInt);
                 arrivalTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_morning)).get(toInt);
-            }else{
+            } else {
                 departureTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_afternoon)).get(fromInt);
                 arrivalTime = Arrays.asList(getResources().getStringArray(R.array.route_stops_time_afternoon)).get(toInt);
             }
@@ -263,11 +273,11 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
 
             case R.id.bMakeBooking:
 
-                if(TextUtils.equals(date.getText(), context.getString(R.string.select_date))){
+                if (TextUtils.equals(date.getText(), context.getString(R.string.select_date))) {
                     Toast.makeText(context, R.string.select_valid_date, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(totalCost.getText())){
+                if (TextUtils.isEmpty(totalCost.getText())) {
                     Toast.makeText(context, R.string.select_valid_trip, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -329,13 +339,14 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                loadComplete("yes!");
+                                loadComplete("Booking loaded success!");
+                                setAlarmNotification(date.getText().toString(), departureTime, spTo.getSelectedItem().toString());
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                loadComplete("no!");
+                                loadComplete("Booking failed!");
                             }
                         });
 
@@ -368,14 +379,14 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                 bundle.putBoolean(BUNDLE_IS_DUAL_PANE, dualPane);
                 bookingQueryFragment.setArguments(bundle);
 
-                if(dualPane) {
+                if (dualPane) {
                     getActivity()
                             .getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.fragmentInfoContainer, bookingQueryFragment)
                             //.addToBackStack(null)
                             .commit();
-                }else{
+                } else {
                     getActivity()
                             .getSupportFragmentManager()
                             .beginTransaction()
@@ -385,6 +396,40 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                 }
                 break;
         }
+    }
+
+    private void setAlarmNotification(String departureDate, String departureTime, String destination) {
+
+        long triggerTime = 0;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault());
+            Date date = sdf.parse(departureDate + " " + departureTime);
+            triggerTime = date.getTime() - THIRTY_MINUTES;
+
+
+            //long alertTime = new GregorianCalendar().getTimeInMillis();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        intent.putExtra(BUNDLE_RECEIVER_DESTINATION, destination);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        if (alarmManager != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
+            }
+        }
+
+        //NotificationUtils.remindCommuterOfTrip(context, destination);
+        /*String td = DateFormat.getDateInstance().format(calendar.getTime());
+        Toast.makeText(context, td, Toast.LENGTH_SHORT).show();*/
     }
 
     private void getUserInfo() {
