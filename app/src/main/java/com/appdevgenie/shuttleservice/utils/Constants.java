@@ -44,4 +44,6 @@ public class Constants {
     public static final String SAVED_DUAL_PANE = "dualPane";
     public static final String SAVED_SELECTED_ICON = "selectedPosition";
 
+    public static final int THIRTY_MINUTES = 30 * 60 * 1000;
+
 }

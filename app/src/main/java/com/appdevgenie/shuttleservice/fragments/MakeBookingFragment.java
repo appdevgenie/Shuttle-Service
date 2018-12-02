@@ -43,7 +43,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_FROM_SPINNER;
@@ -54,10 +53,9 @@ import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TRIP_DATE;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_USER_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.HOP_COST;
+import static com.appdevgenie.shuttleservice.utils.Constants.THIRTY_MINUTES;
 
 public class MakeBookingFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
-
-    public static final int THIRTY_MINUTES = 30 * 60 * 1000;
 
     private View view;
     private Context context;
@@ -405,25 +403,20 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
             SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault());
             Date date = sdf.parse(departureDate + " " + departureTime);
             triggerTime = date.getTime() - THIRTY_MINUTES;
-
-
-            //long alertTime = new GregorianCalendar().getTimeInMillis();
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
-
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra(BUNDLE_RECEIVER_DESTINATION, destination);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
         if (alarmManager != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
+            } else {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
             }
         }
 

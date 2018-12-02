@@ -25,11 +25,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Bundle bundle = intent.getExtras();
         if(bundle != null) {
-            //Toast.makeText(context, bundle.getString("dest"), Toast.LENGTH_SHORT).show();
-
             NotificationUtils.remindCommuterOfTrip(context, bundle.getString(BUNDLE_RECEIVER_DESTINATION));
         }
-
     }
 
     /*public void createNotification(Context context, String msg, String msgText, String msgAlert){
