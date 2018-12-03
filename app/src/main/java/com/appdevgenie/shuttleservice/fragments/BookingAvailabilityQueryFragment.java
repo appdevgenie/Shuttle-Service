@@ -35,8 +35,11 @@ import java.util.Collections;
 import java.util.Locale;
 
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_FROM_SPINNER;
+import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_MAX_SEATS;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TO_SPINNER;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_TRIP_DATE;
+import static com.appdevgenie.shuttleservice.utils.Constants.DIRECTION_DOWNSTREAM;
+import static com.appdevgenie.shuttleservice.utils.Constants.DIRECTION_UPSTREAM;
 import static com.appdevgenie.shuttleservice.utils.Constants.DOWNSTREAM_DIFFERENCE;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_IS_DUAL_PANE;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_DATE_FIELD;
@@ -45,9 +48,6 @@ import static com.appdevgenie.shuttleservice.utils.Constants.HOP_COST;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHUTTLE_MAX;
 
 public class BookingAvailabilityQueryFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
-
-    public static final int DIRECTION_UPSTREAM = 0;
-    public static final int DIRECTION_DOWNSTREAM = 1;
 
     private TextView tvSelectDate;
     private TextView tvPriceValue;
@@ -71,6 +71,7 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
     private ArrayList<Integer> intRangeArray;
     private int direction;
     private boolean dualPane;
+    private int maxSeats;
     //private DatePickerDialog.OnDateSetListener dateSetListener;
 
     @Nullable
@@ -247,6 +248,7 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
                 bundle.putInt(BUNDLE_TO_SPINNER, spTo.getSelectedItemPosition());
                 bundle.putString(BUNDLE_TRIP_DATE, tvSelectDate.getText().toString());
                 bundle.putBoolean(BUNDLE_IS_DUAL_PANE, dualPane);
+                bundle.putInt(BUNDLE_MAX_SEATS, maxSeats);
                 makeBookingFragment.setArguments(bundle);
 
                 if(dualPane) {
@@ -330,6 +332,7 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
                         }
                         //travelInfoArrayList = CreateTravelInfoArrayList.createTravelInfoList(context, bookingInfoArrayList);
 
+                        //returns an array of max passengers per stop
                         intRangeArray = CreateTravelInfoArrayList.createPassengerMaxList(context, bookingInfoArrayList);
                         //intRangeArray = new ArrayList<>(intArray.subList(1, 5));
                         /*intArray = new ArrayList<>(intRangeArray.subList(fromInt, toInt));
@@ -348,9 +351,11 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
 
     private void getMaxSeats(int fromInt, int toInt) {
 
+        //create array list between requested stops
         intArray = new ArrayList<>(intRangeArray.subList(fromInt, toInt));
-        int max = Collections.max(intArray);
-        CharSequence seats = TextUtils.concat(String.valueOf(SHUTTLE_MAX - max), " ", getString(R.string.seats_available));
+        //get highest value in intArray
+        maxSeats = Collections.max(intArray);
+        CharSequence seats = TextUtils.concat(String.valueOf(SHUTTLE_MAX - maxSeats), " ", getString(R.string.seats_available));
         tvSeatsAmountAvailable.setText(seats);
 
         //Toast.makeText(context, String.valueOf(intRangeArray.size()), Toast.LENGTH_SHORT).show();
@@ -363,7 +368,6 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-
         outState.putBoolean("dualPane", dualPane);
     }
 

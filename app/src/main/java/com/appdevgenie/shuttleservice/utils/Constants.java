@@ -14,6 +14,9 @@ public class Constants {
     public static final int DOWNSTREAM_DIFFERENCE = 17;
     public static final int SHUTTLE_MAX = 30;
 
+    public static final int DIRECTION_UPSTREAM = 0;
+    public static final int DIRECTION_DOWNSTREAM = 1;
+
     public static final String WEATHER_API_KEY = BuildConfig.WEATHER_API_KEY;
 
     public static final String WEATHER_API_QUERY_KEY = "appid";
@@ -40,6 +43,7 @@ public class Constants {
     public static final String BUNDLE_CLICKED_ICON = "clickedIconPosition";
     public static final String BUNDLE_IS_DUAL_PANE = "dualPane";
     public static final String BUNDLE_RECEIVER_DESTINATION = "destination";
+    public static final String BUNDLE_MAX_SEATS = "maxSeats";
 
     public static final String SAVED_DUAL_PANE = "dualPane";
     public static final String SAVED_SELECTED_ICON = "selectedPosition";

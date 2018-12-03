@@ -42,7 +42,6 @@ public class NotificationUtils {
                 .setLargeIcon(largeIcon(context))
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText("Shuttle departs in 30 minutes for " + destination)
-                //.setStyle(new NotificationCompat.BigTextStyle().bigText("blah blah"))
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setContentIntent(contentIntent(context))
                 .setAutoCancel(true);
