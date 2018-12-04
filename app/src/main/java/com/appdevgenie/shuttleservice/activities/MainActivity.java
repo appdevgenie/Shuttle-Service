@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         display.getMetrics(displayMetrics);
 
         double width = displayMetrics.widthPixels / displayMetrics.densityDpi;
-        double heigth = displayMetrics.heightPixels / displayMetrics.densityDpi;
+        double height = displayMetrics.heightPixels / displayMetrics.densityDpi;
 
         double diagonal = Math.sqrt(Math.pow(width, 2) + Math.pow(heigth, 2));
         return diagonal >= 7.0;
