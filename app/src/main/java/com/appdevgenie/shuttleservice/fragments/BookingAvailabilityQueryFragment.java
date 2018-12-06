@@ -45,6 +45,7 @@ import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_IS_DUAL_PANE
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_DATE_FIELD;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.HOP_COST;
+import static com.appdevgenie.shuttleservice.utils.Constants.SAVED_DUAL_PANE;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHUTTLE_MAX;
 
 public class BookingAvailabilityQueryFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
@@ -90,7 +91,7 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
                 dualPane = bundle.getBoolean(BUNDLE_IS_DUAL_PANE);
             }
         }else{
-            dualPane = savedInstanceState.getBoolean("dualPane");
+            dualPane = savedInstanceState.getBoolean(SAVED_DUAL_PANE);
         }
 
         return view;
@@ -228,7 +229,7 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
                                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                                 tvSelectDate.setText(simpleDateFormat.format(calendar.getTime()));
                                 if(tripSelected) {
-                                    bMakeBooking.setVisibility(View.VISIBLE);
+                                    //bMakeBooking.setVisibility(View.VISIBLE);
                                     loadTravelInfo(tvSelectDate.getText().toString());
                                 }
                                 /*if(dualPane){
@@ -287,7 +288,7 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
 
             tripSelected = true;
             if(!TextUtils.equals(tvSelectDate.getText().toString(), context.getString(R.string.select_date))) {
-                bMakeBooking.setVisibility(View.VISIBLE);
+                //bMakeBooking.setVisibility(View.VISIBLE);
                 loadTravelInfo(tvSelectDate.getText().toString());
             }
             /*if(dualPane){
@@ -355,6 +356,11 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
         intArray = new ArrayList<>(intRangeArray.subList(fromInt, toInt));
         //get highest value in intArray
         maxSeats = Collections.max(intArray);
+        if(maxSeats == SHUTTLE_MAX){
+            bMakeBooking.setVisibility(View.INVISIBLE);
+        }else{
+            bMakeBooking.setVisibility(View.VISIBLE);
+        }
         CharSequence seats = TextUtils.concat(String.valueOf(SHUTTLE_MAX - maxSeats), " ", getString(R.string.seats_available));
         tvSeatsAmountAvailable.setText(seats);
 
@@ -368,7 +374,7 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("dualPane", dualPane);
+        outState.putBoolean(SAVED_DUAL_PANE, dualPane);
     }
 
     /*// Method for getting the maximum value

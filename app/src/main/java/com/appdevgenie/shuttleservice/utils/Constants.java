@@ -52,4 +52,6 @@ public class Constants {
 
     public static final int THIRTY_MINUTES = 30 * 60 * 1000;
 
+    public static final int RC_SIGN_IN = 155;
+
 }

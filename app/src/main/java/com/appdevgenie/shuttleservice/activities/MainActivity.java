@@ -26,20 +26,23 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_IS_DUAL_PANE;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_IS_SIGNED_IN;
 import static com.appdevgenie.shuttleservice.utils.Constants.USER_ADMIN;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseFirestore firebaseFirestore;
     private DocumentReference usersDocumentReference;
-    private User user;
-    private TextView tvSignedInInfo;
-    private ImageView ivNetworkConnectivity;
+    @BindView(R.id.tvSignedInInfo)
+    TextView tvSignedInInfo;
+    @BindView(R.id.ivNetworkConnectivity)
+    ImageView ivNetworkConnectivity;
     private boolean isSignedIn;
     private boolean dualPane;
 
@@ -47,36 +50,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_container);
-
-        /*if(savedInstanceState == null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            MainIconListFragment fragment = new MainIconListFragment();
-            fragmentManager.beginTransaction().replace(R.id.mainActivityContainer, fragment).commit();
-        }*/
+        ButterKnife.bind(this);
 
         FrameLayout frameLayout = findViewById(R.id.fragmentInfoContainer);
         if (frameLayout != null && frameLayout.getVisibility() == View.VISIBLE) {
             dualPane = true;
         }
 
-        //Toast.makeText(this, "dual pane " + dualPane, Toast.LENGTH_LONG).show();
-
-        tvSignedInInfo = findViewById(R.id.tvSignedInInfo);
-
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        /*usersDocumentReference =
-                firebaseFirestore.collection("users").document(firebaseAuth.getUid());*/
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user == null) {
-                    /*// user auth state is changed - user is null
-                    // launch login activity
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    finish();*/
                     isSignedIn = false;
                 }else{
                     isSignedIn = true;
@@ -92,11 +80,11 @@ public class MainActivity extends AppCompatActivity {
                 fragmentManager.beginTransaction().replace(R.id.mainActivityContainer, mainIconListFragment).commit();
 
                 if(!isSignedIn) {
-                    tvSignedInInfo.setText("not signed in");
+                    tvSignedInInfo.setText(R.string.not_signed_in);
                 }else if(TextUtils.equals(firebaseAuth.getCurrentUser().getEmail(), USER_ADMIN)){
-                    tvSignedInInfo.setText("admin");
+                    tvSignedInInfo.setText(R.string.admin);
                 }else{
-                    tvSignedInInfo.setText("user");
+                    tvSignedInInfo.setText(R.string.user);
                 }
             }
         };
@@ -105,13 +93,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        ivNetworkConnectivity = findViewById(R.id.ivNetworkConnectivity);
         if(CheckNetworkConnection.isNetworkConnected(this)){
             ivNetworkConnectivity.setImageResource(R.drawable.ic_cloud_on);
         }else{
             ivNetworkConnectivity.setImageResource(R.drawable.ic_cloud_off);
         }
-
     }
 
     private void checkUserInfo() {
@@ -122,35 +108,29 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(!documentSnapshot.exists()){
                     setUserData();
-                    //usersDocumentReference.set(user);
-                    Toast.makeText(MainActivity.this, "updating user info", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.updating_user_info, Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     private void setUserData() {
-        user = new User("", firebaseAuth.getCurrentUser().getEmail(), "");
+        User user = new User("", firebaseAuth.getCurrentUser().getEmail(), "");
         usersDocumentReference.set(user);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_menu, menu);
-
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int itemID = item.getItemId();
-
         switch (itemID) {
-
             case R.id.menu_sign_out:
                 firebaseAuth.signOut();
                 finish();

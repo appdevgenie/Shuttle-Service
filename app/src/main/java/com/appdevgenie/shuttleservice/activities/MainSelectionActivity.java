@@ -26,9 +26,6 @@ public class MainSelectionActivity extends AppCompatActivity {
 
     //only visible on phones
 
-    //private boolean isLoggedIn;
-    //private String toolbarTitle;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,84 +39,67 @@ public class MainSelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-                //Toast.makeText(context, "back1", Toast.LENGTH_SHORT).show();
             }
         });
 
         if(savedInstanceState == null) {
             Intent intent = getIntent();
             if(intent != null) {
-                //MainGridIcon mainGridIcon = intent.getParcelableExtra("extra_selection");
                 int position = intent.getIntExtra(BUNDLE_CLICKED_ICON, 1);
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                //isLoggedIn = intent.getBooleanExtra("isLoggedIn", isLoggedIn);
                 switch (position){
 
                     case 1:
                         MainRouteStopsFragment mainRouteStopsFragment = new MainRouteStopsFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, mainRouteStopsFragment).commit();
-                        //toolbarTitle = getString(R.string.route_and_stops);
                         break;
 
                     case 2:
                         MainPriceCheckFragment mainPriceCheckFragment = new MainPriceCheckFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, mainPriceCheckFragment).commit();
-                        //toolbarTitle = getString(R.string.price_check);
                         break;
 
                     case 3:
                         ContactUsFragment contactUsFragment = new ContactUsFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, contactUsFragment).commit();
-                        //toolbarTitle = getString(R.string.contact_info);
                         break;
 
                     case 4:
                         BookingAvailabilityQueryFragment bookingAvailabilityQueryFragment = new BookingAvailabilityQueryFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, bookingAvailabilityQueryFragment).commit();
-                        //toolbarTitle = getString(R.string.availability);
                         break;
 
                     case 5:
                         MakeBookingFragment makeBookingFragment = new MakeBookingFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, makeBookingFragment).commit();
-                        //toolbarTitle = getString(R.string.make_booking);
                         break;
 
                     case 6:
                         BookingHistoryFragment bookingHistoryFragment = new BookingHistoryFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, bookingHistoryFragment).commit();
-                        //toolbarTitle = getString(R.string.booking_history);
                         break;
 
                     case 7:
                         WeatherForecastFragment weatherForecastFragment = new WeatherForecastFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, weatherForecastFragment).commit();
-                        //toolbarTitle = getString(R.string.weather);
                         break;
 
                     case 8:
                         AccountUserInfoFragment accountUserInfoFragment = new AccountUserInfoFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, accountUserInfoFragment).commit();
-                        //toolbarTitle = getString(R.string.user_account);
                         break;
 
                     case 9:
                         AdminTravelInfoFragment adminTravelInfoFragment = new AdminTravelInfoFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, adminTravelInfoFragment).commit();
-                        //toolbarTitle = getString(R.string.travel_info);
                         break;
 
                     case 10:
                         AdminUserAccountsFragment adminUserAccountsFragment = new AdminUserAccountsFragment();
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, adminUserAccountsFragment).commit();
-                        //toolbarTitle = getString(R.string.user_accounts);
                         break;
                 }
-
-                //getSupportActionBar().setTitle(toolbarTitle);
-
             }
-
         }
     }
 }

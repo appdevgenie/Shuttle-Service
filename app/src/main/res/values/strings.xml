@@ -59,4 +59,16 @@
     <string name="user_accounts">User accounts</string>
     <string name="user_info">User info</string>
     <string name="contact_info">Contact info</string>
+    <string name="not_connected_to_network">Not connected to network</string>
+    <string name="register">Register</string>
+    <string name="enter_email">Enter email address!</string>
+    <string name="enter_password">Enter password!</string>
+    <string name="login_failed">Login failed!</string>
+    <string name="authentication_failed">Authentication failed.</string>
+    <string name="password_reset_sent">Password reset mail sent</string>
+    <string name="failed_to_send">Failed to send</string>
+    <string name="not_signed_in">not signed in</string>
+    <string name="admin">admin</string>
+    <string name="user">user</string>
+    <string name="updating_user_info">updating user info</string>
 </resources>
