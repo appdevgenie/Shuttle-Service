@@ -29,15 +29,12 @@ public class MainIconListAdapter extends RecyclerView.Adapter<MainIconListAdapte
     @NonNull
     @Override
     public MainIconListAdapter.MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(context).inflate(R.layout.list_item_icon, parent, false);
-
         return new MainViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MainIconListAdapter.MainViewHolder holder, int position) {
-
         MainGridIcon mainGridIcon = mainGridIcons.get(holder.getAdapterPosition());
         holder.itemView.setSelected(selectedPos == position);
 

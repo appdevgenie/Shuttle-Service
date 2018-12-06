@@ -71,4 +71,10 @@
     <string name="admin">admin</string>
     <string name="user">user</string>
     <string name="updating_user_info">updating user info</string>
+    <string name="on">On:</string>
+    <string name="off">Off:</string>
+    <string name="passengers">Passengers:</string>
+    <string name="invalid_view_type">Invalid view type:</string>
+    <string name="gmt_time_zome">GMT</string>
+    <string name="date_format_weekday_time">EEEE HH:mm</string>
 </resources>

@@ -21,10 +21,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.RouteViewHolder> {
+import static com.appdevgenie.shuttleservice.utils.Constants.VIEW_TYPE_DEFAULT;
+import static com.appdevgenie.shuttleservice.utils.Constants.VIEW_TYPE_NEXT_STOP;
 
-    private static final int VIEW_TYPE_NEXT_STOP = 1;
-    private static final int VIEW_TYPE_DEFAULT = 0;
+public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.RouteViewHolder> {
 
     private Context context;
     private ArrayList<RouteStops> routeStops;
@@ -52,7 +52,7 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
                 break;
 
             default:
-                throw new IllegalArgumentException("Invalid view type: " + viewType);
+                throw new IllegalArgumentException(context.getString(R.string.invalid_view_type) + viewType);
         }
 
 
@@ -82,7 +82,7 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
 
     private String getCurrentTime() {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_format_time), Locale.getDefault());
         return simpleDateFormat.format(calendar.getTime());
     }
 
@@ -106,10 +106,9 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
 
         holder.tvTownName.setText(stops.getTownName());
         holder.tvStopTime.setText(stops.getStopTime());
-        //holder.tvTownCode.setText(stops.getTownCode());
 
         if (isNextStop) {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_format_time), Locale.getDefault());
             try {
                 Date timeNow = simpleDateFormat.parse(getCurrentTime());
                 Date timeStop = simpleDateFormat.parse(stops.getStopTime());
@@ -179,7 +178,6 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
 
         TextView tvTownName;
         TextView tvStopTime;
-        //TextView tvTownCode;
         TextView tvNextStop;
 
         RouteViewHolder(View itemView) {
@@ -187,7 +185,6 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
 
             tvTownName = itemView.findViewById(R.id.tvRouteItemTown);
             tvStopTime = itemView.findViewById(R.id.tvRouteItemTime);
-            //tvTownCode = itemView.findViewById(R.id.tvRouteItemTownCode);
             tvNextStop = itemView.findViewById(R.id.tvRouteItemNextStop);
 
         }

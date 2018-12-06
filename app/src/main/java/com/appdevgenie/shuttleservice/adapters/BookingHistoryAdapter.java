@@ -24,8 +24,7 @@ import static com.appdevgenie.shuttleservice.utils.Constants.VIEW_TYPE_BOOKING_S
 public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private ArrayList<BookingInfo> bookingInfoArrayList = new ArrayList<>();
-    //private ItemLongClickListener itemLongClickListener;
+    private ArrayList<BookingInfo> bookingInfoArrayList;
     private ItemClickWidgetListener itemClickWidgetListener;
     private ItemClickShareListener itemClickShareListener;
 
@@ -39,31 +38,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         this.bookingInfoArrayList = bookingInfoArrayList;
         this.itemClickWidgetListener = itemClickWidgetListener;
         this.itemClickShareListener = itemClickShareListener;
-        //this.itemLongClickListener = itemLongClickListener;
     }
-
-    /*@NonNull
-    @Override
-    public BookingHistoryAdapter.BookingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        int layoutId;
-
-        switch (viewType) {
-            case VIEW_TYPE_BOOKING_DEFAULT:
-                layoutId = R.layout.list_item_booking_history;
-                break;
-
-            case VIEW_TYPE_BOOKING_SELECTED:
-                layoutId = R.layout.list_item_booking_history_selected;
-                break;
-
-            default:
-                throw new IllegalArgumentException("Invalid view type: " + viewType);
-        }
-
-        View view = LayoutInflater.from(context).inflate(layoutId, parent, false);
-        return new BookingViewHolder(view);
-    }*/
 
     @NonNull
     @Override
@@ -150,14 +125,14 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return bookingInfoArrayList.size();
     }
 
-    public class DefaultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class DefaultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView tvBookingDate;
         private TextView tvDate;
         private TextView tvSeats;
         private ImageButton ibExpand;
 
-        public DefaultViewHolder(View itemView) {
+        DefaultViewHolder(View itemView) {
             super(itemView);
             tvBookingDate = itemView.findViewById(R.id.tvBookingMadeDate);
             tvDate = itemView.findViewById(R.id.tvTripDetailsDateValue);
@@ -175,7 +150,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
 
-    public class SelectedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class SelectedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView tvBookingDate;
         private TextView tvDate;
@@ -190,7 +165,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         private Button bAddToWidget;
         private Button bShare;
 
-        public SelectedViewHolder(View itemView) {
+        SelectedViewHolder(View itemView) {
             super(itemView);
 
             tvBookingDate = itemView.findViewById(R.id.tvBookingMadeDate);
@@ -239,71 +214,4 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public interface ItemClickShareListener {
         void onItemShareClick(int pos);
     }
-
-    /*@Override
-    public void onBindViewHolder(@NonNull BookingHistoryAdapter.BookingViewHolder holder, int position) {
-
-        BookingInfo bookingInfo = bookingInfoArrayList.get(holder.getAdapterPosition());
-
-        holder.tvSeats.setText(bookingInfo.getSeats());
-        holder.tvDate.setText(bookingInfo.getDate());
-        holder.tvFrom.setText(bookingInfo.getFromTown());
-        holder.tvTo.setText(bookingInfo.getToTown());
-        holder.tvDepartTime.setText(bookingInfo.getDepartureTime());
-        holder.tvArriveTime.setText(bookingInfo.getArrivalTime());
-        holder.tvFromCode.setText(bookingInfo.getFromTownCode());
-        holder.tvToCode.setText(bookingInfo.getToTownCode());
-    }*/
-
-    /*public class BookingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-
-        private TextView tvDate;
-        private TextView tvSeats;
-        private TextView tvFrom;
-        private TextView tvDepartTime;
-        private TextView tvArriveTime;
-        private TextView tvTo;
-        private TextView tvFromCode;
-        private TextView tvToCode;
-
-        public BookingViewHolder(View itemView) {
-            super(itemView);
-
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
-            tvDate = itemView.findViewById(R.id.tvTripDetailsDateValue);
-            tvSeats = itemView.findViewById(R.id.tvTripDetailsSeatsValue);
-            tvFrom = itemView.findViewById(R.id.tvTripDetailsDepartureTown);
-            tvTo = itemView.findViewById(R.id.tvTripDetailsArrivalTown);
-            tvDepartTime = itemView.findViewById(R.id.tvTripDetailsDepartureTime);
-            tvArriveTime = itemView.findViewById(R.id.tvTripDetailsArrivalTime);
-            tvFromCode = itemView.findViewById(R.id.tvTripDetailsDepartureCode);
-            tvToCode = itemView.findViewById(R.id.tvTripDetailsArrivalCode);
-        }
-
-        @Override
-        public void onClick(View v) {
-
-            int clickedItem = getAdapterPosition();
-
-            BookingInfo bookingInfo = bookingInfoArrayList.get(getAdapterPosition());
-            if(bookingInfo.getViewType() == VIEW_TYPE_BOOKING_SELECTED){
-                bookingInfo.setViewType(VIEW_TYPE_BOOKING_DEFAULT);
-            }else{
-                bookingInfo.setViewType(VIEW_TYPE_BOOKING_SELECTED);
-            }
-
-            notifyItemChanged(clickedItem);
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            itemLongClickListener.onItemLongClick(getAdapterPosition());
-            return false;
-        }
-    }
-
-    public interface ItemLongClickListener {
-        void onItemLongClick(int pos);
-    }*/
 }

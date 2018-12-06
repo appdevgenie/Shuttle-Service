@@ -11,10 +11,8 @@ import android.widget.TextView;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.model.TravelInfo;
-import com.appdevgenie.shuttleservice.model.WeatherInfo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AdminTravelInfoAdapter extends RecyclerView.Adapter<AdminTravelInfoAdapter.TravelViewHolder> {
 
@@ -23,7 +21,6 @@ public class AdminTravelInfoAdapter extends RecyclerView.Adapter<AdminTravelInfo
 
     public AdminTravelInfoAdapter(Context context) {
         this.context = context;
-        //this.travelInfoArrayList = travelInfoArrayList;
     }
 
     @NonNull
@@ -40,9 +37,9 @@ public class AdminTravelInfoAdapter extends RecyclerView.Adapter<AdminTravelInfo
 
         holder.town.setText(travelInfo.getTownName());
         holder.time.setText(travelInfo.getDepartureTime());
-        holder.on.setText(TextUtils.concat("On: ", String.valueOf(travelInfo.getOnPassengers())));
-        holder.off.setText(TextUtils.concat("Off: ", String.valueOf(travelInfo.getOffPassengers())));
-        holder.total.setText(TextUtils.concat("Passengers: ", String.valueOf(travelInfo.getTotalPassengers())));
+        holder.on.setText(TextUtils.concat(context.getString(R.string.on), String.valueOf(travelInfo.getOnPassengers())));
+        holder.off.setText(TextUtils.concat(context.getString(R.string.off), String.valueOf(travelInfo.getOffPassengers())));
+        holder.total.setText(TextUtils.concat(context.getString(R.string.passengers), String.valueOf(travelInfo.getTotalPassengers())));
 
     }
 
@@ -53,13 +50,13 @@ public class AdminTravelInfoAdapter extends RecyclerView.Adapter<AdminTravelInfo
 
     @Override
     public int getItemCount() {
-        if(travelInfoArrayList == null) {
+        if (travelInfoArrayList == null) {
             return 0;
         }
         return travelInfoArrayList.size();
     }
 
-    class TravelViewHolder extends RecyclerView.ViewHolder{
+    class TravelViewHolder extends RecyclerView.ViewHolder {
 
         private TextView time;
         private TextView town;
@@ -67,7 +64,7 @@ public class AdminTravelInfoAdapter extends RecyclerView.Adapter<AdminTravelInfo
         private TextView off;
         private TextView total;
 
-        public TravelViewHolder(View itemView) {
+        TravelViewHolder(View itemView) {
             super(itemView);
 
             time = itemView.findViewById(R.id.tvRouteItemTime);

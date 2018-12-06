@@ -33,9 +33,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
     @NonNull
     @Override
     public WeatherForecastAdapter.WeatherViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(context).inflate(R.layout.list_item_weather_forecast, parent, false);
-
         return new WeatherViewHolder(view);
     }
 
@@ -43,31 +41,13 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
     public void onBindViewHolder(@NonNull WeatherForecastAdapter.WeatherViewHolder holder, int position) {
 
         int itemPosition = holder.getAdapterPosition();
-
-
-        //String date = weatherInfoList.get(itemPosition).getDate();
+        
         long dateLong = weatherInfoList.get(itemPosition).getDateLong() * 1000;
-        //String dateString = DateFormat.format("EEEE HH:mm", new Date(dateLong)).toString();
 
-        //SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        //String dateString = simpleDateFormatDate.format(dateLong);
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE HH:mm", Locale.getDefault());
-        //SimpleDateFormat simpleDayFormat = new SimpleDateFormat(context.getString(R.string.date_format_weekday), Locale.getDefault());
-        //SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(context.getString(R.string.date_format_time), Locale.getDefault());
-        //simpleTimeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-
-        /*String dayWeekString;
-        if(DateUtils.isToday(dateLong)){
-            dayWeekString = context.getString(R.string.today) + " " + simpleTimeFormat.format(dateLong);
-        }else {
-            //dayWeekString = simpleDayFormat.format(dateLong) + " " + simpleTimeFormat.format(dateLong);
-            dayWeekString = simpleDateFormat.format(dateLong);
-        }*/
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_format_weekday_time), Locale.getDefault());
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone(context.getString(R.string.gmt_time_zome)));
 
         holder.ivIcon.setImageResource(WeatherIconLoader.getImage(weatherInfoList.get(itemPosition).getIcon()));
-        //holder.tvDate.setText(date.substring(0, date.length() -3));
         holder.tvDate.setText(simpleDateFormat.format(dateLong));
         holder.tvDescription.setText(weatherInfoList.get(itemPosition).getDescription());
         holder.tvHumidity
@@ -80,87 +60,6 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
                                 , context.getString(R.string.temperature_degree_symbol)));
     }
 
-    /*private int getImage(String icon) {
-
-        int imageResource = 0;
-
-        switch (icon){
-            case "01d"://clear day
-                imageResource = (R.drawable.ic_weather_clear);
-                break;
-                
-            case "02d"://few clouds day
-                imageResource = (R.drawable.ic_weather_few_clouds);
-                break;
-                
-            case "03d"://scatted clouds day
-                imageResource = (R.drawable.ic_weather_overcast);
-                break;
-
-            case "04d"://broken clouds day
-                imageResource = (R.drawable.ic_weather_overcast);
-                break;
-
-            case "09d"://shower rain day
-                imageResource = (R.drawable.ic_weather_showers);
-                break;
-
-            case "10d"://rain day
-                imageResource = (R.drawable.ic_weather_showers_scattered);
-                break;
-
-            case "11d"://storm day
-                imageResource = (R.drawable.ic_weather_storm);
-                break;
-
-            case "13d"://snow day
-                imageResource = (R.drawable.ic_weather_snow);
-                break;
-
-            case "50d"://mist day
-                imageResource = (R.drawable.ic_weather_mist);
-                break;
-
-            case "01n"://clear night
-                imageResource = (R.drawable.ic_weather_clear_night);
-                break;
-
-            case "02n"://few clouds night
-                imageResource = (R.drawable.ic__weather_few_clouds_night);
-                break;
-
-            case "03n"://scatted clouds night
-                imageResource = (R.drawable.ic_weather_overcast);
-                break;
-
-            case "04n"://broken clouds night
-                imageResource = (R.drawable.ic_weather_overcast);
-                break;
-
-            case "09n"://shower rain night
-                imageResource = (R.drawable.ic_weather_showers);
-                break;
-
-            case "10n"://rain night
-                imageResource = (R.drawable.ic_weather_showers_scattered);
-                break;
-
-            case "11n"://thunderstorm night
-                imageResource = (R.drawable.ic_weather_storm);
-                break;
-
-            case "13n"://snow night
-                imageResource = (R.drawable.ic_weather_snow);
-                break;
-
-            case "50n"://mist night
-                imageResource = (R.drawable.ic_weather_mist);
-                break;
-        }
-
-        return imageResource;
-    }
-*/
     @Override
     public int getItemCount() {
 
@@ -175,7 +74,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         notifyDataSetChanged();
     }
 
-    public class WeatherViewHolder extends RecyclerView.ViewHolder {
+    class WeatherViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivIcon;
         private TextView tvDate;
@@ -183,7 +82,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         private TextView tvTemp;
         private TextView tvHumidity;
 
-        public WeatherViewHolder(View itemView) {
+        WeatherViewHolder(View itemView) {
             super(itemView);
 
             ivIcon = itemView.findViewById(R.id.ivWeatherIcon);

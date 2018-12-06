@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.appdevgenie.shuttleservice.R;
@@ -22,7 +21,11 @@ public class AdminUserAccountsAdapter extends RecyclerView.Adapter<AdminUserAcco
     private EmailClickListener emailClickListener;
     private PhoneClickListener phoneClickListener;
 
-    public AdminUserAccountsAdapter(Context context, ArrayList<User> userArrayList, EmailClickListener emailClickListener, PhoneClickListener phoneClickListener) {
+    public AdminUserAccountsAdapter(
+            Context context,
+            ArrayList<User> userArrayList,
+            EmailClickListener emailClickListener,
+            PhoneClickListener phoneClickListener) {
         this.context = context;
         this.userArrayList = userArrayList;
         this.emailClickListener = emailClickListener;
@@ -62,7 +65,7 @@ public class AdminUserAccountsAdapter extends RecyclerView.Adapter<AdminUserAcco
         private Button bEmail;
         private Button bPhone;
 
-        public UserViewHolder(View itemView) {
+        UserViewHolder(View itemView) {
             super(itemView);
 
             tvName = itemView.findViewById(R.id.tvPassengerInfoName);
