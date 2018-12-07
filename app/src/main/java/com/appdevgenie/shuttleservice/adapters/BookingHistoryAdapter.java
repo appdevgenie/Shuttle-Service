@@ -62,7 +62,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 break;
 
             default:
-                throw new IllegalArgumentException("Invalid view type: " + viewType);
+                throw new IllegalArgumentException(context.getString(R.string.invalid_view_type) + viewType);
         }
 
         return viewHolder;
@@ -74,9 +74,9 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         int viewType = holder.getItemViewType();
         BookingInfo bookingInfo = bookingInfoArrayList.get(holder.getAdapterPosition());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_format_day_month_year_time), Locale.getDefault());
         Date date = bookingInfo.getBookingDate();
-        String bookingDateString = "Booking: " + simpleDateFormat.format(date);
+        String bookingDateString = context.getString(R.string.booking) + simpleDateFormat.format(date);
 
         switch (viewType) {
             case VIEW_TYPE_BOOKING_DEFAULT:

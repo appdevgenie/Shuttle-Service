@@ -9,18 +9,19 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.adapters.AdminTravelInfoAdapter;
 import com.appdevgenie.shuttleservice.model.BookingInfo;
 import com.appdevgenie.shuttleservice.model.TravelInfo;
+import com.appdevgenie.shuttleservice.utils.CheckNetworkConnection;
 import com.appdevgenie.shuttleservice.utils.CreateTravelInfoArrayList;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -34,28 +35,33 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_DATE_FIELD;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
 
 public class AdminTravelInfoFragment extends Fragment implements View.OnClickListener {
 
     private Context context;
-    private View view;
     private AdminTravelInfoAdapter adminTravelInfoAdapter;
     private ArrayList<BookingInfo> bookingInfoArrayList;
     private ArrayList<TravelInfo> travelInfoArrayList;
     private FirebaseFirestore firebaseFirestore;
-    //private FirebaseAuth firebaseAuth;
-    private ProgressBar progressBar;
-    private TextView tvSelectDate;
     private Calendar calendar;
     private SimpleDateFormat simpleDateFormat;
+    @BindView(R.id.pbTravelInfo)
+    ProgressBar progressBar;
+    @BindView(R.id.tvSelectDate)
+    TextView tvSelectDate;
+    @BindView(R.id.rvTravelInfo)
+    RecyclerView recyclerView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        view = inflater.inflate(R.layout.fragment_admin_travel_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin_travel_info, container, false);
+        ButterKnife.bind(this, view);
         setupVariables();
         return view;
     }
@@ -63,111 +69,33 @@ public class AdminTravelInfoFragment extends Fragment implements View.OnClickLis
     private void setupVariables() {
 
         context = getActivity();
-        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
         if (appCompatActivity != null) {
             appCompatActivity.getSupportActionBar().setTitle(R.string.travel_info);
         }
-        //Log.d("AdminTravel", "travel started");
-
-        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
-        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
-        if (appCompatActivity != null) {
-            appCompatActivity.setSupportActionBar(toolbar);
-            appCompatActivity.getSupportActionBar().setTitle(R.string.travel_info);
-            appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getActivity().onBackPressed();
-                }
-            });
-        }*/
-
         calendar = Calendar.getInstance();
-        simpleDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format_day_month_year), Locale.getDefault());
 
-        RecyclerView recyclerView = view.findViewById(R.id.rvTravelInfo);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         adminTravelInfoAdapter = new AdminTravelInfoAdapter(context);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adminTravelInfoAdapter);
 
-        progressBar = view.findViewById(R.id.pbTravelInfo);
-        //progressBar.setVisibility(View.VISIBLE);
-
-        tvSelectDate = view.findViewById(R.id.tvSelectDate);
         tvSelectDate.setOnClickListener(this);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        //firebaseAuth = FirebaseAuth.getInstance();
 
         Date date = new Date();
         String dateString = simpleDateFormat.format(date);
         tvSelectDate.setText(dateString);
         loadTravelInfo(dateString);
-
-        /*CollectionReference collectionReference = firebaseFirestore.collection(FIRESTORE_TRAVEL_INFO_COLLECTION);
-        collectionReference.whereEqualTo("date", tvSelectDate.getText().toString())
-                .get()
-                *//*.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                Log.d("AdminTravel", document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.d("AdminTravel", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });*//*
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        progressBar.setVisibility(View.GONE);
-
-                        if(!queryDocumentSnapshots.isEmpty()){
-                            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
-                                BookingInfo bookingInfo = documentSnapshot.toObject(BookingInfo.class);
-                                bookingInfoArrayList.add(bookingInfo);
-                                *//*TravelInfo travelInfo = documentSnapshot.toObject(TravelInfo.class);
-                                travelInfoArrayList.add(travelInfo);*//*
-
-                                //Log.d("AdminTravel", documentSnapshot.getId() + " => " + documentSnapshot.getData());
-                            }
-
-                            travelInfoArrayList = CreateTravelInfoArrayList.createTravelInfoList(context, bookingInfoArrayList);
-                            Log.d("AdminTravel", "travelInfoArrayList " + travelInfoArrayList.size());
-                            Log.d("AdminTravel", "bookingInfoArrayList " + bookingInfoArrayList.size());
-                            //adminTravelInfoAdapter.notifyDataSetChanged();
-                            adminTravelInfoAdapter.setAdapterData(travelInfoArrayList);
-                        }
-                    }
-                });*/
-
-        /*DocumentReference usersDocumentReference =
-                firebaseFirestore.collection("users").document();
-        usersDocumentReference
-                //.whereEqualTo("date", "10 Nov 2018")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
-                                Log.d("AdminTravel", task.getResult().getId() + " => " + task.getResult().getData());
-
-                        } else {
-                            Log.d("AdminTravel", "error getting documents: ", task.getException());
-                        }
-                    }
-                });*/
     }
 
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
 
             case R.id.tvSelectDate:
                 new DatePickerDialog(context,
@@ -191,6 +119,10 @@ public class AdminTravelInfoFragment extends Fragment implements View.OnClickLis
 
     private void loadTravelInfo(String date) {
 
+        if (!CheckNetworkConnection.isNetworkConnected(context)) {
+            Toast.makeText(context, R.string.loading_cache_info, Toast.LENGTH_SHORT).show();
+        }
+
         bookingInfoArrayList = new ArrayList<>();
         travelInfoArrayList = new ArrayList<>();
         progressBar.setVisibility(View.VISIBLE);
@@ -202,17 +134,12 @@ public class AdminTravelInfoFragment extends Fragment implements View.OnClickLis
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         progressBar.setVisibility(View.GONE);
-
-                        //if(!queryDocumentSnapshots.isEmpty()){
-                            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
-                                BookingInfo bookingInfo = documentSnapshot.toObject(BookingInfo.class);
-                                bookingInfoArrayList.add(bookingInfo);
-                            }
-                            travelInfoArrayList = CreateTravelInfoArrayList.createTravelInfoList(context, bookingInfoArrayList);
-                            adminTravelInfoAdapter.setAdapterData(travelInfoArrayList);
-                        //}else{
-                            //adminTravelInfoAdapter.setAdapterData(null);
-                        //}
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                            BookingInfo bookingInfo = documentSnapshot.toObject(BookingInfo.class);
+                            bookingInfoArrayList.add(bookingInfo);
+                        }
+                        travelInfoArrayList = CreateTravelInfoArrayList.createTravelInfoList(context, bookingInfoArrayList);
+                        adminTravelInfoAdapter.setAdapterData(travelInfoArrayList);
                     }
                 });
     }

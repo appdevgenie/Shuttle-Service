@@ -36,7 +36,7 @@
     <string name="cost_per_seat">Cost per seat</string>
     <string name="select_travel_date">Select travel date</string>
     <string name="price_per_person">Price per person/per seat</string>
-    <string name="update">Update</string>
+    <string name="update_account">Update account</string>
     <string name="check_availability">Check availability</string>
     <string name="make_booking">Make booking</string>
     <string name="shuttle_logo">shuttle_logo</string>
@@ -77,4 +77,19 @@
     <string name="invalid_view_type">Invalid view type:</string>
     <string name="gmt_time_zome">GMT</string>
     <string name="date_format_weekday_time">EEEE HH:mm</string>
+    <string name="zero">0</string>
+    <string name="colon">:</string>
+    <string name="on_time">- -</string>
+    <string name="booking">Booking:</string>
+    <string name="date_format_day_month_year_time">dd MMM yyyy, HH:mm</string>
+    <string name="intent_type_image">image/*</string>
+    <string name="user_update_success">User update success</string>
+    <string name="image_uploaded">Image uploaded</string>
+    <string name="user_image">user_image</string>
+    <string name="loading_cache_info">Loading cache info</string>
+    <string name="delete_account">Delete account</string>
+    <string name="click_image_to_change">click image to change</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="date_format_day_month_year">dd MMM yyyy</string>
+    <string name="intent_type_email">text/html</string>
 </resources>

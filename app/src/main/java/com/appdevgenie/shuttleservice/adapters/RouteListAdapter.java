@@ -120,9 +120,9 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
                 CharSequence minutes;
 
                 if (diffHours > 0) {
-                    hours = TextUtils.concat("0", String.valueOf(diffHours));
+                    hours = TextUtils.concat(context.getString(R.string.zero), String.valueOf(diffHours));
                     if(diffMinutes < 10){
-                        minutes = TextUtils.concat("0", String.valueOf(diffMinutes));
+                        minutes = TextUtils.concat(context.getString(R.string.zero), String.valueOf(diffMinutes));
                     }else {
                         minutes = String.valueOf(diffMinutes);
                     }
@@ -133,7 +133,7 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
                             " minutes at:"));*/
                 } else {
                     if(diffMinutes < 10){
-                        minutes = TextUtils.concat("0", String.valueOf(diffMinutes));
+                        minutes = TextUtils.concat(context.getString(R.string.zero), String.valueOf(diffMinutes));
                         //holder.tvNextStop.setText(TextUtils.concat("00:0", String.valueOf(diffMinutes)));
                     }else {
                         minutes = String.valueOf(diffMinutes);
@@ -153,11 +153,11 @@ public class RouteListAdapter extends RecyclerView.Adapter<RouteListAdapter.Rout
                     }*/
                 }
                 if(diffHours == 0 && diffMinutes == 0){
-                    hours = "- -";
-                    minutes = "- -";
+                    hours = context.getString(R.string.on_time);
+                    minutes = context.getString(R.string.on_time);
                 }
 
-                holder.tvNextStop.setText(TextUtils.concat(hours, ":", minutes));
+                holder.tvNextStop.setText(TextUtils.concat(hours, context.getString(R.string.colon), minutes));
 
             } catch (ParseException e) {
                 e.printStackTrace();

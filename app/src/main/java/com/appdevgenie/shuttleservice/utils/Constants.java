@@ -10,6 +10,7 @@ public class Constants {
     public static final String FIRESTORE_BOOKING_DATE_FIELD = "bookingDate";
     public static final String FIRESTORE_USER_EMAIL_FIELD = "userEmail";
     public static final String FIRESTORE_TRAVEL_DATE_FIELD = "date";
+    public static final String FIRESTORE_USER_IMAGE_CHILD = "user.jpg";
 
     public static final int DOWNSTREAM_DIFFERENCE = 17;
     public static final int SHUTTLE_MAX = 30;
@@ -55,5 +56,7 @@ public class Constants {
     public static final int THIRTY_MINUTES = 30 * 60 * 1000;
 
     public static final int RC_SIGN_IN = 155;
+
+    public static final int SELECT_IMAGE_REQUEST = 101;
 
 }

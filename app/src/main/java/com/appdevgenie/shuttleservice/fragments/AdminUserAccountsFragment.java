@@ -10,15 +10,16 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.adapters.AdminUserAccountsAdapter;
 import com.appdevgenie.shuttleservice.model.User;
+import com.appdevgenie.shuttleservice.utils.CheckNetworkConnection;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -29,21 +30,28 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_USER_COLLECTION;
 
-public class AdminUserAccountsFragment extends Fragment implements AdminUserAccountsAdapter.EmailClickListener, AdminUserAccountsAdapter.PhoneClickListener {
+public class AdminUserAccountsFragment extends Fragment
+        implements AdminUserAccountsAdapter.EmailClickListener, AdminUserAccountsAdapter.PhoneClickListener {
 
     private View view;
     private Context context;
     private AdminUserAccountsAdapter adminUserAccountsAdapter;
-    private ProgressBar progressBar;
     private ArrayList<User> userArrayList;
+    @BindView(R.id.recyclerViewDefault)
+    RecyclerView recyclerView;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.fragment_default_recyclerview, container, false);
+        ButterKnife.bind(this, view);
         setupVariables();
         return view;
     }
@@ -51,53 +59,37 @@ public class AdminUserAccountsFragment extends Fragment implements AdminUserAcco
     private void setupVariables() {
 
         context = getActivity();
-        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
+        AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
         if (appCompatActivity != null) {
             appCompatActivity.getSupportActionBar().setTitle(R.string.user_account);
         }
 
-        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
-        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
-        if (appCompatActivity != null) {
-            appCompatActivity.setSupportActionBar(toolbar);
-            appCompatActivity.getSupportActionBar().setTitle(R.string.user_accounts);
-            appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getActivity().onBackPressed();
-                }
-            });
-        }*/
-
         userArrayList = new ArrayList<>();
 
-        progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewDefault);
         adminUserAccountsAdapter = new AdminUserAccountsAdapter(context, userArrayList, this, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adminUserAccountsAdapter);
 
+        if (!CheckNetworkConnection.isNetworkConnected(context)) {
+            Toast.makeText(context, R.string.loading_cache_info, Toast.LENGTH_SHORT).show();
+        }
+
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-
         CollectionReference usersCollection = firebaseFirestore.collection(FIRESTORE_USER_COLLECTION);
-
         usersCollection.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 progressBar.setVisibility(View.GONE);
-                if(!queryDocumentSnapshots.isEmpty()){
+                if (!queryDocumentSnapshots.isEmpty()) {
 
                     List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
-
-                    for(DocumentSnapshot documentSnapshot : documentSnapshotList){
+                    for (DocumentSnapshot documentSnapshot : documentSnapshotList) {
                         User user = documentSnapshot.toObject(User.class);
                         userArrayList.add(user);
                     }
-
                     adminUserAccountsAdapter.notifyDataSetChanged();
                 }
             }
@@ -112,18 +104,16 @@ public class AdminUserAccountsFragment extends Fragment implements AdminUserAcco
 
     @Override
     public void onEmailClicked(String email) {
-        //Toast.makeText(context, email, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/html");
+        intent.setType(getString(R.string.intent_type_email));
         intent.putExtra(Intent.EXTRA_EMAIL, email);
         intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.app_name));
 
-        startActivity(Intent.createChooser(intent, "Email"));
+        startActivity(Intent.createChooser(intent, context.getString(R.string.email)));
     }
 
     @Override
     public void onPhoneClicked(String phone) {
-        //Toast.makeText(context, phone, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + phone));
         startActivity(intent);

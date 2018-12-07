@@ -14,20 +14,6 @@
         android:elevation="@dimen/cardview_default_elevation"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!--<android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gradient"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_arrow_back"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:titleTextColor="@color/colorWhite" />-->
-
         <TextView
             android:id="@+id/tvDateLabel"
             android:layout_width="wrap_content"
@@ -35,7 +21,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:text="Date"
+            android:text="@string/date"
             android:textColor="@color/divider"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +38,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/tvDateLabel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvDateLabel"
-            app:layout_constraintTop_toTopOf="@+id/tvDateLabel" />
+            app:layout_constraintTop_toTopOf="@+id/tvDateLabel"
+            android:contentDescription="@string/gray_line_divider" />
 
         <TextView
             android:id="@+id/tvSelectDate"
@@ -69,7 +56,7 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="start|center_vertical"
-            android:text="Select date"
+            android:text="@string/select_date"
             android:textColor="@color/primary_text"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"

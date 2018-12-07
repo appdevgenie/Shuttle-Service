@@ -35,29 +35,27 @@
 
         <Button
             android:id="@+id/bUserContactEmail"
+            style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/ButtonStyle"
             android:text="Email"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bUserContactPhone"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivUserContactDivider"
-            app:srcCompat="@drawable/ic_email" />
+            app:layout_constraintTop_toBottomOf="@+id/ivUserContactDivider" />
 
         <Button
             android:id="@+id/bUserContactPhone"
+            style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/ButtonStyle"
             android:text="Phone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@+id/bUserContactEmail"
-            app:layout_constraintTop_toBottomOf="@+id/ivUserContactDivider"
-            app:srcCompat="@drawable/ic_phone" />
+            app:layout_constraintTop_toBottomOf="@+id/ivUserContactDivider" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
