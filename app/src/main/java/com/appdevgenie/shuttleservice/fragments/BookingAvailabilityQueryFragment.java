@@ -18,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.model.BookingInfo;
@@ -34,6 +35,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_FROM_SPINNER;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_IS_DUAL_PANE;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_MAX_SEATS;
@@ -45,42 +49,55 @@ import static com.appdevgenie.shuttleservice.utils.Constants.DOWNSTREAM_DIFFEREN
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_DATE_FIELD;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.HOP_COST;
+import static com.appdevgenie.shuttleservice.utils.Constants.SAVED_DATE;
 import static com.appdevgenie.shuttleservice.utils.Constants.SAVED_DUAL_PANE;
+import static com.appdevgenie.shuttleservice.utils.Constants.SAVED_SEATS;
 import static com.appdevgenie.shuttleservice.utils.Constants.SHUTTLE_MAX;
 
 public class BookingAvailabilityQueryFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
-    private TextView tvSelectDate;
-    private TextView tvPriceValue;
-    private TextView tvPriceValueInfo;
-    private TextView tvSeatsAmountAvailable;
-    private Button bMakeBooking;
-    private ProgressBar pbCheckAvailability;
-    private int fromInt;
-    private int toInt;
-    private Spinner spFrom;
-    private Spinner spTo;
+    @BindView(R.id.tvSelectDate)
+    TextView tvSelectDate;
+    @BindView(R.id.tvPriceValue)
+    TextView tvPriceValue;
+    @BindView(R.id.tvPriceValueInfo)
+    TextView tvPriceValueInfo;
+    @BindView(R.id.tvSeatsAmountAvailable)
+    TextView tvSeatsAmountAvailable;
+    @BindView(R.id.bMakeBooking)
+    Button bMakeBooking;
+    @BindView(R.id.bCheckAvailability)
+    Button bCheckAvailability;
+    @BindView(R.id.pbCheckAvailability)
+    ProgressBar pbCheckAvailability;
+    @BindView(R.id.spPriceFrom)
+    Spinner spFrom;
+    @BindView(R.id.spPriceTo)
+    Spinner spTo;
     private Context context;
-    private View view;
     private Calendar calendar;
     private SimpleDateFormat simpleDateFormat;
-    private boolean tripSelected;
     private ArrayList<BookingInfo> bookingInfoArrayList;
-    //private ArrayList<TravelInfo> travelInfoArrayList;
     private FirebaseFirestore firebaseFirestore;
     private ArrayList<Integer> intArray;
     private ArrayList<Integer> intRangeArray;
     private int direction;
     private boolean dualPane;
     private int maxSeats;
-    //private DatePickerDialog.OnDateSetListener dateSetListener;
+    private int fromInt;
+    private int toInt;
+
+    public BookingAvailabilityQueryFragment() {
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_booking_availability_query, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_booking_availability_query, container, false);
+        ButterKnife.bind(this, view);
         setupVariables();
+
+        setRetainInstance(true);
 
         if (savedInstanceState == null) {
             Bundle bundle = getArguments();
@@ -92,6 +109,8 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
             }
         } else {
             dualPane = savedInstanceState.getBoolean(SAVED_DUAL_PANE);
+            tvSelectDate.setText(savedInstanceState.getString(SAVED_DATE));
+            tvSeatsAmountAvailable.setText(savedInstanceState.getString(SAVED_SEATS));
         }
 
         return view;
@@ -113,68 +132,24 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
         calendar = Calendar.getInstance();
         simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format_day_month_year), Locale.getDefault());
 
-        spFrom = view.findViewById(R.id.spPriceFrom);
         ArrayAdapter<CharSequence> spFromAdapter =
                 ArrayAdapter.createFromResource(context, R.array.town_names, R.layout.spinner_item);
         spFromAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spFrom.setAdapter(spFromAdapter);
         spFrom.setOnItemSelectedListener(this);
 
-        spTo = view.findViewById(R.id.spPriceTo);
         ArrayAdapter<CharSequence> spToAdapter =
                 ArrayAdapter.createFromResource(context, R.array.town_names, R.layout.spinner_item);
         spToAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTo.setAdapter(spToAdapter);
         spTo.setOnItemSelectedListener(this);
 
-        tvPriceValue = view.findViewById(R.id.tvPriceValue);
-        tvPriceValueInfo = view.findViewById(R.id.tvPriceValueInfo);
-        tvSeatsAmountAvailable = view.findViewById(R.id.tvSeatsAmountAvailable);
-        tvPriceValue.setVisibility(View.INVISIBLE);
-        tvPriceValueInfo.setVisibility(View.INVISIBLE);
-        bMakeBooking = view.findViewById(R.id.bMakeBooking);
-        bMakeBooking.setVisibility(View.INVISIBLE);
+        tvPriceValue.setVisibility(View.GONE);
+        tvPriceValueInfo.setVisibility(View.GONE);
         bMakeBooking.setOnClickListener(this);
-
-        pbCheckAvailability = view.findViewById(R.id.pbCheckAvailability);
-
-        /*calendar = Calendar.getInstance();
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, monthOfYear);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
-            }
-
-        };*/
-
-        //tvDate = view.findViewById(R.id.tvTripDetailsDateValue);
-        tvSelectDate = view.findViewById(R.id.tvSelectDate);
+        bCheckAvailability.setOnClickListener(this);
         tvSelectDate.setOnClickListener(this);
-        /*tvSelectDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(context,
-                        dateSetListener,
-                        calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH)).show();
-
-
-                *//*DialogFragment newFragment = new DatePickerDialogFragment();
-                newFragment.show(getFragmentManager(), "datePicker");*//*
-            }
-        });*/
     }
-
-    /*private void updateLabel() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
-        tvSelectDate.setText(simpleDateFormat.format(calendar.getTime()));
-    }*/
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -214,13 +189,7 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
                                 calendar.set(Calendar.MONTH, month);
                                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                                 tvSelectDate.setText(simpleDateFormat.format(calendar.getTime()));
-                                if (tripSelected) {
-                                    //bMakeBooking.setVisibility(View.VISIBLE);
-                                    loadTravelInfo(tvSelectDate.getText().toString());
-                                }
-                                /*if(dualPane){
-                                    bMakeBooking.setVisibility(View.GONE);
-                                }*/
+                                tvSeatsAmountAvailable.setText("");
                             }
                         },
                         calendar.get(Calendar.YEAR),
@@ -252,6 +221,19 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
                             .commit();
                 }
                 break;
+
+            case R.id.bCheckAvailability:
+
+                if (TextUtils.equals(tvSelectDate.getText(), context.getString(R.string.select_date))) {
+                    Toast.makeText(context, R.string.select_valid_date, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(tvPriceValue.getText())) {
+                    Toast.makeText(context, R.string.select_valid_trip, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                loadTravelInfo(tvSelectDate.getText().toString());
+                break;
         }
     }
 
@@ -271,22 +253,16 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
 
             tvPriceValue.setVisibility(View.VISIBLE);
             tvPriceValueInfo.setVisibility(View.VISIBLE);
-
-            tripSelected = true;
-            if (!TextUtils.equals(tvSelectDate.getText().toString(), context.getString(R.string.select_date))) {
-                //bMakeBooking.setVisibility(View.VISIBLE);
-                loadTravelInfo(tvSelectDate.getText().toString());
-            }
-            /*if(dualPane){
-                bMakeBooking.setVisibility(View.GONE);
-            }*/
+            bMakeBooking.setVisibility(View.VISIBLE);
+            bCheckAvailability.setVisibility(View.VISIBLE);
 
         } else {
-            tvPriceValue.setVisibility(View.INVISIBLE);
-            tvPriceValueInfo.setVisibility(View.INVISIBLE);
+            tvPriceValue.setVisibility(View.GONE);
+            tvPriceValueInfo.setVisibility(View.GONE);
             tvPriceValue.setText("");
             tvSeatsAmountAvailable.setText("");
-            bMakeBooking.setVisibility(View.INVISIBLE);
+            bMakeBooking.setVisibility(View.GONE);
+            bCheckAvailability.setVisibility(View.GONE);
 
         }
     }
@@ -295,9 +271,6 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
     private void loadTravelInfo(String date) {
 
         bookingInfoArrayList = new ArrayList<>();
-        //travelInfoArrayList = new ArrayList<>();
-
-
         pbCheckAvailability.setVisibility(View.VISIBLE);
         tvSeatsAmountAvailable.setText("");
 
@@ -310,20 +283,10 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
                         pbCheckAvailability.setVisibility(View.GONE);
 
                         for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
-                            // seats = documentSnapshot.getLong("seats").intValue();;
-                            // intArray.add(seats);
                             BookingInfo bookingInfo = documentSnapshot.toObject(BookingInfo.class);
                             bookingInfoArrayList.add(bookingInfo);
                         }
-                        //travelInfoArrayList = CreateTravelInfoArrayList.createTravelInfoList(context, bookingInfoArrayList);
-
-                        //returns an array of max passengers per stop
                         intRangeArray = CreateTravelInfoArrayList.createPassengerMaxList(context, bookingInfoArrayList);
-                        //intRangeArray = new ArrayList<>(intArray.subList(1, 5));
-                        /*intArray = new ArrayList<>(intRangeArray.subList(fromInt, toInt));
-                        int max = Collections.max(intArray);
-                        //Toast.makeText(context, String.valueOf(intRangeArray.size()), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(context, String.valueOf(max), Toast.LENGTH_SHORT).show();*/
                         if (direction == DIRECTION_UPSTREAM) {
                             getMaxSeats(fromInt, toInt);
                         }
@@ -340,35 +303,20 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
         intArray = new ArrayList<>(intRangeArray.subList(fromInt, toInt));
         //get highest value in intArray
         maxSeats = Collections.max(intArray);
-        if (maxSeats == SHUTTLE_MAX) {
+        /*if (maxSeats == SHUTTLE_MAX) {
             bMakeBooking.setVisibility(View.INVISIBLE);
         } else {
             bMakeBooking.setVisibility(View.VISIBLE);
-        }
+        }*/
         CharSequence seats = TextUtils.concat(String.valueOf(SHUTTLE_MAX - maxSeats), " ", getString(R.string.seats_available));
         tvSeatsAmountAvailable.setText(seats);
-
-        //Toast.makeText(context, String.valueOf(intRangeArray.size()), Toast.LENGTH_SHORT).show();
-        //Toast.makeText(context, String.valueOf(max), Toast.LENGTH_SHORT).show();
-        /*intRangeArray = new ArrayList<>(intArray.subList(fromInt, toInt));
-        int max = Collections.max(intRangeArray);
-        Toast.makeText(context, String.valueOf(max), Toast.LENGTH_SHORT).show();*/
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(SAVED_DUAL_PANE, dualPane);
+        outState.putString(SAVED_DATE, tvSelectDate.getText().toString());
+        outState.putString(SAVED_SEATS, tvSeatsAmountAvailable.getText().toString());
     }
-
-    /*// Method for getting the maximum value
-    public static int getMax(int[] inputArray){
-        int maxValue = inputArray[0];
-        for(int i = 1; i < inputArray.length; i++){
-            if(inputArray[i] > maxValue){
-                maxValue = inputArray[i];
-            }
-        }
-        return maxValue;
-    }*/
 }

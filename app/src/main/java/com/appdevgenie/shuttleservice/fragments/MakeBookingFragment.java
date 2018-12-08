@@ -266,7 +266,7 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
             }
 
             tripSelected = true;
-            if(!TextUtils.equals(date.getText().toString(), context.getString(R.string.select_date)) && spSeats.getAdapter() != null) {
+            if(!TextUtils.equals(date.getText().toString(), context.getString(R.string.select_date))) {
                 bMakeBooking.setVisibility(View.VISIBLE);
                 //loadAvailableSeats(date.getText().toString());
             }
@@ -295,7 +295,7 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                                 calendar.set(Calendar.MONTH, month);
                                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                                 date.setText(simpleDateFormat.format(calendar.getTime()));
-                                if(tripSelected  && spSeats.getAdapter() != null) {
+                                if(tripSelected) {
                                     bMakeBooking.setVisibility(View.VISIBLE);
                                     //loadAvailableSeats(date.getText().toString());
                                 }
@@ -308,6 +308,10 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
 
             case R.id.bMakeBooking:
 
+                if(spSeats.getAdapter().isEmpty()){
+                    Toast.makeText(context, R.string.no_seats_available, Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (TextUtils.equals(date.getText(), context.getString(R.string.select_date))) {
                     Toast.makeText(context, R.string.select_valid_date, Toast.LENGTH_SHORT).show();
                     return;

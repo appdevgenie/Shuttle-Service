@@ -52,6 +52,8 @@ public class Constants {
     public static final String SAVED_SELECTED_ICON = "selectedPosition";
     public static final String SAVED_FROM_SPINNER = "fromSpinner";
     public static final String SAVED_TO_SPINNER = "toSpinner";
+    public static final String SAVED_DATE = "date";
+    public static final String SAVED_SEATS = "seats";
 
     public static final int THIRTY_MINUTES = 30 * 60 * 1000;
 
