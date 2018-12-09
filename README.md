@@ -1,7 +1,7 @@
 # Shuttle-Service
 Shuttle Service: Android Developer Nanodegree capstone project
 
-## Screenshots (mobile) - Sign in
+## Screenshots (mobile) - Sign in / Register / Forgot password
 
 ![device-2018-12-09-083250](https://user-images.githubusercontent.com/39134030/49697334-c0b14080-fbbe-11e8-8bd3-fc6aeec2b836.png)
 
