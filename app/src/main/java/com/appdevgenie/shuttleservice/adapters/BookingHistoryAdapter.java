@@ -2,11 +2,17 @@ package com.appdevgenie.shuttleservice.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -73,34 +79,36 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         int viewType = holder.getItemViewType();
         BookingInfo bookingInfo = bookingInfoArrayList.get(holder.getAdapterPosition());
+        //setAnimation(holder.itemView, position);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_format_day_month_year_time), Locale.getDefault());
-        Date date = bookingInfo.getBookingDate();
-        String bookingDateString = context.getString(R.string.booking) + simpleDateFormat.format(date);
+        if (bookingInfo != null) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_format_day_month_year_time), Locale.getDefault());
+            Date date = bookingInfo.getBookingDate();
+            String bookingDateString = context.getString(R.string.booking) + simpleDateFormat.format(date);
 
-        switch (viewType) {
-            case VIEW_TYPE_BOOKING_DEFAULT:
-                ((DefaultViewHolder) holder).tvBookingDate.setText(bookingDateString);
-                ((DefaultViewHolder) holder).tvSeats.setText(String.valueOf(bookingInfo.getSeats()));
-                ((DefaultViewHolder) holder).tvDate.setText(bookingInfo.getDate());
-                break;
+            switch (viewType) {
+                case VIEW_TYPE_BOOKING_DEFAULT:
+                    ((DefaultViewHolder) holder).tvBookingDate.setText(bookingDateString);
+                    ((DefaultViewHolder) holder).tvSeats.setText(String.valueOf(bookingInfo.getSeats()));
+                    ((DefaultViewHolder) holder).tvDate.setText(bookingInfo.getDate());
+                    break;
 
-            case VIEW_TYPE_BOOKING_SELECTED:
+                case VIEW_TYPE_BOOKING_SELECTED:
                 /*SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd MMM, HH:mm", Locale.getDefault());
                 Date date = bookingInfo.getBookingDate();
                 String bookingDateString = simpleDateFormat.format(date);*/
-                ((SelectedViewHolder) holder).tvBookingDate.setText(bookingDateString);
-                ((SelectedViewHolder) holder).tvSeats.setText(String.valueOf(bookingInfo.getSeats()));
-                ((SelectedViewHolder) holder).tvDate.setText(bookingInfo.getDate());
-                ((SelectedViewHolder) holder).tvFrom.setText(bookingInfo.getFromTown());
-                ((SelectedViewHolder) holder).tvTo.setText(bookingInfo.getToTown());
-                ((SelectedViewHolder) holder).tvDepartTime.setText(bookingInfo.getDepartureTime());
-                ((SelectedViewHolder) holder).tvArriveTime.setText(bookingInfo.getArrivalTime());
-                ((SelectedViewHolder) holder).tvFromCode.setText(bookingInfo.getFromTownCode());
-                ((SelectedViewHolder) holder).tvToCode.setText(bookingInfo.getToTownCode());
-                break;
+                    ((SelectedViewHolder) holder).tvBookingDate.setText(bookingDateString);
+                    ((SelectedViewHolder) holder).tvSeats.setText(String.valueOf(bookingInfo.getSeats()));
+                    ((SelectedViewHolder) holder).tvDate.setText(bookingInfo.getDate());
+                    ((SelectedViewHolder) holder).tvFrom.setText(bookingInfo.getFromTown());
+                    ((SelectedViewHolder) holder).tvTo.setText(bookingInfo.getToTown());
+                    ((SelectedViewHolder) holder).tvDepartTime.setText(bookingInfo.getDepartureTime());
+                    ((SelectedViewHolder) holder).tvArriveTime.setText(bookingInfo.getArrivalTime());
+                    ((SelectedViewHolder) holder).tvFromCode.setText(bookingInfo.getFromTownCode());
+                    ((SelectedViewHolder) holder).tvToCode.setText(bookingInfo.getToTownCode());
+                    break;
+            }
         }
-
     }
 
     @Override
@@ -109,13 +117,39 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         BookingInfo bookingInfo = bookingInfoArrayList.get(position);
         int type = bookingInfo.getViewType();
 
-        if (type == 0) {
+        switch (type) {
+            case 0:
+                return VIEW_TYPE_BOOKING_DEFAULT;
+
+            case 1:
+                return VIEW_TYPE_BOOKING_SELECTED;
+
+            default:
+                return -1;
+        }
+        /*if (type == 0) {
             return VIEW_TYPE_BOOKING_DEFAULT;
         } else {
             return VIEW_TYPE_BOOKING_SELECTED;
-        }
-
+        }*/
     }
+
+    /*private void setAnimation(View container, int position) {
+        Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+        container.startAnimation(animation);
+    }
+
+    private void setScaleAnimation(View view) {
+        ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        anim.setDuration(1000);
+        view.startAnimation(anim);
+    }
+
+    private void setFadeAnimation(View view) {
+        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(1000);
+        view.startAnimation(anim);
+    }*/
 
     @Override
     public int getItemCount() {
@@ -127,6 +161,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     class DefaultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        //private CardView cardView;
         private TextView tvBookingDate;
         private TextView tvDate;
         private TextView tvSeats;
@@ -134,6 +169,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         DefaultViewHolder(View itemView) {
             super(itemView);
+            //cardView = itemView.findViewById(R.id.cardView);
             tvBookingDate = itemView.findViewById(R.id.tvBookingMadeDate);
             tvDate = itemView.findViewById(R.id.tvTripDetailsDateValue);
             tvSeats = itemView.findViewById(R.id.tvTripDetailsSeatsValue);
@@ -144,14 +180,16 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         @Override
         public void onClick(View v) {
             //int clickedItem = getAdapterPosition();
+            //setAnimation(cardView, getAdapterPosition());
             BookingInfo bookingInfo = bookingInfoArrayList.get(getAdapterPosition());
             bookingInfo.setViewType(VIEW_TYPE_BOOKING_SELECTED);
-            notifyDataSetChanged();
+            notifyItemChanged(getAdapterPosition());
         }
     }
 
     class SelectedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        //private CardView cardView;
         private TextView tvBookingDate;
         private TextView tvDate;
         private TextView tvSeats;
@@ -167,7 +205,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         SelectedViewHolder(View itemView) {
             super(itemView);
-
+            //cardView = itemView.findViewById(R.id.cardView);
             tvBookingDate = itemView.findViewById(R.id.tvBookingMadeDate);
             tvDate = itemView.findViewById(R.id.tvTripDetailsDateValue);
             tvSeats = itemView.findViewById(R.id.tvTripDetailsSeatsValue);
@@ -191,9 +229,10 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
             switch (v.getId()) {
                 case R.id.ibBookingHistoryReduceExpand:
+                    //setAnimation(cardView, getAdapterPosition());
                     BookingInfo bookingInfo = bookingInfoArrayList.get(getAdapterPosition());
                     bookingInfo.setViewType(VIEW_TYPE_BOOKING_DEFAULT);
-                    notifyDataSetChanged();
+                    notifyItemChanged(getAdapterPosition());
                     break;
 
                 case R.id.bAddToWidget:
