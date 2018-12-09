@@ -13,60 +13,47 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.appdevgenie.shuttleservice.utils.Constants.JSON_ARRAY_LIST;
+import static com.appdevgenie.shuttleservice.utils.Constants.JSON_ARRAY_WEATHER;
+import static com.appdevgenie.shuttleservice.utils.Constants.JSON_ITEM_DATE_LONG;
+import static com.appdevgenie.shuttleservice.utils.Constants.JSON_ITEM_DATE_TEXT;
+import static com.appdevgenie.shuttleservice.utils.Constants.JSON_ITEM_DESCRIPTION;
+import static com.appdevgenie.shuttleservice.utils.Constants.JSON_ITEM_HUMIDITY;
+import static com.appdevgenie.shuttleservice.utils.Constants.JSON_ITEM_ICON;
+import static com.appdevgenie.shuttleservice.utils.Constants.JSON_ITEM_TEMP;
+import static com.appdevgenie.shuttleservice.utils.Constants.JSON_OBJECT_MAIN;
+
 public class WeatherJsonUtils {
 
     public static WeatherInfoList parseWeatherJson(String json) {
 
-        /*String icon;
-        String date;
-        String description;
-        double temp;
-        double humidity;*/
         List<WeatherInfo> weatherInfoModelList = new ArrayList<>();
         WeatherInfoList weatherInfoList = new WeatherInfoList();
 
         try {
 
             JSONObject jsonObject = new JSONObject(json);
-            //single info
-            /*
-            JSONObject mainObject = jsonObject.getJSONObject("main");
-            WeatherInfo weatherInfo = new WeatherInfo(
-                    0,
-                    "",
-                    "",
-                    mainObject.getDouble("temp_min"),
-                    mainObject.getDouble("temp_max")
-            );
-            weatherInfoModelList.add(weatherInfo);*/
+            JSONArray jsonArray = jsonObject.getJSONArray(JSON_ARRAY_LIST);
 
-            JSONArray jsonArray = jsonObject.getJSONArray("list");
-            //JsonArray weatherArray = jsonObject1.getJSONArray("weather");
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject jsonObjectForecast = jsonArray.getJSONObject(i);
-                JSONObject mainObject = jsonObjectForecast.getJSONObject("main");
+                JSONObject mainObject = jsonObjectForecast.getJSONObject(JSON_OBJECT_MAIN);
 
-                JSONArray weatherArray = jsonObjectForecast.getJSONArray("weather");
+                JSONArray weatherArray = jsonObjectForecast.getJSONArray(JSON_ARRAY_WEATHER);
                 JSONObject weatherObject = weatherArray.getJSONObject(0);
 
-                /*icon = weatherObject.getString("icon");
-                date = jsonObjectForecast.getString("dt_txt");
-                description = weatherObject.getString("description");
-                temp = mainObject.getDouble("temp");
-                humidity = mainObject.getDouble("humidity");*/
-
-                long dateLong = jsonObjectForecast.getLong("dt") * 1000;
+                long dateLong = jsonObjectForecast.getLong(JSON_ITEM_DATE_LONG) * 1000;
                 //ignore today`s weather
                 if(!DateUtils.isToday(dateLong)) {
 
                     WeatherInfo weatherInfo = new WeatherInfo(
-                            weatherObject.getString("icon"),
-                            jsonObjectForecast.getString("dt_txt"),
-                            jsonObjectForecast.getLong("dt"),
-                            weatherObject.getString("description"),
-                            mainObject.getDouble("temp"),
-                            mainObject.getDouble("humidity")
+                            weatherObject.getString(JSON_ITEM_ICON),
+                            jsonObjectForecast.getString(JSON_ITEM_DATE_TEXT),
+                            jsonObjectForecast.getLong(JSON_ITEM_DATE_LONG),
+                            weatherObject.getString(JSON_ITEM_DESCRIPTION),
+                            mainObject.getDouble(JSON_ITEM_TEMP),
+                            mainObject.getDouble(JSON_ITEM_HUMIDITY)
                     );
                     weatherInfoModelList.add(weatherInfo);
 
@@ -87,16 +74,16 @@ public class WeatherJsonUtils {
         try {
 
             JSONObject jsonObject = new JSONObject(json);
-            JSONObject mainObject = jsonObject.getJSONObject("main");
-            JSONArray weatherArray = jsonObject.getJSONArray("weather");
+            JSONObject mainObject = jsonObject.getJSONObject(JSON_OBJECT_MAIN);
+            JSONArray weatherArray = jsonObject.getJSONArray(JSON_ARRAY_WEATHER);
             JSONObject weatherObject = weatherArray.getJSONObject(0);
 
         weatherTodayInfo = new WeatherTodayInfo(
-                weatherObject.getString("icon"),
-                jsonObject.getLong("dt"),
-                weatherObject.getString("description"),
-                mainObject.getDouble("temp"),
-                mainObject.getDouble("humidity")
+                weatherObject.getString(JSON_ITEM_ICON),
+                jsonObject.getLong(JSON_ITEM_DATE_LONG),
+                weatherObject.getString(JSON_ITEM_DESCRIPTION),
+                mainObject.getDouble(JSON_ITEM_TEMP),
+                mainObject.getDouble(JSON_ITEM_HUMIDITY)
         );
 
         }catch (JSONException e){

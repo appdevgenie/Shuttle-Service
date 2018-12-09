@@ -31,6 +31,7 @@
             android:id="@+id/tvWidgetDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
             android:gravity="center"
             tools:text="1999/01/01"
             android:textColor="@color/colorBlack"
@@ -45,6 +46,7 @@
                 android:id="@+id/tvWidgetFrom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:gravity="start"
@@ -63,6 +65,7 @@
 
             <TextView
                 android:id="@+id/tvWidgetTo"
+                android:fontFamily="sans-serif-light"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -101,6 +104,7 @@
                 android:id="@+id/tvWidgetFromTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:gravity="start"
@@ -112,6 +116,7 @@
                 android:id="@+id/tvWidgetSeats"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:gravity="center"
@@ -124,6 +129,7 @@
                 android:id="@+id/tvWidgetToTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:gravity="end"
@@ -132,21 +138,6 @@
                 tools:text="16:00" />
 
         </LinearLayout>
-
-        <!--<TextView
-            android:id="@+id/tvWidgetSeats"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="2 seats"
-            android:textColor="@color/colorBlack"
-            android:textSize="20sp" />-->
-
-        <!--<ListView
-            android:id="@+id/widget_stack_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:loopViews="true" />-->
 
 
     </LinearLayout>
@@ -165,8 +156,6 @@
             android:alpha="0.1"
             android:background="@drawable/gradient_background"
             android:src="@drawable/logo_ss" />
-
-
 
     </RelativeLayout>
 

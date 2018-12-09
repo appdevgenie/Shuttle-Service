@@ -21,8 +21,18 @@ public class Constants {
     public static final String WEATHER_API_KEY = BuildConfig.WEATHER_API_KEY;
     public static final String WEATHER_COUNTRY = ",za";
 
-    public static final String WEATHER_API_QUERY_KEY = "appid";
+    static final String WEATHER_API_QUERY_KEY = "appid";
     public static final double TEMP_KELVIN = 273.15;
+
+    static final String JSON_ARRAY_LIST = "list";
+    static final String JSON_OBJECT_MAIN = "main";
+    static final String JSON_ARRAY_WEATHER = "weather";
+    static final String JSON_ITEM_DATE_LONG = "dt";
+    static final String JSON_ITEM_DATE_TEXT = "dt_txt";
+    static final String JSON_ITEM_ICON = "icon";
+    static final String JSON_ITEM_DESCRIPTION = "description";
+    static final String JSON_ITEM_TEMP = "temp";
+    static final String JSON_ITEM_HUMIDITY = "humidity";
 
     public static final String USER_ADMIN = "appdevgenie@gmail.com";
     public static final double HOP_COST = 65.25;
@@ -51,8 +61,8 @@ public class Constants {
 
     public static final String SAVED_DUAL_PANE = "dualPane";
     public static final String SAVED_SELECTED_ICON = "selectedPosition";
-    public static final String SAVED_FROM_SPINNER = "fromSpinner";
-    public static final String SAVED_TO_SPINNER = "toSpinner";
+    //public static final String SAVED_FROM_SPINNER = "fromSpinner";
+    //public static final String SAVED_TO_SPINNER = "toSpinner";
     public static final String SAVED_DATE = "date";
     public static final String SAVED_SEATS = "seats";
     public static final String SAVED_SEATS_ARRAY = "seatsArray";

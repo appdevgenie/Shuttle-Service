@@ -1,7 +1,6 @@
 package com.appdevgenie.shuttleservice.utils;
 
 import android.net.Uri;
-import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +25,7 @@ public class NetworkUtils {
 
         try {
             URL weatherUrl = new URL(weatherQueryUri.toString());
-            Log.d(TAG, "buildWeatherUrl: " + weatherUrl);
+            //Log.d(TAG, "buildWeatherUrl: " + weatherUrl);
             return weatherUrl;
         } catch (MalformedURLException e) {
             return null;
@@ -41,7 +40,7 @@ public class NetworkUtils {
 
         try {
             URL weatherTodayUrl = new URL(weatherTodayQueryUri.toString());
-            Log.d(TAG, "buildWeatherTodayUrl: " + weatherTodayUrl);
+            //Log.d(TAG, "buildWeatherTodayUrl: " + weatherTodayUrl);
             return weatherTodayUrl;
         } catch (MalformedURLException e) {
             return null;
@@ -71,48 +70,4 @@ public class NetworkUtils {
             httpURLConnection.disconnect();
         }
     }
-
-    /*public byte[] getImage(String iconCode) {
-
-        HttpURLConnection httpURLConnection = null;
-        InputStream inputStream = null;
-
-        try {
-            httpURLConnection =
-                    (HttpURLConnection) (new URL(BASE_IMAGE_URL + iconCode + ".png")).openConnection();
-            httpURLConnection.setRequestMethod("GET");
-            httpURLConnection.setDoInput(true);
-            httpURLConnection.setDoOutput(true);
-            httpURLConnection.connect();
-
-            inputStream = httpURLConnection.getInputStream();
-            byte[] buffer = new byte[1024];
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-            while (inputStream.read(buffer) != -1)
-                byteArrayOutputStream.write(buffer);
-
-            return byteArrayOutputStream.toByteArray();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                if (httpURLConnection != null) {
-                    httpURLConnection.disconnect();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return null;
-    }*/
 }

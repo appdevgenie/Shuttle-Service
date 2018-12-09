@@ -41,7 +41,7 @@ public class NotificationUtils {
                 .setSmallIcon(R.drawable.ic_notify)
                 .setLargeIcon(largeIcon(context))
                 .setContentTitle(context.getString(R.string.app_name))
-                .setContentText("Shuttle departs in 30 minutes for " + destination)
+                .setContentText(context.getString(R.string.shuttle_departs_in) + " " + destination)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setContentIntent(contentIntent(context))
                 .setAutoCancel(true);

@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.model.BookingInfo;
-import com.appdevgenie.shuttleservice.model.RouteStops;
 import com.appdevgenie.shuttleservice.model.TravelInfo;
 
 import java.util.ArrayList;

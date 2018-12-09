@@ -13,7 +13,7 @@ public class MainGridIcon implements Parcelable {
         this.iconString = iconString;
     }
 
-    protected MainGridIcon(Parcel in) {
+    private MainGridIcon(Parcel in) {
         iconImage = in.readInt();
         iconString = in.readString();
     }
