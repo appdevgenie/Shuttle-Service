@@ -3,11 +3,11 @@ Shuttle Service: Android Developer Nanodegree capstone project
 
 ## Screenshots (mobile) - Sign in
 
-![device-2018-12-09-083203](https://user-images.githubusercontent.com/39134030/49697331-c0b14080-fbbe-11e8-9631-91cc86a3b72b.png)
+![device-2018-12-09-083250](https://user-images.githubusercontent.com/39134030/49697334-c0b14080-fbbe-11e8-8bd3-fc6aeec2b836.png)
 
 ## Screenshots (mobile) - Logged out
 
-![device-2018-12-09-083250](https://user-images.githubusercontent.com/39134030/49697334-c0b14080-fbbe-11e8-8bd3-fc6aeec2b836.png)
+![device-2018-12-09-083203](https://user-images.githubusercontent.com/39134030/49697331-c0b14080-fbbe-11e8-9631-91cc86a3b72b.png)
 
 ## Screenshots (mobile) - Logged in
 
