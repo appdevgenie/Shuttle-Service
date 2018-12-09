@@ -3,21 +3,21 @@ Shuttle Service: Android Developer Nanodegree capstone project
 
 ## Screenshots (mobile) - Sign in
 
-![device-2018-12-09-083250](https://user-images.githubusercontent.com/39134030/49697285-028db700-fbbe-11e8-806a-01d3c6f2364d.png)
+![device-2018-12-09-083203](https://user-images.githubusercontent.com/39134030/49697331-c0b14080-fbbe-11e8-9631-91cc86a3b72b.png)
 
 ## Screenshots (mobile) - Logged out
 
-![device-2018-12-09-083203](https://user-images.githubusercontent.com/39134030/49697282-f1dd4100-fbbd-11e8-9b55-05f01de0962d.png)
+![device-2018-12-09-083250](https://user-images.githubusercontent.com/39134030/49697334-c0b14080-fbbe-11e8-8bd3-fc6aeec2b836.png)
 
 ## Screenshots (mobile) - Logged in
 
-![device-2018-12-09-083322](https://user-images.githubusercontent.com/39134030/49697286-03264d80-fbbe-11e8-821f-9e257d496fda.png)
-![device-2018-12-09-083353](https://user-images.githubusercontent.com/39134030/49697287-03264d80-fbbe-11e8-90ca-79a0e2fc72a0.png)
-![device-2018-12-09-083441](https://user-images.githubusercontent.com/39134030/49697288-03bee400-fbbe-11e8-9ff5-81c31baa6d66.png)
-![device-2018-12-09-083547](https://user-images.githubusercontent.com/39134030/49697289-04577a80-fbbe-11e8-9188-209c74a7378b.png)
-![device-2018-12-09-083627](https://user-images.githubusercontent.com/39134030/49697290-0588a780-fbbe-11e8-83d0-4b0e924ba07b.png)
-![device-2018-12-09-083740](https://user-images.githubusercontent.com/39134030/49697291-07526b00-fbbe-11e8-803c-49482b6ebf94.png)
-![device-2018-12-09-141144](https://user-images.githubusercontent.com/39134030/49697292-0a4d5b80-fbbe-11e8-8e14-f0846a637c19.png)
+![device-2018-12-09-083322](https://user-images.githubusercontent.com/39134030/49697335-c149d700-fbbe-11e8-8df4-9d88bf2405bb.png)
+![device-2018-12-09-083353](https://user-images.githubusercontent.com/39134030/49697337-c149d700-fbbe-11e8-8c66-fb2dbcf17380.png)
+![device-2018-12-09-083441](https://user-images.githubusercontent.com/39134030/49697338-c1e26d80-fbbe-11e8-8403-5f0896ac883e.png)
+![device-2018-12-09-083547](https://user-images.githubusercontent.com/39134030/49697339-c27b0400-fbbe-11e8-8bb1-397a16a24b59.png)
+![device-2018-12-09-083627](https://user-images.githubusercontent.com/39134030/49697340-c3139a80-fbbe-11e8-836a-43d31a87f07d.png)
+![device-2018-12-09-083740](https://user-images.githubusercontent.com/39134030/49697341-c444c780-fbbe-11e8-9017-78f7f205457f.png)
+![device-2018-12-09-141144](https://user-images.githubusercontent.com/39134030/49697343-c575f480-fbbe-11e8-8ac5-8f9f3b122203.png)
 
 ## Libraries
 
