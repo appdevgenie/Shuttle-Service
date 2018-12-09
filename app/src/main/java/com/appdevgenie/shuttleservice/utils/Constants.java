@@ -19,6 +19,7 @@ public class Constants {
     public static final int DIRECTION_DOWNSTREAM = 1;
 
     public static final String WEATHER_API_KEY = BuildConfig.WEATHER_API_KEY;
+    public static final String WEATHER_COUNTRY = ",za";
 
     public static final String WEATHER_API_QUERY_KEY = "appid";
     public static final double TEMP_KELVIN = 273.15;
@@ -54,11 +55,14 @@ public class Constants {
     public static final String SAVED_TO_SPINNER = "toSpinner";
     public static final String SAVED_DATE = "date";
     public static final String SAVED_SEATS = "seats";
+    public static final String SAVED_SEATS_ARRAY = "seatsArray";
 
     public static final int THIRTY_MINUTES = 30 * 60 * 1000;
 
     public static final int RC_SIGN_IN = 155;
 
     public static final int SELECT_IMAGE_REQUEST = 101;
+
+    public static final int UPDATE_INTERVAL = 1000;
 
 }

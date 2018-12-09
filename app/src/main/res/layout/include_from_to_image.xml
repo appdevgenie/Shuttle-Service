@@ -18,8 +18,8 @@
 
     <ImageView
         android:id="@+id/ivTripDetailsDeparture"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="8dp"
@@ -37,7 +37,7 @@
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:textColor="@color/colorDarkGray"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivTripDetailsDeparture"
         app:layout_constraintEnd_toStartOf="@+id/ivTripDetailsDivider"
         app:layout_constraintStart_toStartOf="@+id/ivTripDetailsDeparture"
@@ -70,8 +70,8 @@
 
     <ImageView
         android:id="@+id/ivTripDetailsArrival"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
@@ -89,7 +89,7 @@
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:textColor="@color/colorDarkGray"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivTripDetailsArrival"
         app:layout_constraintEnd_toEndOf="@+id/ivTripDetailsArrival"
         app:layout_constraintStart_toEndOf="@+id/ivTripDetailsDivider"

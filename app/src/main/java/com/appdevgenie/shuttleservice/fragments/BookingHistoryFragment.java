@@ -35,6 +35,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_BOOKING_DATE_FIELD;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_TRAVEL_INFO_COLLECTION;
 import static com.appdevgenie.shuttleservice.utils.Constants.FIRESTORE_USER_EMAIL_FIELD;
@@ -47,20 +50,19 @@ import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_TO_TOW
 
 public class BookingHistoryFragment extends Fragment implements BookingHistoryAdapter.ItemClickWidgetListener, BookingHistoryAdapter.ItemClickShareListener {
 
-    private View view;
+    @BindView(R.id.recyclerViewDefault)
+    RecyclerView recyclerView;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
     private Context context;
     private BookingHistoryAdapter bookingHistoryAdapter;
-    private RecyclerView recyclerView;
     private ArrayList<BookingInfo> bookingInfoArrayList;
-    private ProgressBar progressBar;
-    private FirebaseFirestore firebaseFirestore;
-    private FirebaseAuth firebaseAuth;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        view = inflater.inflate(R.layout.fragment_default_recyclerview, container, false);
+        View view = inflater.inflate(R.layout.fragment_default_recyclerview, container, false);
+        ButterKnife.bind(this, view);
         setupVariables();
         return view;
     }
@@ -73,52 +75,32 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
             appCompatActivity.getSupportActionBar().setTitle(R.string.booking_history);
         }
 
-        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
-        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
-        if (appCompatActivity != null) {
-            appCompatActivity.setSupportActionBar(toolbar);
-            appCompatActivity.getSupportActionBar().setTitle(R.string.booking_history);
-            appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getActivity().onBackPressed();
-                }
-            });
-        }*/
+        loadBookingHistory();
+    }
 
+    private void loadBookingHistory() {
         bookingInfoArrayList = new ArrayList<>();
-
-        progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
 
-        recyclerView = view.findViewById(R.id.recyclerViewDefault);
         bookingHistoryAdapter = new BookingHistoryAdapter(context, bookingInfoArrayList, this, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(bookingHistoryAdapter);
 
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-        /*CollectionReference collectionReference = firebaseFirestore.collection("users");
-        DocumentReference documentReference = collectionReference.document(firebaseAuth.getUid());*/
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
         CollectionReference collectionReference = firebaseFirestore.collection(FIRESTORE_TRAVEL_INFO_COLLECTION);
         collectionReference.whereEqualTo(FIRESTORE_USER_EMAIL_FIELD, firebaseAuth.getCurrentUser().getEmail())
-        //collectionReference
                 .orderBy(FIRESTORE_BOOKING_DATE_FIELD, Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
                         progressBar.setVisibility(View.GONE);
-
                         if (!queryDocumentSnapshots.isEmpty()) {
-
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-
                             for (DocumentSnapshot documentSnapshot : list) {
                                 BookingInfo bookingInfo = documentSnapshot.toObject(BookingInfo.class);
                                 bookingInfoArrayList.add(bookingInfo);
@@ -127,39 +109,13 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
                         }
                     }
                 })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressBar.setVisibility(View.GONE);
-                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                //Log.d("BookingHistory", e.getMessage());
-            }
-        });
-
-        /*DocumentReference usersDocumentReference =
-                firebaseFirestore.collection("users").document(firebaseAuth.getUid());
-
-        usersDocumentReference.collection("bookings")
-                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                progressBar.setVisibility(View.GONE);
-
-                if (!queryDocumentSnapshots.isEmpty()) {
-
-                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-
-                    for (DocumentSnapshot documentSnapshot : list) {
-
-                        BookingInfo bookingInfo = documentSnapshot.toObject(BookingInfo.class);
-                        bookingInfoArrayList.add(bookingInfo);
-
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                    bookingHistoryAdapter.notifyDataSetChanged();
-                }
-            }
-        });*/
+                });
     }
 
     @Override
@@ -181,16 +137,16 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
 
         ShuttleAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
 
-        Toast.makeText(context, "added to widget", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, R.string.added_to_widget, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onItemShareClick(int pos) {
 
         String date = bookingInfoArrayList.get(pos).getDate();
-        CharSequence depart = TextUtils.concat("Depart: ", bookingInfoArrayList.get(pos).getDepartureTime());
-        CharSequence arrive = TextUtils.concat("Arrive: ", bookingInfoArrayList.get(pos).getArrivalTime());
-        CharSequence shareText = TextUtils.concat(date, "\n", depart, ", ", arrive);
+        CharSequence depart = TextUtils.concat(getString(R.string.depart_at), bookingInfoArrayList.get(pos).getDepartureTime());
+        CharSequence arrive = TextUtils.concat(getString(R.string.arrive_at), bookingInfoArrayList.get(pos).getArrivalTime());
+        CharSequence shareText = TextUtils.concat(date, "\n", depart, "\n", arrive);
 
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
@@ -198,25 +154,4 @@ public class BookingHistoryFragment extends Fragment implements BookingHistoryAd
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.app_name)));
     }
 
-   /* @Override
-    public void onItemLongClick(int pos) {
-
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        Bundle extras = new Bundle();
-        int widgetId = extras.getInt(
-                AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-
-        SharedPreferences.Editor prefs = context.getSharedPreferences(Constants.SHARED_PREFS, 0).edit();
-        prefs.putString(SHARED_PREFS_FROM_TOWN, bookingInfoArrayList.get(pos).getFromTown());
-        prefs.putString(SHARED_PREFS_TO_TOWN, bookingInfoArrayList.get(pos).getToTown());
-        prefs.putString(SHARED_PREFS_DEPART_TIME, bookingInfoArrayList.get(pos).getDepartureTime());
-        prefs.putString(SHARED_PREFS_ARRIVE_TIME, bookingInfoArrayList.get(pos).getArrivalTime());
-        prefs.putString(SHARED_PREFS_DATE, bookingInfoArrayList.get(pos).getDate());
-        prefs.putString(SHARED_PREFS_SEATS, bookingInfoArrayList.get(pos).getSeats());
-        prefs.apply();
-
-        ShuttleAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
-
-        Toast.makeText(context, "added to widget", Toast.LENGTH_SHORT).show();
-    }*/
 }

@@ -93,4 +93,15 @@
     <string name="date_format_day_month_year">dd MMM yyyy</string>
     <string name="intent_type_email">text/html</string>
     <string name="no_seats_available">No seats available</string>
+    <string name="added_to_widget">Added to widget</string>
+    <string name="depart_at">Depart:</string>
+    <string name="arrive_at">Arrive:</string>
+    <string name="phone">Phone</string>
+    <string name="error_today_weather">Error loading today`s weather</string>
+    <string name="error_loading_weather">Error loading weather</string>
+    <string name="first_check_availability">First check availability</string>
+    <string name="booking_success">Booking loaded success!</string>
+    <string name="booking_failed">Booking failed!</string>
+    <string name="selection">Selection</string>
+    <string name="connection_image_view">connection image view</string>
 </resources>

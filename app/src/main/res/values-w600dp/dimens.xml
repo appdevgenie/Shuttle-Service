@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="login_padding">150dp</dimen>
+    <dimen name="main_activity_margin">150dp</dimen>
 </resources>

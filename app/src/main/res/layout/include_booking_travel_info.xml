@@ -50,12 +50,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:text="@string/select_date"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvPassengerInfoDateLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoDateLabel" />
 
@@ -76,9 +73,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/tvPassengerInfoFromLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoFromLabel"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -102,9 +99,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/tvPassengerInfoToLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoToLabel"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -128,14 +125,21 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/tvTravelInfoSeatsLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvTravelInfoSeatsLabel"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 
 </android.support.constraint.ConstraintLayout>

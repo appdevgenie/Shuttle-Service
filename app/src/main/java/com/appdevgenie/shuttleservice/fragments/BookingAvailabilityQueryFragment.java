@@ -267,7 +267,6 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
         }
     }
 
-
     private void loadTravelInfo(String date) {
 
         bookingInfoArrayList = new ArrayList<>();

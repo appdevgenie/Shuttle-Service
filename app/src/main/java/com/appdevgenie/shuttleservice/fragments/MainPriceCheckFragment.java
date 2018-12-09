@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.appdevgenie.shuttleservice.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +22,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_FROM_SPINNER;
 import static com.appdevgenie.shuttleservice.utils.Constants.BUNDLE_IS_DUAL_PANE;
@@ -32,33 +34,44 @@ import static com.appdevgenie.shuttleservice.utils.Constants.SAVED_DUAL_PANE;
 
 public class MainPriceCheckFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
-    private Spinner spFrom;
-    private Spinner spTo;
-    private TextView tvPriceValue;
-    private TextView tvPriceValueInfo;
-    private TextView tvDepartureCode;
-    private TextView tvDepartureTown;
-    private TextView tvDepartureTime;
-    private TextView tvDepartureLabel;
-    private TextView tvArrivalCode;
-    private TextView tvArrivalTown;
-    private TextView tvArrivalTime;
-    private TextView tvArrivalLabel;
-    private Button bCheckAvailability;
-    private View view;
+    @BindView(R.id.spPriceFrom)
+    Spinner spFrom;
+    @BindView(R.id.spPriceTo)
+    Spinner spTo;
+    @BindView(R.id.tvPriceValue)
+    TextView tvPriceValue;
+    @BindView(R.id.tvPriceValueInfo)
+    TextView tvPriceValueInfo;
+    @BindView(R.id.tvTripDetailsDepartureCode)
+    TextView tvDepartureCode;
+    @BindView(R.id.tvTripDetailsDepartureTown)
+    TextView tvDepartureTown;
+    @BindView(R.id.tvTripDetailsDepartureTime)
+    TextView tvDepartureTime;
+    @BindView(R.id.tvTripDetailsArrivalCode)
+    TextView tvArrivalCode;
+    @BindView(R.id.tvTripDetailsArrivalTown)
+    TextView tvArrivalTown;
+    @BindView(R.id.tvTripDetailsArrivalTime)
+    TextView tvArrivalTime;
+    @BindView(R.id.bCheckAvailability)
+    Button bCheckAvailability;
     private int fromInt;
     private int toInt;
-    //private int fromSpPos;
-    //private int toSpPos;
     private Context context;
     private FirebaseAuth firebaseAuth;
     private boolean dualPane;
-    private View vTripDetails;
+    @BindView(R.id.include_layout_trip_details)
+    View vTripDetails;
+
+    public MainPriceCheckFragment() {
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_price_check, container, false);
+        View view = inflater.inflate(R.layout.fragment_price_check, container, false);
+        ButterKnife.bind(this, view);
 
         if(savedInstanceState == null) {
             Bundle bundle = getArguments();
@@ -66,27 +79,13 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
                 dualPane = bundle.getBoolean(BUNDLE_IS_DUAL_PANE);
             }
         }else{
-            //spFrom.setSelection(savedInstanceState.getInt("spFrom"));
-            //spTo.setSelection(savedInstanceState.getInt("spTo"));
             dualPane = savedInstanceState.getBoolean(SAVED_DUAL_PANE);
-            //Toast.makeText(getActivity(), String.valueOf(dualPane), Toast.LENGTH_SHORT).show();
         }
 
         setupVariables();
 
         return view;
     }
-
-    /*@Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        *//*if(savedInstanceState != null){
-            fromSpPos = savedInstanceState.getInt("spFrom");
-            toSpPos = savedInstanceState.getInt("spTo");
-            //Toast.makeText(getActivity(), String.valueOf(toSpPos), Toast.LENGTH_SHORT).show();
-        }*//*
-    }*/
 
     private void setupVariables() {
 
@@ -96,52 +95,22 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
             appCompatActivity.getSupportActionBar().setTitle(R.string.price_check);
         }
 
-        /*Toolbar toolbar = view.findViewById(R.id.toolbar);
-        AppCompatActivity appCompatActivity = (AppCompatActivity)getActivity();
-        if (appCompatActivity != null) {
-            appCompatActivity.setSupportActionBar(toolbar);
-            appCompatActivity.getSupportActionBar().setTitle(R.string.price_check);
-            appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getActivity().onBackPressed();
-                }
-            });
-        }*/
-
         firebaseAuth = FirebaseAuth.getInstance();
 
-        spFrom = view.findViewById(R.id.spPriceFrom);
         ArrayAdapter<CharSequence> spFromAdapter =
                 ArrayAdapter.createFromResource(context, R.array.town_names, R.layout.spinner_item);
         spFromAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spFrom.setAdapter(spFromAdapter);
         spFrom.setOnItemSelectedListener(this);
-        spFrom.setSelection(0);
 
-        spTo = view.findViewById(R.id.spPriceTo);
         ArrayAdapter<CharSequence> spToAdapter =
                 ArrayAdapter.createFromResource(context, R.array.town_names, R.layout.spinner_item);
         spToAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTo.setAdapter(spToAdapter);
         spTo.setOnItemSelectedListener(this);
-        spTo.setSelection(0);
 
-        vTripDetails = view.findViewById(R.id.include_layout_trip_details);
-        tvPriceValue = view.findViewById(R.id.tvPriceValue);
-        tvPriceValueInfo = view.findViewById(R.id.tvPriceValueInfo);
-        tvDepartureCode = view.findViewById(R.id.tvTripDetailsDepartureCode);
         tvDepartureCode.setOnClickListener(this);
-        tvDepartureTown = view.findViewById(R.id.tvTripDetailsDepartureTown);
-        tvDepartureTime = view.findViewById(R.id.tvTripDetailsDepartureTime);
-        tvDepartureLabel = view.findViewById(R.id.tvTripDetailsDepartureLabel);
-        tvArrivalCode = view.findViewById(R.id.tvTripDetailsArrivalCode);
         tvArrivalCode.setOnClickListener(this);
-        tvArrivalTown = view.findViewById(R.id.tvTripDetailsArrivalTown);
-        tvArrivalTime = view.findViewById(R.id.tvTripDetailsArrivalTime);
-        tvArrivalLabel = view.findViewById(R.id.tvTripDetailsArrivalLabel);
-        bCheckAvailability = view.findViewById(R.id.bCheckAvailability);
         bCheckAvailability.setVisibility(View.GONE);
         bCheckAvailability.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,37 +186,22 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
             ArrayList<String> code = new ArrayList<>(Arrays.asList(codes));
 
             vTripDetails.setVisibility(View.VISIBLE);
-
             tvPriceValue.setVisibility(View.VISIBLE);
             tvPriceValueInfo.setVisibility(View.VISIBLE);
             tvDepartureCode.setText(code.get(fromInt));
             tvDepartureTown.setText(spFrom.getSelectedItem().toString());
             tvDepartureTime.setText(departure);
-            //tvDepartureLabel.setVisibility(View.VISIBLE);
             tvArrivalCode.setText(code.get(toInt));
             tvArrivalTown.setText(spTo.getSelectedItem().toString());
             tvArrivalTime.setText(arrival);
-            //tvArrivalLabel.setVisibility(View.VISIBLE);
             if (firebaseAuth.getCurrentUser() != null) {
                 bCheckAvailability.setVisibility(View.VISIBLE);
             }
-            /*if(dualPane){
-                bCheckAvailability.setVisibility(View.GONE);
-            }*/
-
         } else {
             vTripDetails.setVisibility(View.INVISIBLE);
 
             tvPriceValue.setVisibility(View.INVISIBLE);
             tvPriceValueInfo.setVisibility(View.INVISIBLE);
-            //tvDepartureCode.setText("");
-            //tvDepartureTown.setText("");
-            //tvDepartureTime.setText("");
-            //tvDepartureLabel.setVisibility(View.INVISIBLE);
-            //tvArrivalCode.setText("");
-            //tvArrivalTown.setText("");
-            //tvArrivalTime.setText("");
-            //tvArrivalLabel.setVisibility(View.INVISIBLE);
             bCheckAvailability.setVisibility(View.GONE);
         }
     }
@@ -275,8 +229,6 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("spFrom", spFrom.getSelectedItemPosition());
-        outState.putInt("spTo", spTo.getSelectedItemPosition());
         outState.putBoolean(SAVED_DUAL_PANE, dualPane);
     }
 }
