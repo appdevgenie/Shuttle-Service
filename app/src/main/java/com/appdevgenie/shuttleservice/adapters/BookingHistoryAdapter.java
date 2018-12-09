@@ -94,9 +94,6 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     break;
 
                 case VIEW_TYPE_BOOKING_SELECTED:
-                /*SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd MMM, HH:mm", Locale.getDefault());
-                Date date = bookingInfo.getBookingDate();
-                String bookingDateString = simpleDateFormat.format(date);*/
                     ((SelectedViewHolder) holder).tvBookingDate.setText(bookingDateString);
                     ((SelectedViewHolder) holder).tvSeats.setText(String.valueOf(bookingInfo.getSeats()));
                     ((SelectedViewHolder) holder).tvDate.setText(bookingInfo.getDate());
