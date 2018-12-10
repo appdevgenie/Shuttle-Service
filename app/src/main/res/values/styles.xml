@@ -38,11 +38,22 @@
         <item name="android:actionMenuTextColor">@color/colorAccent</item>
     </style>
 
-    <style name="TextTopGrayLabel">
+    <style name="TextDividerLabel">
         <item name="android:textColor">@color/colorDarkGray</item>
         <item name="android:textSize">@dimen/text_gray_label_size</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="DividerImageView">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:background">@color/divider</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
     </style>
 
     <style name="TextPrimaryDescription" parent="TextAppearance.AppCompat.Caption">
@@ -89,6 +100,31 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
 
+    <style name="TextHumidityMediumSecondary" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="TextTempDisplayPrimary" parent="TextAppearance.AppCompat.Display1">
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="TextInformationMediumGreen" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/colorDarkGreen</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="TextPriceMediumRed" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/colorDarkRed</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">start|center_vertical</item>
+    </style>
+
     <style name="TextInformationHeadline" parent="TextAppearance.AppCompat.Headline">
         <item name="android:textColor">@color/colorDarkerGray</item>
         <item name="android:layout_height">wrap_content</item>
@@ -96,14 +132,41 @@
     </style>
 
     <style name="TextDefaultUserInput">
-        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColor">@color/primary_text</item>
         <item name="android:textSize">@dimen/text_default_input_size</item>
     </style>
 
+    <style name="TextDateSelect" parent="TextDefaultUserInput">
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:text">@string/select_date</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+    
     <style name="ButtonStyle">
-        <item name="android:textColor">@color/colorDarkerGray</item>
+        <item name="android:textColor">@color/primary_text</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:minHeight">@dimen/button_min_height</item>
+    </style>
+
+    <style name="TextPriceValueInfo">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:gravity">center|center_vertical</item>
+        <item name="android:padding">@dimen/info_text_padding</item>
+        <item name="android:text">@string/price_per_person</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/info_text_size</item>
+    </style>
+
+    <style name="TextInformationPrice" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:background">@drawable/gradient</item>
+        <item name="android:gravity">center|center_vertical</item>
     </style>
 
 </resources>

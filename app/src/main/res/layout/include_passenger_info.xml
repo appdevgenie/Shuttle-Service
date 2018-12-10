@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/tvTravelInfoLabel"
-        style="@style/TextTopGrayLabel"
+        style="@style/TextDividerLabel"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -17,30 +17,12 @@
 
     <ImageView
         android:id="@+id/ivTravelInfoDivider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@color/colorDarkGray"
+        style="@style/DividerImageView"
         android:contentDescription="@string/gray_line_divider"
         app:layout_constraintBottom_toBottomOf="@+id/tvTravelInfoLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvTravelInfoLabel"
         app:layout_constraintTop_toTopOf="@+id/tvTravelInfoLabel" />
-
-    <!--<ImageButton
-        android:id="@+id/ibPassengerInfoUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTravelInfoLabel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvTravelInfoLabel"
-        app:srcCompat="@drawable/ic_update_account_details" />-->
 
     <TextView
         android:id="@+id/tvPassengerInfoNameLabel"
@@ -55,13 +37,16 @@
 
     <TextView
         android:id="@+id/tvPassengerInfoName"
+        style="@style/TextDefaultUserInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:gravity="center_vertical"
-        style="@style/TextDefaultUserInput"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvPassengerInfoNameLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoNameLabel"
         tools:text="James Bond" />
@@ -79,13 +64,16 @@
 
     <TextView
         android:id="@+id/tvPassengerInfoEmail"
+        style="@style/TextDefaultUserInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:gravity="center_vertical"
-        style="@style/TextDefaultUserInput"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvPassengerInfoEmailLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoEmailLabel"
         tools:text="me@somewhere.com" />
@@ -103,15 +91,18 @@
 
     <TextView
         android:id="@+id/tvPassengerInfoContactNum"
+        style="@style/TextDefaultUserInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="center_vertical"
-        style="@style/TextDefaultUserInput"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvPassengerInfoContactNumLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvPassengerInfoContactNumLabel"
         tools:text="011 123 4567" />

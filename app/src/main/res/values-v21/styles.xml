@@ -23,4 +23,5 @@
         <item name="android:textColorSecondary">@color/colorPrimary</item>
         <item name="android:actionMenuTextColor">@color/colorAccent</item>
     </style>
+
 </resources>

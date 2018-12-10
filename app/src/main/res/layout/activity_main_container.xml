@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@null"
-            android:elevation="4dp">
+            android:elevation="@dimen/cardview_default_elevation">
 
             <ImageView
                 android:id="@+id/ivLogo"
@@ -47,7 +47,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/logo_ss" />
+                app:srcCompat="@drawable/logo_ss"
+                android:contentDescription="@string/shuttle_logo" />
 
             <TextClock
                 android:id="@+id/textClock"
@@ -87,7 +88,8 @@
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_cloud_on" />
+                app:srcCompat="@drawable/ic_cloud_on"
+                android:contentDescription="@string/connection_cloud" />
 
         </android.support.constraint.ConstraintLayout>
 

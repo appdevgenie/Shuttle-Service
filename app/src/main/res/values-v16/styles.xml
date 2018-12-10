@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextInformation" parent="TextAppearance.AppCompat.Large"/>
+    <style name="TextInformation" parent="TextAppearance.AppCompat.Large" />
 
     <style name="TextInformationLargeRed" parent="TextInformation">
         <item name="android:textColor">@color/colorDarkRed</item>
@@ -40,6 +40,56 @@
 
     <style name="TextInformationHeadline" parent="TextAppearance.AppCompat.Headline">
         <item name="android:textColor">@color/primary_text</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="TextPriceValueInfo">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:gravity">center|center_vertical</item>
+        <item name="android:padding">@dimen/info_text_padding</item>
+        <item name="android:text">@string/price_per_person</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/info_text_size</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="TextInformationPrice" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:background">@drawable/gradient</item>
+        <item name="android:gravity">center|center_vertical</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="TextInformationMediumGreen" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/colorDarkGreen</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="TextPriceMediumRed" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/colorDarkRed</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:gravity">start|center_vertical</item>
+    </style>
+
+    <style name="TextTempDisplayPrimary" parent="TextAppearance.AppCompat.Display1">
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="TextHumidityMediumSecondary" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/secondary_text</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:fontFamily">sans-serif-light</item>

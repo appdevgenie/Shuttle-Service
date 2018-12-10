@@ -14,16 +14,6 @@
         android:layout_height="match_parent"
         android:minHeight="@dimen/route_min_height">
 
-        <!--<View
-            android:id="@+id/viewTopDivider"
-            android:layout_width="2dp"
-            android:layout_height="16dp"
-            android:background="@color/colorPrimary"
-            app:layout_constraintBottom_toTopOf="@+id/tvRouteItemTime"
-            app:layout_constraintEnd_toEndOf="@+id/tvRouteItemTime"
-            app:layout_constraintStart_toStartOf="@+id/tvRouteItemTime"
-            app:layout_constraintTop_toTopOf="parent" />-->
-
         <TextView
             android:id="@+id/tvRouteItemTime"
             style="@style/TextInformationMediumPrimary"
@@ -36,9 +26,6 @@
             android:background="@drawable/background_route_time"
             android:gravity="center"
             android:padding="5dp"
-            android:textColor="@color/colorBlack"
-            android:fontFamily="sans-serif-light"
-            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -56,27 +43,6 @@
             app:layout_constraintStart_toEndOf="@+id/tvRouteItemTime"
             app:layout_constraintTop_toTopOf="@+id/tvRouteItemTime"
             tools:text="Town" />
-
-        <!--<TextView
-            android:id="@+id/tvRouteItemNextStop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />-->
-
-        <!--<View
-            android:id="@+id/viewBottomDivider"
-            android:layout_width="2dp"
-            android:layout_height="16dp"
-            android:background="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tvRouteItemTime"
-            app:layout_constraintStart_toStartOf="@+id/tvRouteItemTime"
-            app:layout_constraintTop_toBottomOf="@+id/tvRouteItemTime" />-->
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

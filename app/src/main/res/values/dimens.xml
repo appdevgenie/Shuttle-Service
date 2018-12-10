@@ -6,18 +6,33 @@ Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
     <dimen name="widget_margin">8dp</dimen>
-    <dimen name="text_gray_label_size">14sp</dimen>
+    <dimen name="text_gray_label_size">12sp</dimen>
+    <dimen name="text_divider_spacing">0.5</dimen>
     <dimen name="text_primary_description_size">12sp</dimen>
     <dimen name="text_default_input_size">16sp</dimen>
     <dimen name="default_constraint_margin">8dp</dimen>
     <dimen name="card_layout_margin">4dp</dimen>
     <dimen name="card_corner_radius">4dp</dimen>
-    <dimen name="card_selected_elevation">1dp</dimen>
+    <dimen name="card_selected_elevation">2dp</dimen>
+    <dimen name="card_no_elevation">0dp</dimen>
+    <dimen name="card_min_elevation">2dp</dimen>
     <dimen name="card_default_elevation">4dp</dimen>
+    <dimen name="card_history_min_height">80dp</dimen>
     <dimen name="login_padding">40dp</dimen>
     <dimen name="route_min_height">70dp</dimen>
     <dimen name="button_min_height">60dp</dimen>
+    <dimen name="cardview_weather_min_height">90dp</dimen>
     <dimen name="user_account_image_width">96dp</dimen>
     <dimen name="user_account_image_height">96dp</dimen>
+    <dimen name="today_weather_icon_width">70dp</dimen>
+    <dimen name="today_weather_icon_height">70dp</dimen>
+    <dimen name="trip_code_width">70dp</dimen>
+    <dimen name="trip_code_height">35dp</dimen>
+    <dimen name="weather_icon_width">50dp</dimen>
+    <dimen name="weather_icon_height">50dp</dimen>
     <dimen name="main_activity_margin">50dp</dimen>
+    <dimen name="info_text_padding">2dp</dimen>
+    <dimen name="info_text_size">12dp</dimen>
+    <dimen name="widget_text_size">16sp</dimen>
+    <dimen name="spinner_text_size">16sp</dimen>
 </resources>

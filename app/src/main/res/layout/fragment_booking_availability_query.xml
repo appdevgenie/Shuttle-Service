@@ -48,14 +48,12 @@
 
             <TextView
                 android:id="@+id/tvSeatsAmountAvailable"
+                style="@style/TextInformationLargeRed"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif-light"
                 android:gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textColor="@android:color/holo_red_dark"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -73,27 +71,14 @@
 
         <TextView
             android:id="@+id/tvPriceValueInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:gravity="center|center_vertical"
-            android:padding="2dp"
-            android:text="@string/price_per_person"
-            android:textColor="@color/colorWhite"
-            android:textSize="12sp"
+            style="@style/TextPriceValueInfo"
             app:layout_constraintBottom_toTopOf="@+id/tvPriceValue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tvPriceValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gradient"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center|center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@android:color/white"
+            style="@style/TextInformationPrice"
             app:layout_constraintBottom_toTopOf="@+id/bMakeBooking"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

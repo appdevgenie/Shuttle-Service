@@ -15,6 +15,7 @@
 
         <TextView
             android:id="@+id/tvRouteItemTime"
+            style="@style/TextInformationMediumPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -24,9 +25,6 @@
             android:background="@drawable/background_route_time"
             android:gravity="center"
             android:padding="5dp"
-            android:textColor="@color/colorBlack"
-            android:fontFamily="sans-serif-light"
-            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,13 +32,11 @@
 
         <TextView
             android:id="@+id/tvRouteItemTown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextInformationMediumGreen"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:textSize="18sp"
             android:textColor="@color/colorPrimary"
             app:layout_constraintStart_toEndOf="@+id/tvRouteItemTime"
             app:layout_constraintTop_toTopOf="parent"
@@ -53,11 +49,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="8dp"
-            android:textSize="15sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvRouteItemTime"
-            tools:text="Total: " />
-
+            tools:text="Passengers: " />
 
         <TextView
             android:id="@+id/tvTravelInfoOn"
@@ -66,7 +61,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:textSize="15sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="On: 1" />
@@ -78,7 +73,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"
-            android:textSize="15sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Off: 3" />

@@ -29,7 +29,7 @@
     <string name="contact_number">Contact number</string>
     <string name="email">Email</string>
     <string name="name">Name</string>
-    <string name="user_account">User account</string>
+    <string name="user_account">User</string>
     <string name="select_town">Select town</string>
     <string name="travel_cost">Travel cost</string>
     <string name="total_cost">Total cost</string>
@@ -105,4 +105,13 @@
     <string name="selection">Selection</string>
     <string name="connection_image_view">connection image view</string>
     <string name="shuttle_departs_in">Shuttle departs in 30 minutes for</string>
+    <string name="connection_cloud">connection cloud</string>
+    <string name="today_weather_icon">today_weather_icon</string>
+    <string name="share">Share</string>
+    <string name="add_to_widget">Add to widget</string>
+    <string name="weather_icon">weather_icon</string>
+    <string name="address">Address</string>
+    <string name="_101_shuttle_road_overhere">101 Shuttle Road, OverHere</string>
+    <string name="me_shuttleservice_com">me@shuttleservice.com</string>
+    <string name="_011_123_4567">011 123 4567</string>
 </resources>

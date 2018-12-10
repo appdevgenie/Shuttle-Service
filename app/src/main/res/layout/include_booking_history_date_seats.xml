@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/tvBookingMadeDate"
-        style="@style/TextTopGrayLabel"
+        style="@style/TextDividerLabel"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/ivBookingTopDivider"
@@ -17,28 +17,21 @@
 
     <ImageView
         android:id="@+id/ivBookingTopDivider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@color/colorDarkGray"
+        style="@style/DividerImageView"
         android:contentDescription="@string/gray_line_divider"
         app:layout_constraintBottom_toBottomOf="@+id/ibBookingHistoryReduceExpand"
         app:layout_constraintEnd_toStartOf="@+id/ibBookingHistoryReduceExpand"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tvBookingMadeDate"
         app:layout_constraintTop_toTopOf="@+id/ibBookingHistoryReduceExpand" />
 
     <ImageButton
         android:id="@+id/ibBookingHistoryReduceExpand"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="@drawable/rectangle"
         android:contentDescription="@string/reduce_expand_image_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -7,18 +7,6 @@
     android:orientation="vertical"
     android:theme="@style/AppTheme">
 
-    <!--<android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleTextColor="@color/colorWhite" />-->
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -40,7 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <include
-                android:id="@+id/include"
+                android:id="@+id/include_passenger_info"
                 layout="@layout/include_passenger_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,13 +37,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <include
-                android:id="@+id/include2"
+                android:id="@+id/include_booking_travel_info"
                 layout="@layout/include_booking_travel_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/include" />
+                app:layout_constraintTop_toBottomOf="@+id/include_passenger_info" />
 
             <include
                 android:id="@+id/include3"
@@ -64,7 +52,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/include2" />
+                app:layout_constraintTop_toBottomOf="@+id/include_booking_travel_info" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
@@ -76,13 +64,7 @@
 
         <ImageView
             android:id="@+id/ivBookingButtonDivider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@color/colorDarkGray"
+            style="@style/DividerImageView"
             android:contentDescription="@string/gray_line_divider"
             app:layout_constraintBottom_toTopOf="@+id/bMakeBooking"
             app:layout_constraintEnd_toEndOf="parent"
