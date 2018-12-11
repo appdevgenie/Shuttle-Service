@@ -20,12 +20,20 @@ Shuttle Service: Android Developer Nanodegree capstone project
 ![device-2018-12-09-083740](https://user-images.githubusercontent.com/39134030/49697341-c444c780-fbbe-11e8-9017-78f7f205457f.png)
 ![device-2018-12-09-141144](https://user-images.githubusercontent.com/39134030/49697343-c575f480-fbbe-11e8-8ac5-8f9f3b122203.png)
 
+## Screenshots (tablet)
+
+![device-2018-12-11-122242](https://user-images.githubusercontent.com/39134030/49794519-7061ec00-fd40-11e8-86d1-487a46c0fcf4.png)
+![device-2018-12-11-122103](https://user-images.githubusercontent.com/39134030/49794521-70fa8280-fd40-11e8-914c-f3d46cd5570a.png)
+![device-2018-12-11-122152](https://user-images.githubusercontent.com/39134030/49794523-70fa8280-fd40-11e8-95a9-ffcf4a27e1d5.png)
+
 ## Libraries
 
+* [Firebase](https://firebase.google.com/docs/android/setup)
 * [Picasso](http://square.github.io/picasso/)
 * [ButterKnife](https://github.com/JakeWharton/butterknife)
 * [RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview)
 * [CardView](https://developer.android.com/guide/topics/ui/layout/cardview)
+* [ConstraintLayout](https://developer.android.com/reference/android/support/constraint/ConstraintLayout)
 
 ## Android Developer Nanodegree
 
