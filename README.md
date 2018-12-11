@@ -28,10 +28,11 @@ Shuttle Service: Android Developer Nanodegree capstone project
 
 ## Libraries
 
-* [Picasso](http://square.github.io/picasso/)
+* [Firebase](https://firebase.google.com/docs/android/setup)
 * [ButterKnife](https://github.com/JakeWharton/butterknife)
 * [RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview)
 * [CardView](https://developer.android.com/guide/topics/ui/layout/cardview)
+* [ConstraintLayout](https://developer.android.com/reference/android/support/constraint/ConstraintLayout)
 
 ## Android Developer Nanodegree
 
