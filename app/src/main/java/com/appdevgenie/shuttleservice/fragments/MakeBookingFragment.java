@@ -1,5 +1,6 @@
 package com.appdevgenie.shuttleservice.fragments;
 
+import android.animation.ObjectAnimator;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
@@ -169,6 +170,9 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
         bMakeBooking.setVisibility(View.INVISIBLE);
         bMakeBooking.setOnClickListener(this);
         bCheckAvailability.setOnClickListener(this);
+        ObjectAnimator animBCheck = ObjectAnimator.ofFloat(bCheckAvailability, "translationX", -400f, 0f);
+        animBCheck.setDuration(400);
+        animBCheck.start();
 
         calendar = Calendar.getInstance();
         getUserInfo();
@@ -232,6 +236,7 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
             tripSelected = true;
             if (!TextUtils.equals(date.getText().toString(), context.getString(R.string.select_date))) {
                 bMakeBooking.setVisibility(View.VISIBLE);
+                animateBookingButton();
             }
 
         } else {
@@ -260,6 +265,7 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                                 date.setText(simpleDateFormat.format(calendar.getTime()));
                                 if (tripSelected) {
                                     bMakeBooking.setVisibility(View.VISIBLE);
+                                    animateBookingButton();
                                 }
                             }
                         },
@@ -335,6 +341,12 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                 loadAvailableSeats(date.getText().toString());
                 break;
         }
+    }
+
+    private void animateBookingButton() {
+        ObjectAnimator animBMake = ObjectAnimator.ofFloat(bMakeBooking, "translationX", 400f, 0f);
+        animBMake.setDuration(400);
+        animBMake.start();
     }
 
     private void setAlarmNotification(String departureDate, String departureTime, String destination) {

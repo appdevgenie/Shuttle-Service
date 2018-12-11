@@ -1,5 +1,7 @@
 package com.appdevgenie.shuttleservice.fragments;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -252,10 +254,17 @@ public class BookingAvailabilityQueryFragment extends Fragment implements Adapte
             }
 
             tvPriceValue.setVisibility(View.VISIBLE);
+            ObjectAnimator animPrice = ObjectAnimator.ofFloat(tvPriceValue, "translationX", -1100f, 0f);
             tvPriceValueInfo.setVisibility(View.VISIBLE);
+            ObjectAnimator animInfo = ObjectAnimator.ofFloat(tvPriceValueInfo, "translationX", 1100f, 1f);
             bMakeBooking.setVisibility(View.VISIBLE);
+            ObjectAnimator animBMake = ObjectAnimator.ofFloat(bMakeBooking, "translationX", 400f, 0f);
             bCheckAvailability.setVisibility(View.VISIBLE);
-
+            ObjectAnimator animBCheck = ObjectAnimator.ofFloat(bCheckAvailability, "translationX", -400f, 0f);
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.playTogether(animInfo, animPrice, animBCheck, animBMake);
+            animatorSet.setDuration(400);
+            animatorSet.start();
         } else {
             tvPriceValue.setVisibility(View.GONE);
             tvPriceValueInfo.setVisibility(View.GONE);

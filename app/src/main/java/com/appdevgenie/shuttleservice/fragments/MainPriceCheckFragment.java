@@ -1,5 +1,7 @@
 package com.appdevgenie.shuttleservice.fragments;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -187,7 +189,13 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
 
             vTripDetails.setVisibility(View.VISIBLE);
             tvPriceValue.setVisibility(View.VISIBLE);
+            ObjectAnimator animPrice = ObjectAnimator.ofFloat(tvPriceValue, "translationX", -1100f, 0f);
             tvPriceValueInfo.setVisibility(View.VISIBLE);
+            ObjectAnimator animInfo = ObjectAnimator.ofFloat(tvPriceValueInfo, "translationX", 1100f, 1f);
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.playTogether(animInfo, animPrice);
+            animatorSet.setDuration(400);
+            animatorSet.start();
             tvDepartureCode.setText(code.get(fromInt));
             tvDepartureTown.setText(spFrom.getSelectedItem().toString());
             tvDepartureTime.setText(departure);
@@ -196,6 +204,9 @@ public class MainPriceCheckFragment extends Fragment implements AdapterView.OnIt
             tvArrivalTime.setText(arrival);
             if (firebaseAuth.getCurrentUser() != null) {
                 bCheckAvailability.setVisibility(View.VISIBLE);
+                ObjectAnimator animation = ObjectAnimator.ofFloat(bCheckAvailability, "translationX", 400f, 0f);
+                animation.setDuration(400);
+                animation.start();
             }
         } else {
             vTripDetails.setVisibility(View.INVISIBLE);

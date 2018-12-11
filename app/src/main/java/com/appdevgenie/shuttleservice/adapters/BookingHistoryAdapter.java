@@ -2,17 +2,13 @@ package com.appdevgenie.shuttleservice.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -33,6 +29,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private ArrayList<BookingInfo> bookingInfoArrayList;
     private ItemClickWidgetListener itemClickWidgetListener;
     private ItemClickShareListener itemClickShareListener;
+    private Animation rotate;
 
     public BookingHistoryAdapter(
             Context context,
@@ -44,6 +41,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         this.bookingInfoArrayList = bookingInfoArrayList;
         this.itemClickWidgetListener = itemClickWidgetListener;
         this.itemClickShareListener = itemClickShareListener;
+        rotate = AnimationUtils.loadAnimation(context,R.anim.rotate);
     }
 
     @NonNull
@@ -172,15 +170,32 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             tvSeats = itemView.findViewById(R.id.tvTripDetailsSeatsValue);
             ibExpand = itemView.findViewById(R.id.ibBookingHistoryReduceExpand);
             ibExpand.setOnClickListener(this);
+            ibExpand.setImageResource(R.drawable.ic_expand);
         }
 
         @Override
         public void onClick(View v) {
             //int clickedItem = getAdapterPosition();
             //setAnimation(cardView, getAdapterPosition());
-            BookingInfo bookingInfo = bookingInfoArrayList.get(getAdapterPosition());
-            bookingInfo.setViewType(VIEW_TYPE_BOOKING_SELECTED);
-            notifyItemChanged(getAdapterPosition());
+            ibExpand.startAnimation(rotate);
+            rotate.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    BookingInfo bookingInfo = bookingInfoArrayList.get(getAdapterPosition());
+                    bookingInfo.setViewType(VIEW_TYPE_BOOKING_SELECTED);
+                    notifyItemChanged(getAdapterPosition());
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
         }
     }
 
@@ -227,9 +242,26 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             switch (v.getId()) {
                 case R.id.ibBookingHistoryReduceExpand:
                     //setAnimation(cardView, getAdapterPosition());
-                    BookingInfo bookingInfo = bookingInfoArrayList.get(getAdapterPosition());
-                    bookingInfo.setViewType(VIEW_TYPE_BOOKING_DEFAULT);
-                    notifyItemChanged(getAdapterPosition());
+                    ibReduce.startAnimation(rotate);
+                    rotate.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            BookingInfo bookingInfo = bookingInfoArrayList.get(getAdapterPosition());
+                            bookingInfo.setViewType(VIEW_TYPE_BOOKING_DEFAULT);
+                            notifyItemChanged(getAdapterPosition());
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+
                     break;
 
                 case R.id.bAddToWidget:
