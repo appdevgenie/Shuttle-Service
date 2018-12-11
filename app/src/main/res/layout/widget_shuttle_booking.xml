@@ -48,8 +48,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/ic_shuttle"
-                android:gravity="center" />
-
+                android:gravity="center"
+                android:contentDescription="@string/shuttle_image_view" />
 
             <TextView
                 android:id="@+id/tvWidgetTo"
@@ -132,16 +132,15 @@
     <RelativeLayout
         android:id="@+id/widgetEmptyView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/ivWidgetLogo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.1"
-            android:background="@drawable/gradient_background"
+            android:background="@drawable/gradient"
+            android:contentDescription="@string/shuttle_logo"
             android:src="@drawable/logo_ss" />
 
     </RelativeLayout>

@@ -111,6 +111,8 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
     private SimpleDateFormat simpleDateFormat;
     @BindView(R.id.pbMakeBooking)
     ProgressBar progressBar;
+    @BindView(R.id.pbTravelInfo)
+    ProgressBar pbTravelInfo;
     private ArrayList<Integer> intArray;
     private ArrayList<Integer> intRangeArray;
     private int direction;
@@ -135,6 +137,11 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                 date.setText(bundle.getString(BUNDLE_TRIP_DATE, context.getString(R.string.select_date)));
                 dualPane = bundle.getBoolean(BUNDLE_IS_DUAL_PANE);
                 populateSeatsSpinner(SHUTTLE_MAX - bundle.getInt(BUNDLE_MAX_SEATS));
+
+                if (!TextUtils.equals(date.getText(), context.getString(R.string.select_date))) {
+                    calculateSeatCost(bundle.getInt(BUNDLE_FROM_SPINNER), bundle.getInt(BUNDLE_TO_SPINNER));
+                    loadAvailableSeats(date.getText().toString());
+                }
             }
         } else {
             dualPane = savedInstanceState.getBoolean(SAVED_DUAL_PANE);
@@ -235,8 +242,8 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
 
             tripSelected = true;
             if (!TextUtils.equals(date.getText().toString(), context.getString(R.string.select_date))) {
-                bMakeBooking.setVisibility(View.VISIBLE);
-                animateBookingButton();
+                //bMakeBooking.setVisibility(View.VISIBLE);
+                //animateBookingButton();
             }
 
         } else {
@@ -264,8 +271,8 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                                 date.setText(simpleDateFormat.format(calendar.getTime()));
                                 if (tripSelected) {
-                                    bMakeBooking.setVisibility(View.VISIBLE);
-                                    animateBookingButton();
+                                    //bMakeBooking.setVisibility(View.VISIBLE);
+                                    //animateBookingButton();
                                 }
                             }
                         },
@@ -426,7 +433,7 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
 
         final ArrayList<BookingInfo> bookingInfoArrayList = new ArrayList<>();
 
-        progressBar.setVisibility(View.VISIBLE);
+        pbTravelInfo.setVisibility(View.VISIBLE);
 
         CollectionReference collectionReference = firebaseFirestore.collection(FIRESTORE_TRAVEL_INFO_COLLECTION);
         collectionReference.whereEqualTo(FIRESTORE_TRAVEL_DATE_FIELD, date)
@@ -434,7 +441,9 @@ public class MakeBookingFragment extends Fragment implements AdapterView.OnItemS
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        progressBar.setVisibility(View.GONE);
+                        pbTravelInfo.setVisibility(View.GONE);
+                        bMakeBooking.setVisibility(View.VISIBLE);
+                        animateBookingButton();
 
                         for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
                             BookingInfo bookingInfo = documentSnapshot.toObject(BookingInfo.class);

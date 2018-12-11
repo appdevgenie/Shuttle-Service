@@ -118,6 +118,12 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
 
+    <style name="TextInformationSmallGreen" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/colorDarkGreen</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
     <style name="TextPriceMediumRed" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textColor">@color/colorDarkRed</item>
         <item name="android:layout_height">wrap_content</item>

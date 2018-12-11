@@ -95,6 +95,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     ((SelectedViewHolder) holder).tvBookingDate.setText(bookingDateString);
                     ((SelectedViewHolder) holder).tvSeats.setText(String.valueOf(bookingInfo.getSeats()));
                     ((SelectedViewHolder) holder).tvDate.setText(bookingInfo.getDate());
+                    ((SelectedViewHolder) holder).tvPrice.setText(bookingInfo.getCost());
                     ((SelectedViewHolder) holder).tvFrom.setText(bookingInfo.getFromTown());
                     ((SelectedViewHolder) holder).tvTo.setText(bookingInfo.getToTown());
                     ((SelectedViewHolder) holder).tvDepartTime.setText(bookingInfo.getDepartureTime());
@@ -205,6 +206,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         private TextView tvBookingDate;
         private TextView tvDate;
         private TextView tvSeats;
+        private TextView tvPrice;
         private TextView tvFrom;
         private TextView tvDepartTime;
         private TextView tvArriveTime;
@@ -221,6 +223,7 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             tvBookingDate = itemView.findViewById(R.id.tvBookingMadeDate);
             tvDate = itemView.findViewById(R.id.tvTripDetailsDateValue);
             tvSeats = itemView.findViewById(R.id.tvTripDetailsSeatsValue);
+            tvPrice = itemView.findViewById(R.id.tvBookingPrice);
             tvFrom = itemView.findViewById(R.id.tvTripDetailsDepartureTown);
             tvTo = itemView.findViewById(R.id.tvTripDetailsArrivalTown);
             tvDepartTime = itemView.findViewById(R.id.tvTripDetailsDepartureTime);

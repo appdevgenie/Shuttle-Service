@@ -67,6 +67,8 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
     ImageView ivTodayIcon;
     @BindView(R.id.tvWeatherTodayHeader)
     TextView tvTodayTime;
+    private LoadWeatherTodayAsyncTask loadWeatherTodayAsyncTask;
+    private LoadWeatherForecastAsyncTask loadWeatherForecastAsyncTask;
 
     @Nullable
     @Override
@@ -97,13 +99,16 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
         rvWeather.setHasFixedSize(true);
         rvWeather.setAdapter(weatherForecastAdapter);
 
+        loadWeatherTodayAsyncTask = new LoadWeatherTodayAsyncTask();
+        loadWeatherForecastAsyncTask = new LoadWeatherForecastAsyncTask();
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(CheckNetworkConnection.isNetworkConnected(context)) {
-            new LoadWeatherTodayAsyncTask().execute(spSelectTown.getSelectedItem().toString().trim() + WEATHER_COUNTRY);
-            new LoadWeatherForecastAsyncTask().execute(spSelectTown.getSelectedItem().toString().trim() + WEATHER_COUNTRY);
+            loadWeatherTodayAsyncTask.execute(spSelectTown.getSelectedItem().toString().trim() + WEATHER_COUNTRY);
+            loadWeatherForecastAsyncTask.execute(spSelectTown.getSelectedItem().toString().trim() + WEATHER_COUNTRY);
         }else{
             Toast.makeText(context, getString(R.string.not_connected_to_network), Toast.LENGTH_SHORT).show();
         }
@@ -112,6 +117,17 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        if(loadWeatherTodayAsyncTask != null){
+            loadWeatherTodayAsyncTask.cancel(true);
+        }
+        if(loadWeatherForecastAsyncTask != null){
+            loadWeatherForecastAsyncTask.cancel(true);
+        }
+        super.onDestroy();
     }
 
     @SuppressLint("StaticFieldLeak")
