@@ -1,6 +1,6 @@
 # Shuttle-Service
-Shuttle Service: Android Developer Nanodegree capstone project.\n\n
-An Android application of a hypothetical shuttle service stopping at 17 towns daily. Commuters can check availability, price, make bookings, check booking history. Furthermore, commuters will receive a notification 30 minutes prior to departure. A 7-day weather forecast service is also added for all towns on the route.\n
+Shuttle Service: Android Developer Nanodegree capstone project./n/n
+An Android application of a hypothetical shuttle service stopping at 17 towns daily. Commuters can check availability, price, make bookings, check booking history. Furthermore, commuters will receive a notification 30 minutes prior to departure. A 7-day weather forecast service is also added for all towns on the route./n
 If signed in as an admin user, the application has the added advantage of showing passenger amounts for the specific day and town, and lists all registered users and contact information.
 
 ## Screenshots (mobile) - Sign in / Register / Forgot password
