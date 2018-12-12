@@ -1,13 +1,9 @@
 <resources>
     <string name="app_name">Shuttle service</string>
     <string name="icon_image_view">icon_image_view</string>
-    <string name="mainLogoTransition">mainLogoTransition</string>
-    <string name="appwidget_text">SS</string>
-    <string name="add_widget">Add widget</string>
     <string name="humidity_percentage_symbol">%</string>
     <string name="temperature_degree_symbol">°</string>
     <string name="today">Today</string>
-    <string name="date_format_weekday">EEEE</string>
     <string name="date_format_time">HH:mm</string>
     <string name="sunny">Sunny</string>
     <string name="from">From</string>
@@ -56,7 +52,6 @@
     <string name="price_check">Price check</string>
     <string name="booking_history">Booking history</string>
     <string name="availability">Availability</string>
-    <string name="user_accounts">User accounts</string>
     <string name="user_info">User info</string>
     <string name="contact_info">Contact info</string>
     <string name="not_connected_to_network">Not connected to network</string>
