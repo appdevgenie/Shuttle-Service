@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.activities.MainActivity;
@@ -23,8 +24,6 @@ import static com.appdevgenie.shuttleservice.utils.Constants.SHARED_PREFS_TO_TOW
  * Implementation of App Widget functionality.
  */
 public class ShuttleAppWidgetProvider extends AppWidgetProvider {
-
-    //public static final String EXTRA_STRING = "com.appdevgenie.shuttleservice.widget.EXTRA_STRING";
 
     public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -43,9 +42,18 @@ public class ShuttleAppWidgetProvider extends AppWidgetProvider {
 
         views.setEmptyView(R.id.llWidgetInfoLayout, R.id.widgetEmptyView);
 
+        Intent updateIntent = new Intent(context, ShuttleAppWidgetProvider.class);
+        updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+
+        int[] idArray = new int[]{appWidgetId};
+        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idArray);
+
+        PendingIntent updatePendingIntent = PendingIntent.getBroadcast(context, appWidgetId, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setOnClickPendingIntent(R.id.bWidgetUpdate, updatePendingIntent);
+
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        views.setOnClickPendingIntent(R.id.ivWidgetLogo, pendingIntent);
+        views.setOnClickPendingIntent(R.id.bWidgetOpen, pendingIntent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -56,6 +64,7 @@ public class ShuttleAppWidgetProvider extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
+            Toast.makeText(context, R.string.widget_has_been_updated, Toast.LENGTH_SHORT).show();
         }
     }
 

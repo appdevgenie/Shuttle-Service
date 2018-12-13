@@ -109,4 +109,7 @@
     <string name="_101_shuttle_road_overhere">101 Shuttle Road, OverHere</string>
     <string name="me_shuttleservice_com">me@shuttleservice.com</string>
     <string name="_011_123_4567">011 123 4567</string>
+    <string name="widget_has_been_updated">Widget has been updated!</string>
+    <string name="update_widget">Update widget</string>
+    <string name="open_app">Open app</string>
 </resources>
