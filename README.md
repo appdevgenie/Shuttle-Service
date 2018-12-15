@@ -31,6 +31,7 @@ If signed in as an admin user, the application has the added advantage of showin
 ## Libraries
 
 * [Firebase](https://firebase.google.com/docs/android/setup)
+* [Retrofit2](https://square.github.io/retrofit/)
 * [Picasso](http://square.github.io/picasso/)
 * [ButterKnife](https://github.com/JakeWharton/butterknife)
 * [RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview)
