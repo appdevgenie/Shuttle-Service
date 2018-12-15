@@ -9,15 +9,18 @@ public class WeatherForecastModel {
 
     @SerializedName("dt")
     @Expose
-    private int dt;
+    private long dt;
     @SerializedName("main")
     @Expose
     private Main main;
     @SerializedName("weather")
     @Expose
     private ArrayList<Weather> weather = null;
+    @SerializedName("dt_txt")
+    @Expose
+    private String dtTxt;
 
-    public int getDt() {
+    public long getDt() {
         return dt;
     }
 
@@ -27,6 +30,10 @@ public class WeatherForecastModel {
 
     public ArrayList<Weather> getWeather() {
         return weather;
+    }
+
+    public String getDtTxt() {
+        return dtTxt;
     }
 
     public class Main {

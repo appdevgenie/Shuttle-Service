@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,11 +45,12 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         
         long dateLong = weatherInfoList.get(itemPosition).getDt() * 1000;
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_format_weekday_time), Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_format_day_month_year_time), Locale.getDefault());
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone(context.getString(R.string.gmt_time_zome)));
 
         holder.ivIcon.setImageResource(WeatherIconLoader.getImage(weatherInfoList.get(itemPosition).getWeather().get(0).getIcon()));
         holder.tvDate.setText(simpleDateFormat.format(dateLong));
+        //holder.tvDate.setText(weatherInfoList.get(itemPosition).getDtTxt());
         holder.tvDescription.setText(weatherInfoList.get(itemPosition).getWeather().get(0).getDescription());
         holder.tvHumidity
                 .setText(TextUtils
@@ -70,7 +72,15 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
     }
 
     public void setAdapterData(List<WeatherForecastModel> weatherInfo) {
+
         weatherInfoList = weatherInfo;
+
+        for (int i = 0; i < weatherInfoList.size(); i++) {
+            if(DateUtils.isToday(weatherInfoList.get(i).getDt() * 1000)) {
+                weatherInfoList.remove(i);
+            }
+        }
+
         notifyDataSetChanged();
     }
 

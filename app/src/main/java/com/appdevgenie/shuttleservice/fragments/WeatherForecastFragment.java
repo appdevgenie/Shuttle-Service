@@ -117,10 +117,7 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
 
     private void loadCurrentWeather(String s) {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(WEATHER_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        Retrofit retrofit = getRetrofit();
 
         progressBarToday.setVisibility(View.VISIBLE);
 
@@ -167,10 +164,7 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
 
     private void loadForecastWeather(String s) {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(WEATHER_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        Retrofit retrofit = getRetrofit();
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -198,5 +192,13 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @NonNull
+    private Retrofit getRetrofit() {
+        return new Retrofit.Builder()
+                    .baseUrl(WEATHER_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
     }
 }

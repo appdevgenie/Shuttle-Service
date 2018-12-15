@@ -63,7 +63,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/ivNetworkConnectivity"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/logo_ss" />
+                app:srcCompat="@drawable/logo_ss"
+                android:contentDescription="@string/shuttle_logo" />
 
             <TextView
                 android:id="@+id/tvSignedInInfo"
@@ -87,7 +88,8 @@
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_cloud_on" />
+                app:srcCompat="@drawable/ic_cloud_on"
+                android:contentDescription="@string/not_connected_to_network" />
 
         </android.support.constraint.ConstraintLayout>
 

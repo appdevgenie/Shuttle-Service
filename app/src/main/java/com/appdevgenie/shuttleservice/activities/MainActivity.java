@@ -171,19 +171,4 @@ public class MainActivity extends AppCompatActivity {
             firebaseAuth.removeAuthStateListener(authStateListener);
         }
     }
-
-
-
-     /*private boolean checkIfTablet() {
-
-        Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        display.getMetrics(displayMetrics);
-
-        double width = displayMetrics.widthPixels / displayMetrics.densityDpi;
-        double height = displayMetrics.heightPixels / displayMetrics.densityDpi;
-
-        double diagonal = Math.sqrt(Math.pow(width, 2) + Math.pow(heigth, 2));
-        return diagonal >= 7.0;
-    }*/
 }

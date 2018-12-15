@@ -4,11 +4,11 @@
 
     <item
         android:id="@+id/menu_sign_out"
-        android:title="Sign out and exit"
+        android:title="@string/sign_out_and_exit"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_exit"
-        android:title="Exit"
+        android:title="@string/exit"
         app:showAsAction="never" />
 </menu>

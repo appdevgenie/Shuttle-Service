@@ -89,24 +89,6 @@ public class MainIconListFragment extends Fragment implements MainIconListAdapte
 
     }
 
-    /*private int calculateSpan() {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        return (int) (dpWidth / 90);
-    }*/
-
-    /*private Date getDateNearest(WeatherInfoList<Date> dates, Date targetDate) {
-        Date returnDate = null; // Nearest before.
-        for (Date dateSetListener : dates) {
-            if (dateSetListener.after(targetDate) || dateSetListener.equals(targetDate)) {
-                if (returnDate == null || returnDate.after(dateSetListener)) {
-                    returnDate = dateSetListener;
-                }
-            }
-        }
-        return returnDate;
-    }*/
-
     @Override
     public void onItemClicked(int position) {
 

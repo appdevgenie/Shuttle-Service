@@ -112,4 +112,6 @@
     <string name="widget_has_been_updated">Widget has been updated!</string>
     <string name="update_widget">Update widget</string>
     <string name="open_app">Open app</string>
+    <string name="sign_out_and_exit">Sign out and exit</string>
+    <string name="exit">Exit</string>
 </resources>
