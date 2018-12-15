@@ -20,7 +20,7 @@ If signed in as an admin user, the application has the added advantage of showin
 ![device-2018-12-09-083547](https://user-images.githubusercontent.com/39134030/49697339-c27b0400-fbbe-11e8-8bb1-397a16a24b59.png)
 ![device-2018-12-09-083627](https://user-images.githubusercontent.com/39134030/49697340-c3139a80-fbbe-11e8-836a-43d31a87f07d.png)
 ![device-2018-12-09-083740](https://user-images.githubusercontent.com/39134030/49697341-c444c780-fbbe-11e8-9017-78f7f205457f.png)
-![device-2018-12-09-141144](https://user-images.githubusercontent.com/39134030/49697343-c575f480-fbbe-11e8-8ac5-8f9f3b122203.png)
+![device-2018-12-15-104939](https://user-images.githubusercontent.com/39134030/50041115-3d796a00-0058-11e9-8256-519b035203ab.png)
 
 ## Screenshots (tablet)
 
@@ -31,6 +31,7 @@ If signed in as an admin user, the application has the added advantage of showin
 ## Libraries
 
 * [Firebase](https://firebase.google.com/docs/android/setup)
+* [Retrofit2](https://square.github.io/retrofit/)
 * [Picasso](http://square.github.io/picasso/)
 * [ButterKnife](https://github.com/JakeWharton/butterknife)
 * [RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview)
