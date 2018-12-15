@@ -18,6 +18,7 @@ public class Constants {
     public static final int DIRECTION_UPSTREAM = 0;
     public static final int DIRECTION_DOWNSTREAM = 1;
 
+    public static final String WEATHER_BASE_URL = "http://api.openweathermap.org/";
     public static final String WEATHER_API_KEY = BuildConfig.WEATHER_API_KEY;
     public static final String WEATHER_COUNTRY = ",za";
 

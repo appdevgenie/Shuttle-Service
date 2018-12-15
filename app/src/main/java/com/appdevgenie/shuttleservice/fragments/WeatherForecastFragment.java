@@ -1,8 +1,6 @@
 package com.appdevgenie.shuttleservice.fragments;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,24 +22,28 @@ import android.widget.Toast;
 
 import com.appdevgenie.shuttleservice.R;
 import com.appdevgenie.shuttleservice.adapters.WeatherForecastAdapter;
-import com.appdevgenie.shuttleservice.model.WeatherInfo;
-import com.appdevgenie.shuttleservice.model.WeatherInfoList;
-import com.appdevgenie.shuttleservice.model.WeatherTodayInfo;
+import com.appdevgenie.shuttleservice.model.WeatherCurrentModel;
+import com.appdevgenie.shuttleservice.model.WeatherForecastList;
+import com.appdevgenie.shuttleservice.model.WeatherForecastModel;
 import com.appdevgenie.shuttleservice.utils.CheckNetworkConnection;
-import com.appdevgenie.shuttleservice.utils.NetworkUtils;
+import com.appdevgenie.shuttleservice.utils.WeatherApi;
 import com.appdevgenie.shuttleservice.utils.WeatherIconLoader;
-import com.appdevgenie.shuttleservice.utils.WeatherJsonUtils;
 
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.appdevgenie.shuttleservice.utils.Constants.TEMP_KELVIN;
 import static com.appdevgenie.shuttleservice.utils.Constants.WEATHER_API_KEY;
+import static com.appdevgenie.shuttleservice.utils.Constants.WEATHER_BASE_URL;
 import static com.appdevgenie.shuttleservice.utils.Constants.WEATHER_COUNTRY;
 
 
@@ -67,8 +69,6 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
     ImageView ivTodayIcon;
     @BindView(R.id.tvWeatherTodayHeader)
     TextView tvTodayTime;
-    private LoadWeatherTodayAsyncTask loadWeatherTodayAsyncTask;
-    private LoadWeatherForecastAsyncTask loadWeatherForecastAsyncTask;
 
     @Nullable
     @Override
@@ -98,17 +98,13 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
         rvWeather.setLayoutManager(linearLayoutManager);
         rvWeather.setHasFixedSize(true);
         rvWeather.setAdapter(weatherForecastAdapter);
-
-        loadWeatherTodayAsyncTask = new LoadWeatherTodayAsyncTask();
-        loadWeatherForecastAsyncTask = new LoadWeatherForecastAsyncTask();
-
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(CheckNetworkConnection.isNetworkConnected(context)) {
-            loadWeatherTodayAsyncTask.execute(spSelectTown.getSelectedItem().toString().trim() + WEATHER_COUNTRY);
-            loadWeatherForecastAsyncTask.execute(spSelectTown.getSelectedItem().toString().trim() + WEATHER_COUNTRY);
+            loadCurrentWeather(spSelectTown.getSelectedItem().toString().trim() + WEATHER_COUNTRY);
+            loadForecastWeather(spSelectTown.getSelectedItem().toString().trim() + WEATHER_COUNTRY);
         }else{
             Toast.makeText(context, getString(R.string.not_connected_to_network), Toast.LENGTH_SHORT).show();
         }
@@ -119,106 +115,88 @@ public class WeatherForecastFragment extends Fragment implements AdapterView.OnI
 
     }
 
-    @Override
-    public void onDestroy() {
-        if(loadWeatherTodayAsyncTask != null){
-            loadWeatherTodayAsyncTask.cancel(true);
-        }
-        if(loadWeatherForecastAsyncTask != null){
-            loadWeatherForecastAsyncTask.cancel(true);
-        }
-        super.onDestroy();
+    private void loadCurrentWeather(String s) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(WEATHER_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        progressBarToday.setVisibility(View.VISIBLE);
+
+        WeatherApi weatherApi = retrofit.create(WeatherApi.class);
+
+        Call<WeatherCurrentModel> weatherModelCall = weatherApi.getCurrentWeather(s, WEATHER_API_KEY);
+
+        weatherModelCall.enqueue(new Callback<WeatherCurrentModel>() {
+            @Override
+            public void onResponse(@NonNull Call<WeatherCurrentModel> call, @NonNull Response<WeatherCurrentModel> response) {
+
+                progressBarToday.setVisibility(View.GONE);
+
+                if (response.isSuccessful()) {
+                    WeatherCurrentModel weatherTodayInfo = response.body();
+
+                    if (weatherTodayInfo != null) {
+                        long dateLong = weatherTodayInfo.getDt() * 1000;
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format_time), Locale.getDefault());
+                        //simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+                        String timeString = context.getString(R.string.today) + ", " + simpleDateFormat.format(dateLong);
+                        tvTodayTime.setText(timeString);
+
+                        tvTodayInfo.setText(String.valueOf(weatherTodayInfo.getWeather().get(0).getDescription()));
+                        tvTodayTemp.setText(TextUtils
+                                .concat(String.valueOf(Math.round(weatherTodayInfo.getMain().getTemp() - TEMP_KELVIN))
+                                        , context.getString(R.string.temperature_degree_symbol)));
+                        tvTodayHumidity.setText(TextUtils
+                                .concat(String.valueOf(Math.round(weatherTodayInfo.getMain().getHumidity()))
+                                        , context.getString(R.string.humidity_percentage_symbol)));
+                        ivTodayIcon.setImageResource(WeatherIconLoader.getImage(weatherTodayInfo.getWeather().get(0).getIcon()));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<WeatherCurrentModel> call, @NonNull Throwable t) {
+                progressBarToday.setVisibility(View.GONE);
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class LoadWeatherTodayAsyncTask extends AsyncTask<String, Void, WeatherTodayInfo> {
+    private void loadForecastWeather(String s) {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressBarToday.setVisibility(View.VISIBLE);
-        }
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(WEATHER_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        @Override
-        protected WeatherTodayInfo doInBackground(String... strings) {
+        progressBar.setVisibility(View.VISIBLE);
 
-            URL url = NetworkUtils.buildWeatherTodayUrl(WEATHER_API_KEY, strings[0]);
+        WeatherApi weatherApi = retrofit.create(WeatherApi.class);
+        Call<WeatherForecastList> arrayListCall = weatherApi.getForecastWeather(s, WEATHER_API_KEY);
 
-            try {
-                String jsonString = null;
-                if (url != null) {
-                    jsonString = NetworkUtils.getResponseFromHttpUrl(url);
+        arrayListCall.enqueue(new Callback<WeatherForecastList>() {
+            @Override
+            public void onResponse(@NonNull Call<WeatherForecastList> call, @NonNull Response<WeatherForecastList> response) {
+
+                progressBar.setVisibility(View.GONE);
+
+                if (response.isSuccessful()) {
+
+                    if (response.body() != null) {
+                        List<WeatherForecastModel> weatherForecastModelArrayList = response.body().getWeatherForecastModelArrayList();
+                        weatherForecastAdapter.setAdapterData(weatherForecastModelArrayList);
+                    }
                 }
-                return WeatherJsonUtils.parseWeatherTodayJson(jsonString);
-
-            } catch (Exception e) {
-                return null;
             }
-        }
 
-        @Override
-        protected void onPostExecute(WeatherTodayInfo weatherTodayInfo) {
-            super.onPostExecute(weatherTodayInfo);
-
-            progressBarToday.setVisibility(View.GONE);
-
-            if (weatherTodayInfo != null) {
-                long dateLong = weatherTodayInfo.getDateLong() * 1000;
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format_time), Locale.getDefault());
-                //simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-                String timeString = context.getString(R.string.today) + ", " + simpleDateFormat.format(dateLong);
-                tvTodayTime.setText(timeString);
-
-                tvTodayInfo.setText(weatherTodayInfo.getDescription());
-                tvTodayTemp.setText(TextUtils
-                        .concat(String.valueOf(Math.round(weatherTodayInfo.getTemp() - TEMP_KELVIN))
-                                , context.getString(R.string.temperature_degree_symbol)));
-                tvTodayHumidity.setText(TextUtils
-                        .concat(String.valueOf(Math.round(weatherTodayInfo.getHumidity()))
-                                , context.getString(R.string.humidity_percentage_symbol)));
-                ivTodayIcon.setImageResource(WeatherIconLoader.getImage(weatherTodayInfo.getIcon()));
-            } else {
-                Toast.makeText(context, R.string.error_today_weather, Toast.LENGTH_SHORT).show();
+            @Override
+            public void onFailure(@NonNull Call<WeatherForecastList> call, @NonNull Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }
-    }
-
-
-    @SuppressLint("StaticFieldLeak")
-    private class LoadWeatherForecastAsyncTask extends AsyncTask<String, Void, List<WeatherInfo>> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected List<WeatherInfo> doInBackground(String... strings) {
-
-            URL url = NetworkUtils.buildWeatherUrl(WEATHER_API_KEY, strings[0]);
-
-            try {
-                String jsonString = null;
-                if (url != null) {
-                    jsonString = NetworkUtils.getResponseFromHttpUrl(url);
-                }
-                WeatherInfoList weatherInfoList = WeatherJsonUtils.parseWeatherJson(jsonString);
-                return weatherInfoList.getWeatherInfoList();
-
-            } catch (Exception e) {
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(List<WeatherInfo> weatherInfoDetails) {
-            progressBar.setVisibility(View.GONE);
-            if (weatherInfoDetails != null) {
-                weatherForecastAdapter.setAdapterData(weatherInfoDetails);
-            } else {
-                Toast.makeText(context, R.string.error_loading_weather, Toast.LENGTH_SHORT).show();
-            }
-        }
+        });
     }
 }

@@ -95,7 +95,7 @@ public class MainIconListFragment extends Fragment implements MainIconListAdapte
         return (int) (dpWidth / 90);
     }*/
 
-    /*private Date getDateNearest(List<Date> dates, Date targetDate) {
+    /*private Date getDateNearest(WeatherInfoList<Date> dates, Date targetDate) {
         Date returnDate = null; // Nearest before.
         for (Date dateSetListener : dates) {
             if (dateSetListener.after(targetDate) || dateSetListener.equals(targetDate)) {

@@ -1,13 +1,23 @@
 package com.appdevgenie.shuttleservice.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class WeatherInfo {
 
+    @SerializedName("icon")
     private String icon;
+    @SerializedName("dt_txt")
     private String date;
+    @SerializedName("dt")
     private long dateLong;
+    @SerializedName("description")
     private String description;
+    @SerializedName("temp")
     private double temp;
+    @SerializedName("humidity")
     private double humidity;
+    @SerializedName("name")
+    public String name;
 
     public WeatherInfo() {
     }

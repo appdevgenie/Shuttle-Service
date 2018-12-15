@@ -1,6 +1,7 @@
 package com.appdevgenie.shuttleservice.utils;
 
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +26,7 @@ public class NetworkUtils {
 
         try {
             URL weatherUrl = new URL(weatherQueryUri.toString());
-            //Log.d(TAG, "buildWeatherUrl: " + weatherUrl);
+            Log.d(TAG, "buildWeatherUrl: " + weatherUrl);
             return weatherUrl;
         } catch (MalformedURLException e) {
             return null;
@@ -40,7 +41,7 @@ public class NetworkUtils {
 
         try {
             URL weatherTodayUrl = new URL(weatherTodayQueryUri.toString());
-            //Log.d(TAG, "buildWeatherTodayUrl: " + weatherTodayUrl);
+            Log.d(TAG, "buildWeatherTodayUrl: " + weatherTodayUrl);
             return weatherTodayUrl;
         } catch (MalformedURLException e) {
             return null;

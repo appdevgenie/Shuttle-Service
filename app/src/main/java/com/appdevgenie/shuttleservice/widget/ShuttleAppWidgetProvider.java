@@ -64,7 +64,7 @@ public class ShuttleAppWidgetProvider extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
-            Toast.makeText(context, R.string.widget_has_been_updated, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, R.string.widget_has_been_updated, Toast.LENGTH_SHORT).show();
         }
     }
 

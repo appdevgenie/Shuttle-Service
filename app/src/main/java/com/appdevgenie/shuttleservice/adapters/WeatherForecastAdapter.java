@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.appdevgenie.shuttleservice.R;
-import com.appdevgenie.shuttleservice.model.WeatherInfo;
+import com.appdevgenie.shuttleservice.model.WeatherForecastModel;
 import com.appdevgenie.shuttleservice.utils.WeatherIconLoader;
 
 import java.text.SimpleDateFormat;
@@ -24,7 +24,7 @@ import static com.appdevgenie.shuttleservice.utils.Constants.TEMP_KELVIN;
 public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecastAdapter.WeatherViewHolder> {
 
     private Context context;
-    private List<WeatherInfo> weatherInfoList;
+    private List<WeatherForecastModel> weatherInfoList;
 
     public WeatherForecastAdapter(Context context) {
         this.context = context;
@@ -42,21 +42,21 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
 
         int itemPosition = holder.getAdapterPosition();
         
-        long dateLong = weatherInfoList.get(itemPosition).getDateLong() * 1000;
+        long dateLong = weatherInfoList.get(itemPosition).getDt() * 1000;
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(context.getString(R.string.date_format_weekday_time), Locale.getDefault());
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone(context.getString(R.string.gmt_time_zome)));
 
-        holder.ivIcon.setImageResource(WeatherIconLoader.getImage(weatherInfoList.get(itemPosition).getIcon()));
+        holder.ivIcon.setImageResource(WeatherIconLoader.getImage(weatherInfoList.get(itemPosition).getWeather().get(0).getIcon()));
         holder.tvDate.setText(simpleDateFormat.format(dateLong));
-        holder.tvDescription.setText(weatherInfoList.get(itemPosition).getDescription());
+        holder.tvDescription.setText(weatherInfoList.get(itemPosition).getWeather().get(0).getDescription());
         holder.tvHumidity
                 .setText(TextUtils
-                        .concat(String.valueOf(Math.round(weatherInfoList.get(itemPosition).getHumidity()))
+                        .concat(String.valueOf(Math.round(weatherInfoList.get(itemPosition).getMain().getHumidity()))
                                 , context.getString(R.string.humidity_percentage_symbol)));
         holder.tvTemp
                 .setText(TextUtils
-                        .concat(String.valueOf(Math.round(weatherInfoList.get(itemPosition).getTemp() - TEMP_KELVIN))
+                        .concat(String.valueOf(Math.round(weatherInfoList.get(itemPosition).getMain().getTemp() - TEMP_KELVIN))
                                 , context.getString(R.string.temperature_degree_symbol)));
     }
 
@@ -69,7 +69,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         return weatherInfoList.size();
     }
 
-    public void setAdapterData(List<WeatherInfo> weatherInfo) {
+    public void setAdapterData(List<WeatherForecastModel> weatherInfo) {
         weatherInfoList = weatherInfo;
         notifyDataSetChanged();
     }
